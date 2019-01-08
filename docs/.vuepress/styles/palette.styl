@@ -1,0 +1,87 @@
+$accent-color = blue;
+$text-color = #222222;
+
+.sidebar .nav-links {
+  border-bottom-color: white
+}
+
+.sidebar {
+  background-color: #ffe400 !important;
+  border: none !important;
+}
+
+.sidebar-link {
+  color: blue !important;
+  padding: .5rem 1.5rem !important;
+  position: relative;
+}
+
+.navbar {
+  border: none !important;
+  background-color: #ffe400 !important;
+}
+
+.search-box input {
+  background-color: transparent;
+  color: blue;
+}
+
+.search-box input:focus {
+  border-color: blue;
+}
+
+.navbar .links {
+  background-color: transparent;
+}
+
+a {
+  color: blue !important;
+}
+
+@media (min-width: 720px) {
+  .navbar {
+    background-color: white !important;
+  }
+
+  .nav-link {
+    color: #222222 !important;
+  }
+
+  .nav-link:hover {
+    color: blue
+  }
+
+  .nav-item > a:not(.external):hover,
+  .nav-item > a:not(.external).router-link-active {
+    border-color: blue;
+  }
+
+  .links {
+    max-width: 100%;
+    width: calc(100% - 20rem);
+    padding-bottom: .7rem;
+    padding-left: 0 !important;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    background-color: transparent;
+  }
+
+  .sidebar-link:hover {
+    font-weight: 500;
+  }
+
+  a.sidebar-link.active {
+    border-left-color: blue;
+  }
+}
+
+@media (min-width: 960px) {
+  .navbar {
+    background-color: white !important;
+  }
+
+  .links {
+    width: calc(100% - 24rem);
+  }
+}
