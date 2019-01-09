@@ -1,5 +1,6 @@
 'use strict';
 
+const { kebabCaseIt } = require('case-it');
 const dotenv = require('dotenv-safe');
 const { mkdir, writeFile } = require('fs').promises;
 const got = require('got');
@@ -56,12 +57,20 @@ fetchAllDocIds()
     .then(Promise.all.bind(Promise))
     .then(docs => docs.map(doc => ({
       ...doc,
-      location: path.join('docs', foldersToPath(doc.folders.slice(1))),
+      directory: path.join('docs', foldersToPath(doc.folders.slice(1))),
     })))
-    .then(docs => docs.map(doc =>
-      mkdir(doc.location, { recursive: true })
+    .then(docs => docs.map(doc => ({
+      ...doc,
+      location: path.join(
+        doc.directory,
+        `${kebabCaseIt(doc.content.metaData.title)}.md`
+      ),
+    })))
+    .then(docs => docs.forEach(doc => {
+      mkdir(doc.directory, { recursive: true })
         .then(() => writeFile(
-          path.join(doc.location, `${doc.content.metaData.title}.md`),
+          doc.location,
           doc.content.body
-        ))
-    ));
+        ));
+      writeFile('docs/dump.json', JSON.stringify(docs));
+    }));

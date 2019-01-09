@@ -1,6 +1,7 @@
 'use strict';
 
 const path = require('path');
+const { kebabCaseIt } = require('case-it');
 
 const {
   chain,
@@ -16,20 +17,21 @@ const {
 } = require('sanctuary');
 
 const foldersToPath = pipe([
-  map(prop('name')),
+  map (compose (kebabCaseIt) (prop('name')) ),
   reduce (curry2(path.join)) (''),
 ]);
 
-const isPermissionError = compose
-  (chain(match(/insufficient_permissions/)))
-  (gets (Boolean) (['body', 'error_summary']));
+const isPermissionError = pipe([
+  gets (Boolean) (['body', 'error_summary']),
+  chain(match(/insufficient_permissions/)),
+]);
 
 const fetchPaginatedDocIds = apiFetch => previousDocIds => ({
   body: { doc_ids: docIds, cursor, has_more: hasMore },
 }) =>
-  Boolean(hasMore)
+  hasMore
     ? apiFetch('/docs/list/continue', {
-        body: { cursor, },
+        body: { cursor },
       })
       .then(fetchPaginatedDocIds (apiFetch) (previousDocIds.concat(docIds)))
     : previousDocIds.concat(docIds);
@@ -39,7 +41,7 @@ const fetchAllDocIds = apiFetch => () => apiFetch('/docs/list', {})
 
 const fetchDocFolders = apiFetch => docId => apiFetch(
   '/docs/get_folder_info',
-  { body: { doc_id: docId, } }
+  { body: { doc_id: docId } }
 );
 
 const fetchDocContent = apiFetch => docId => apiFetch(
@@ -47,7 +49,7 @@ const fetchDocContent = apiFetch => docId => apiFetch(
   {
     headers: { 'Dropbox-API-Arg': JSON.stringify({
       doc_id: docId,
-      export_format: 'markdown'
+      export_format: 'markdown',
     })},
     json: false,
   }

@@ -1,17 +1,16 @@
-const readdirRecursive = require('fs-readdir-recursive');
-const { parse } = require('path');
+'use strict';
+
+const { readFileSync } = require('fs');
+const generateSidebar = require('../../src/generate-sidebar.js');
 
 module.exports = {
   dest: './dist',
+  evergreen: true,
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
       { text: 'De Voorhoede', link: 'https://voorhoede.nl/' },
     ],
-    sidebar: readdirRecursive('./docs/')
-      .filter(path => parse(path).name !== 'readme')
-      .sort((pathA, pathB) =>
-        parse(pathA).name.localeCompare(parse(pathB).name)
-      ),
+    sidebar: generateSidebar(JSON.parse(readFileSync('docs/dump.json'))),
   },
 };
