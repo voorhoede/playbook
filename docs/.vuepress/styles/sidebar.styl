@@ -1,0 +1,40 @@
+.sidebar-button {
+  background-color: blue
+}
+
+.sidebar-button svg path {
+  fill: white
+}
+
+.sidebar .nav-links {
+  border-bottom-color: white
+}
+
+.theme-container .sidebar {
+  background-color: bg-pastel
+  border: none
+}
+
+a.sidebar-link {
+  color: blue
+  padding: spacing-half 1.5rem
+}
+
+@media (min-width: 720px) {
+  .sidebar-link:hover {
+    font-weight: 700
+  }
+}
+
+@media (max-width: 719px) {
+  .theme-container .sidebar {
+    transform: translateY(-100%)
+    background-color: brand-color
+    width: 100%
+    font-size: 1.2rem;
+  }
+
+  .theme-container.sidebar-open .sidebar {
+    transform: translateY(0)
+  }
+}

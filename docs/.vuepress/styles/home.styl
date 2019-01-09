@@ -1,0 +1,53 @@
+.home .hero .action-button {
+  background-color: blue
+  color: white
+  transition: transform .2s ease-in-out
+  border-bottom-color: #0005be
+}
+
+.home .hero img {
+  margin: 3rem auto
+}
+
+.home .hero h1 {
+  font-size: 45px
+  color: blue
+}
+
+.home .hero .description  {
+  margin-bottom: spacing-double
+  color: blue
+}
+
+.theme-container.no-sidebar {
+  background-color: bg-pastel
+  height 100vh
+  box-sizing: border-box
+}
+
+@media (min-width: 720px) {
+  .theme-container.no-sidebar .home-link {
+    width: 16.4rem
+    height: 100%
+    background-color: brand-color
+  }
+
+  .home .hero .action-button:hover {
+    transform: scale(1.03)
+    background-color: blue
+  }
+
+  .home .hero img {
+    margin: 4rem auto
+  }
+
+  .theme-container.no-sidebar .links {
+    border-bottom: 0
+  }
+}
+
+@media (min-width: 960px) {
+  .theme-container.no-sidebar .search-box input {
+    border-color: blue
+  }
+}
