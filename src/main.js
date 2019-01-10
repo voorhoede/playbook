@@ -59,6 +59,12 @@ const fetchDocContent = apiFetch => docId => apiFetch(
     body,
   }));
 
+const fetchDocMetaData = apiFetch => docId =>   apiFetch(
+    '/docs/get_metadata',
+    { body: { doc_id: docId } }
+  )
+  .then(({ body }) => body);
+
 const getDocFolders = apiFetch => docId => fetchDocFolders (apiFetch) (docId)
   .then(gets (Boolean) (['body', 'folders']))
   .catch(response =>
@@ -74,4 +80,5 @@ module.exports = apiFetch => ({
   fetchAllDocIds: fetchAllDocIds(apiFetch),
   fetchDocFolders,
   fetchDocContent: fetchDocContent(apiFetch),
+  fetchDocMetaData: fetchDocMetaData(apiFetch),
 });
