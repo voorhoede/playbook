@@ -4,11 +4,10 @@
 
 .theme-container .navbar {
   background-color: bg-pastel
-  border-color: #eee
+  border-color: border-color
 }
 
 .theme-container.no-sidebar .navbar {
-  border-color: #eee
 }
 
 .navbar .site-name {
@@ -111,7 +110,7 @@
     padding-left: 0
     display: flex
     justify-content: flex-end
-    border-bottom: 1px solid #ddd
+    border-bottom: 1px solid border-color
     background-color: transparent
   }
 }
@@ -119,5 +118,11 @@
 @media (min-width: 960px) {
   .theme-container:not(.no-sidebar) .links {
     width: max-width-large
+  }
+
+  .home-link {
+    width: 20rem
+    height: 100%
+    background-color: bg-pastel
   }
 }
