@@ -1,22 +1,35 @@
-.sidebar {
+.theme-container .sidebar {
+  background-color: bg-pastel
+  border: 2px solid bg-pastel
   box-sizing: border-box
 }
 
-.sidebar-button {
-  background-color: blue
+.sidebar-heading {
+  color: blue
+  margin-bottom: spacing-default
 }
 
-.sidebar-button svg path {
-  fill: white
+.sidebar-heading span {
+  position: relative
 }
 
-.sidebar .nav-links {
-  border-bottom-color: white
+.sidebar-heading span:after {
+  width: 0%;
+  height 100%;
+  position:absolute
+  left: 0
+  bottom: -7px
+  content: ''
+  border-bottom: 2px solid brand-color
 }
 
-.theme-container .sidebar {
-  background-color: bg-pastel
-  border: none
+.sidebar-heading:hover span:after {
+  transition: all .4s ease
+  width: 100%
+}
+
+.sidebar .sidebar-links {
+  color: blue
 }
 
 a.sidebar-link {
