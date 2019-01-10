@@ -1,3 +1,7 @@
+.sidebar {
+  box-sizing: border-box
+}
+
 .sidebar-button {
   background-color: blue
 }
@@ -20,21 +24,23 @@ a.sidebar-link {
   padding: spacing-half 1.5rem
 }
 
-@media (min-width: 720px) {
-  .sidebar-link:hover {
-    font-weight: 700
-  }
-}
-
 @media (max-width: 719px) {
   .theme-container .sidebar {
     transform: translateY(-100%)
-    background-color: brand-color
+    background-color: bg-pastel
     width: 100%
+    height: 100%
+    z-index: 15
     font-size: 1.2rem;
   }
 
   .theme-container.sidebar-open .sidebar {
     transform: translateY(0)
+  }
+}
+
+@media (min-width: 720px) {
+  .sidebar-link:hover {
+    font-weight: 700
   }
 }

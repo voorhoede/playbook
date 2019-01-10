@@ -1,28 +1,102 @@
+.home {
+  height: 100%
+  box-sizing: border-box
+}
+
+.home .hero {
+  padding: 0 1.5rem;
+  height: 100%
+  display: grid
+  grid-template-rows: repeat(8, 1fr)
+  position relative
+}
+
+.home .hero:after {
+  content: ''
+  width: 100%;
+  height: 100%;
+  position: absolute
+  background-color: brand-color
+  grid-row-start: 5
+  grid-row-end: 9
+}
+
+.home .hero:before {
+  content: ''
+  width: 30%;
+  height: 100%;
+  position: absolute
+  right: 0
+  z-index: 8
+  background-image: url('/curly-bracket--close.svg')
+  background-size: contain
+  background-position: center
+  background-repeat: no-repeat
+  grid-row-start: 4
+  grid-row-end: 9
+}
+
 .home .hero .action-button {
   background-color: blue
-  color: white
+  color: blue
   transition: transform .2s ease-in-out
-  border-bottom-color: #0005be
+  // border-bottom-color: #0005be
+  border: none;
+  grid-row-start: 4
+  text-transform: uppercase;
+  padding: 0;
+  background-color: transparent;
+  position: relative
+}
+
+.home .hero .action-button:after {
+  content: ''
+  width: 30px
+  height: 50px
+  position: absolute
+  right: -50%
+  bottom: -40%
+  background-image: url('/scroll-to-arrow--down.svg')
+  background-position: center
+  background-size: contain
+  transform: rotate(-90deg)
 }
 
 .home .hero img {
-  margin: 3rem auto
+  margin: 0 auto
+  position: relative
+  grid-row-start: 5
+  grid-row-end: 9
+  z-index: 10
+  align-self: center
 }
 
 .home .hero h1 {
   font-size: 45px
   color: blue
+  margin-top: 1.5rem
+  grid-row-start: 1
+  grid-row-end: 2
 }
 
 .home .hero .description  {
-  margin-bottom: spacing-double
+  margin-top: 0
   color: blue
+  grid-row-start: 2
+  grid-row-end: 4
 }
 
 .theme-container.no-sidebar {
   background-color: bg-pastel
   height 100vh
   box-sizing: border-box
+}
+
+@media (max-width: 419px) {
+  .home {
+    padding-left: 0
+    padding-right: 0
+  }
 }
 
 @media (min-width: 720px) {
