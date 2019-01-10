@@ -4,19 +4,16 @@
 @import search-box
 @import sidebar
 @import navbar
+@import menu
 
 body {
   font-family: 'apercu', Arial, sans-serif !important
   margin: 0
 }
 
-// * {
-
-// }
-
 .theme-container .navbar,
 .theme-container.no-sidebar .navbar {
-  background-color: bg-pastel
+  background-color: transparent
   border-color: #eee
 }
 
@@ -27,6 +24,27 @@ body {
 
 .navbar .links {
   background-color: transparent
+}
+
+.navbar .sidebar-button:after {
+  content: ''
+  position: absolute
+  top: 0
+  left: 0
+  width: 100%
+  height: 100%
+  background-image: url('/icon_menu-passive--white.svg')
+  background-size: 70% 70%
+  background-position: center
+  background-repeat: no-repeat
+}
+
+.sidebar-open .navbar .sidebar-button:after {
+  background-image: url('/icon_menu-exit--white.svg')
+}
+
+.navbar .sidebar-button svg {
+  display: none
 }
 
 @media (min-width: 720px) {
