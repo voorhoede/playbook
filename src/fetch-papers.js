@@ -29,10 +29,13 @@ const dropboxPaperApi = got.extend({
   },
 });
 
+const jsonToFrontmatter = json => `---\n${ JSON.stringify(json, null, 2) }\n---\n`;
+
 const {
   fetchAllDocIds,
   getDocFolders,
   fetchDocContent,
+  fetchDocMetaData,
   foldersToPath,
 } = main(dropboxPaperApi);
 
@@ -52,6 +55,7 @@ fetchAllDocIds()
         id,
         folders,
         content: fetchDocContent(id),
+        metaData: fetchDocMetaData(id),
       }))
     )
     .then(Promise.all.bind(Promise))
@@ -70,7 +74,7 @@ fetchAllDocIds()
       mkdir(doc.directory, { recursive: true })
         .then(() => writeFile(
           doc.location,
-          doc.content.body
+          `${jsonToFrontmatter(doc.metaData)}${doc.content.body}`
         ));
       writeFile('docs/dump.json', JSON.stringify(docs));
     }));
