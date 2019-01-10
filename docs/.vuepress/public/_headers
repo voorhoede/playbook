@@ -1,0 +1,10 @@
+# Response headers configured for basic security
+# docs: https://www.netlify.com/docs/headers-and-basic-auth/
+#       https://www.netlify.com/docs/ssl/#hsts-preload
+
+/*
+  Referrer-Policy: no-referrer-when-downgrade
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-XSS-Protection: 1; mode=block
