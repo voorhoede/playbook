@@ -59,7 +59,7 @@ const fetchDocContent = apiFetch => docId => apiFetch(
     body,
   }));
 
-const fetchDocMetaData = apiFetch => docId =>   apiFetch(
+const fetchDocMetaData = apiFetch => docId => apiFetch(
     '/docs/get_metadata',
     { body: { doc_id: docId } }
   )
