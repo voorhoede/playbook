@@ -6,7 +6,7 @@
 }
 
 .home .hero {
-  padding: 0 1.5rem;
+  padding: 0 spacing-medium
   height: 100%
   display: grid
   grid-template-rows: repeat(8, 12.5%)
@@ -15,8 +15,8 @@
 
 .home .hero:after {
   content: ''
-  width: 100%;
-  height: 100%;
+  width: 100%
+  height: 100%
   position: absolute
   background-color: brand-color
   grid-row-start: 5
@@ -25,8 +25,8 @@
 
 .home .hero:before {
   content: ''
-  width: 30%;
-  height: 100%;
+  width: 30%
+  height: 100%
   position: absolute
   right: 0
   z-index: 1
@@ -49,11 +49,11 @@
   background-color: blue
   color: blue
   transition: transform .2s ease-in-out
-  border: none;
+  border: none
   grid-row-start: 4
-  text-transform: uppercase;
-  padding: 0;
-  background-color: transparent;
+  text-transform: uppercase
+  padding: 0
+  background-color: transparent
   position: relative
   font-weight: 700
 }
@@ -106,13 +106,13 @@
   grid-row-end: -1
   z-index: 2
   align-self: center
-  margin: 0;
+  margin: 0
 }
 
 .home .hero h1 {
   font-size: 45px
   color: blue
-  margin-top: 1.5rem
+  margin-top: spacing-medium
   grid-row-start: 1
   grid-row-end: 2
 }
@@ -167,7 +167,7 @@
   }
 
   .theme-container.no-sidebar {
-    background: linear-gradient(to right, #fffdca 50%, #ffe400 50%, #ffe400 50%);
+    background: linear-gradient(to right, #fffdca 50%, #ffe400 50%, #ffe400 50%)
   }
 
   .theme-container.no-sidebar .links {
@@ -175,8 +175,8 @@
   }
 
   .theme-container.no-sidebar .home {
-    max-width: 100%;
-    box-sizing: border-box;
+    max-width: 100%
+    box-sizing: border-box
   }
 
   .home .hero {
@@ -218,7 +218,7 @@
     grid-row-start: 3
     grid-row-end: 5
     text-align: left
-    margin-right: 2rem
+    margin-right: spacing-double
     font-size: 30px
   }
 }
