@@ -2,6 +2,7 @@
   "name": "voorhoede-playbook",
   "description": "Voorhoede playbook based on Dropbox Paper.",
   "scripts": {
+    "start": "npm run docs:content && npm run docs:dev",
     "test": "ava ./src/test.js",
     "test:watch": "npm run test -- --watch --verbose",
     "docs:dev": "vuepress dev docs",
