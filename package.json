@@ -4,10 +4,12 @@
   "scripts": {
     "start": "npm run docs:content && npm run docs:dev",
     "test": "ava ./src/test.js",
+    "test:ci": "npm run test -- --verbose && npm run lint -- --max-warnings 0",
     "test:watch": "npm run test -- --watch --verbose",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "docs:content": "node src/fetch-papers.js"
+    "docs:content": "node src/fetch-papers.js",
+    "lint": "eslint src/*.js"
   },
   "dependencies": {
     "case-it": "^1.0.1",
@@ -18,10 +20,24 @@
   },
   "devDependencies": {
     "ava": "^1.0.1",
+    "eslint": "^5.12.0",
     "vuepress": "^1.0.0-alpha.30"
   },
   "engines": {
     "node": ">= 10.12.0"
+  },
+  "eslintConfig": {
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 2018
+    },
+    "rules": {
+        "semi": 1
+    }
   },
   "repository": {
     "type": "git",
