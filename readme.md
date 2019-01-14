@@ -1,4 +1,8 @@
 # De Voorhoede Playbook
+[![Travis Build Status][travis-icon]][travis]
+[![David Dependencies Status][david-icon]][david]
+[![LGTM Grade][lgtm-icon]][lgtm]
+
 Playbook in the form of a website generated with [Vuepress](https://vuepress.vuejs.org/) and fetched [Dropbox Paper](https://www.dropbox.com/paper) documents.
 
 ## Development
@@ -42,3 +46,10 @@ Unit tests are present in [src/test.js](src/test.js) and are ran with: `npm test
 
 #### Style
 The code is written in a functional style using [Sanctuary](https://sanctuary.js.org/) to provide simple, pure functions with no need for `null` checks.
+
+[travis]: https://travis-ci.org/voorhoede/playbook/branches
+[travis-icon]: https://img.shields.io/travis/voorhoede/playbook/master.svg?style=flat-square
+[david]: https://david-dm.org/voorhoede/playbook
+[david-icon]: https://img.shields.io/david/voorhoede/playbook.svg?style=flat-square
+[lgtm]: https://lgtm.com/projects/g/voorhoede/playbook/
+[lgtm-icon]: https://img.shields.io/lgtm/grade/javascript/g/voorhoede/playbook.svg?style=flat-square
