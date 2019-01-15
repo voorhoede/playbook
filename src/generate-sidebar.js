@@ -5,11 +5,10 @@ const path = require('path');
 
 const generateSidebar = pipe([
   filter (({ content, folders }) =>
-    folders.length <= 2 && content.metaData.title !== 'readme'
+   (folders.length <= 2) && (content.metaData.title !== 'readme')
   ),
   reduce (docs => doc => {
     const containingFolder = doc.folders[doc.folders.length - 1].name;
-
     return {
       ...docs,
       [containingFolder]: [
