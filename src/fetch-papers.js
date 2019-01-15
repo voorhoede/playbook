@@ -63,6 +63,7 @@ fetchAllDocIds()
       ...doc,
       directory: path.join('docs', foldersToPath(doc.folders.slice(1))),
     })))
+    .then(docs => docs.filter(doc => doc.metaData.title !== 'readme'))
     .then(docs => docs.map(doc => ({
       ...doc,
       location: path.join(
