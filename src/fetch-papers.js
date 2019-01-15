@@ -9,11 +9,14 @@ const promiseAllProps = require('promise-all-props');
 
 const {
   elem,
+  equals,
   filter,
   justs,
   map,
   prop,
+  props,
   pipe,
+  reject,
 } = require('sanctuary');
 
 const main = require('./main.js');
@@ -30,6 +33,11 @@ const dropboxPaperApi = got.extend({
 });
 
 const jsonToFrontmatter = json => `---\n${ JSON.stringify(json, null, 2) }\n---\n`;
+
+const isDeletedDoc = pipe([
+  props(['metaData', 'status', '.tag']),
+  equals('deleted'),
+]);
 
 const {
   fetchAllDocIds,
@@ -50,26 +58,29 @@ fetchAllDocIds()
       map(prop('id')),
       elem(process.env.DROPBOX_PAPER_DIRECTORY_ID),
     ])))
-    .then(docs => Object.entries(docs)
-      .map(([ id, folders ]) => promiseAllProps({
-        id,
-        folders,
-        content: fetchDocContent(id),
-        metaData: fetchDocMetaData(id),
-      }))
-    )
+    .then(Object.entries)
+    .then(docs => docs.map(([ id, folders ]) => promiseAllProps({
+      id,
+      folders,
+      directory: path.join('docs', foldersToPath(folders.slice(1))),
+      metaData: fetchDocMetaData(id),
+    })))
     .then(Promise.all.bind(Promise))
-    .then(docs => docs.map(doc => ({
-      ...doc,
-      directory: path.join('docs', foldersToPath(doc.folders.slice(1))),
-    })))
-    .then(docs => docs.map(doc => ({
-      ...doc,
-      location: path.join(
-        doc.directory,
-        `${kebabCaseIt(doc.content.metaData.title)}.md`
-      ),
-    })))
+    .then(reject(isDeletedDoc))
+    .then(docs => docs.map(doc =>
+      promiseAllProps({
+        ...doc,
+        content: fetchDocContent(doc.id),
+      })
+        .then(doc => ({
+          ...doc,
+          location: path.join(
+            doc.directory,
+            `${kebabCaseIt(doc.content.metaData.title)}.md`
+          ),
+        }))
+    ))
+    .then(Promise.all.bind(Promise))
     .then(docs => docs.forEach(doc => {
       mkdir(doc.directory, { recursive: true })
         .then(() => writeFile(
