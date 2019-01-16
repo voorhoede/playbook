@@ -9,6 +9,23 @@ module.exports = {
   themeConfig: {
     sidebar: generateSidebar(JSON.parse(readFileSync('docs/dump.json'))),
   },
+  chainMarkdown (config) {
+    config.plugin('add-metadata')
+      .use(markdown => {
+        markdown.core.ruler.push('add-date', state => {
+          state.tokens.unshift({
+            'type': 'html_block',
+            'content': `<last-updated
+              :date="$page.frontmatter.last_updated_date"
+              :isHomePage="$page.frontmatter.home"
+            />`,
+          });
+
+          return state;
+        });
+      })
+      .before('component');
+  },
   dest: './dist',
   head: [
     ['link', { rel: 'icon', href: '/icons/favicon.ico' }],
