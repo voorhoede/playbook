@@ -1,5 +1,5 @@
 {
-  "name": "Playbook \n by De Voorhoede",
+  "name": "Playbook \nby De Voorhoede",
   "short_name": "Playbook",
   "start_url": "/index.html",
   "display": "standalone",
@@ -7,10 +7,10 @@
   "theme_color": "#0000ff",
   "background_color": "#ffe400",
   "icons": [
-      {
-          "src": "/icons/logo--blue512x512.png",
-          "sizes": "512x512",
-          "type": "image/png"
-      }
+    {
+      "src": "/icons/logo--blue512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }

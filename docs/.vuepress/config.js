@@ -2,7 +2,7 @@
 
 const { readFileSync } = require('fs');
 const generateSidebar = require('../../src/generate-sidebar.js');
-const manifest = require('./public/manifest.json')
+const manifest = require('./public/manifest.json');
 
 module.exports = {
   title: 'Playbook',
@@ -12,7 +12,7 @@ module.exports = {
   dest: './dist',
   head: [
     ['link', { rel: 'icon', href: '/icons/favicon.ico' }],
-    ['link', { rel: 'manifest', href: '/manifest.json', crossorigin: "use-credentials" }],
+    ['link', { rel: 'manifest', href: '/manifest.json', crossorigin: 'use-credentials' }],
     ['meta', { name: 'theme-color', content: manifest.theme_color }],
   ],
   plugins: {
