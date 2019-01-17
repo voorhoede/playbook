@@ -10,7 +10,12 @@ module.exports = {
   },
   dest: './dist',
   evergreen: true,
-  plugins: ['@vuepress/pwa'],
+  plugins: {
+    '@vuepress/pwa': {
+      serviceWorker: true,
+      updatePopup: false,
+    }
+  },
   head: [
     ['link', { rel: 'icon', href: '/icons/favicon.ico' }],
     ['link', { rel: 'manifest', href: '/manifest.json' }],
