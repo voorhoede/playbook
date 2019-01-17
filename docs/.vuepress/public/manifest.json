@@ -1,7 +1,7 @@
 {
   "name": "Playbook \n by De Voorhoede",
   "short_name": "Playbook",
-  "start_url": "/?homescreen=true",
+  "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
   "theme_color": "#0000ff",
