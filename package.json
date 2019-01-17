@@ -12,6 +12,7 @@
     "lint": "eslint src/*.js"
   },
   "dependencies": {
+    "@vuepress/plugin-pwa": "^1.0.0-alpha.0",
     "case-it": "^1.0.1",
     "dotenv-safe": "^6.1.0",
     "got": "^9.5.0",
@@ -28,15 +29,15 @@
   },
   "eslintConfig": {
     "env": {
-        "es6": true,
-        "node": true
+      "es6": true,
+      "node": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 2018
+      "ecmaVersion": 2018
     },
     "rules": {
-        "semi": 1
+      "semi": 1
     }
   },
   "repository": {
