@@ -10,16 +10,16 @@ module.exports = {
     sidebar: generateSidebar(JSON.parse(readFileSync('docs/dump.json'))),
   },
   dest: './dist',
-  evergreen: true,
+  head: [
+    ['link', { rel: 'icon', href: '/icons/favicon.ico' }],
+    ['link', { rel: 'manifest', href: '/manifest.json' }],
+    ['meta', { name: 'theme-color', content: manifest.theme_color }],
+  ],
   plugins: {
     '@vuepress/pwa': {
       serviceWorker: true,
       updatePopup: false,
     }
   },
-  head: [
-    ['link', { rel: 'icon', href: '/icons/favicon.ico' }],
-    ['link', { rel: 'manifest', href: 'manifest.json' }],
-    ['meta', { name: 'theme-color', content: manifest.theme_color }],
-  ],
+  evergreen: true,
 };
