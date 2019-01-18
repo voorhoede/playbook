@@ -12,13 +12,16 @@ module.exports = {
   chainMarkdown (config) {
     config.plugin('add-metadata')
       .use(markdown => {
-        markdown.core.ruler.push('add-date', state => {
+        markdown.core.ruler.push('add-metadata', state => {
           state.tokens.unshift({
             'type': 'html_block',
-            'content': `<last-updated
-              :date="$page.frontmatter.last_updated_date"
-              :isHomePage="$page.frontmatter.home"
-            />`,
+            'content': `
+              <metadata
+                :id="$page.frontmatter.doc_id"
+                :date="$page.frontmatter.last_updated_date"
+                :isHomePage="$page.frontmatter.home"
+              />
+            `,
           });
 
           return state;
