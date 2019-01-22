@@ -1,13 +1,52 @@
 'use strict';
 
-const { readFileSync } = require('fs');
+const markdownItForInline = require('markdown-it-for-inline');
+const path = require('path');
+
+const documentsMetaData = require('../dump.json');
 const generateSidebar = require('../../src/generate-sidebar.js');
 const manifest = require('./public/manifest.json');
+
+const {
+  chain,
+  compose,
+  find,
+  pipe,
+  prop,
+  map,
+  match,
+} = require('sanctuary');
+
+const getDocumentLocation = pipe([
+    match(/paper\.dropbox\.com\/doc\/.+--\S{26}-(\w{21})/),
+    chain(match => match.groups[0]),
+    chain(urlId => find
+      (doc => doc.id === urlId)
+      (documentsMetaData)
+    ),
+    map(compose (path.parse) (prop('location'))),
+  ]);
 
 module.exports = {
   title: 'Playbook',
   themeConfig: {
-    sidebar: generateSidebar(JSON.parse(readFileSync('docs/dump.json'))),
+    sidebar: generateSidebar(documentsMetaData),
+  },
+  extendMarkdown: markdown => {
+    markdown.use(markdownItForInline, 'internal-link', 'link_open', (tokens, index) => {
+      const token = tokens[index];
+
+      pipe([
+        getDocumentLocation,
+        map(location => {
+          token.attrSet(
+            'href',
+            `/${path.parse(location.dir).name}/${location.name}.html`
+          );
+        }),
+      ])
+      (token.attrGet('href'));
+    });
   },
   chainMarkdown (config) {
     config.plugin('add-metadata')
