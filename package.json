@@ -8,8 +8,8 @@
     "test:watch": "npm run test -- --watch --verbose",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "docs:content": "node src/fetch-papers.js",
-    "lint": "eslint src/*.js"
+    "docs:content": "node ./src/fetch-papers.js",
+    "lint": "eslint --no-ignore ./src/*.js ./docs/.vuepress/config.js"
   },
   "dependencies": {
     "case-it": "^1.0.1",
@@ -38,7 +38,8 @@
       "ecmaVersion": 2018
     },
     "rules": {
-      "semi": 1
+      "semi": 1,
+      "no-unexpected-multiline": 0
     }
   },
   "repository": {
