@@ -6,6 +6,7 @@ const path = require('path');
 const documentsMetaData = require('../dump.json');
 const generateSidebar = require('../../src/generate-sidebar.js');
 const manifest = require('./public/manifest.json');
+const urlMatchers = require('../../src/url-matchers.js');
 
 const {
   chain,
@@ -17,7 +18,7 @@ const {
   match,
 } = require('sanctuary');
 
-const getDocumentLocation = pipe([
+const getDropboxDocumentLocation = pipe([
   match(/paper\.dropbox\.com\/doc\/.+--\S{26}-(\w{21})/),
   chain(match => match.groups[0]),
   chain(urlId => find (doc => doc.id === urlId) (documentsMetaData)),
@@ -34,7 +35,7 @@ module.exports = {
       const token = tokens[index];
 
       pipe([
-        getDocumentLocation,
+        getDropboxDocumentLocation,
         map(location => {
           token.attrSet(
             'href',
@@ -43,6 +44,42 @@ module.exports = {
         }),
       ])
       (token.attrGet('href'));
+    });
+
+    markdown.use(markdownItForInline, 'youtube-link', 'text', (tokens, index) => {
+      pipe([
+        urlMatchers.getYoutubeUrlId,
+        map(id => {
+          tokens[index] = {
+            'type': 'html_block',
+            'content': `
+              <youtube-embed
+                id="${id}"
+                type="singleVideo"
+              />
+            `
+          };
+        }),
+      ])
+      (tokens[index].content);
+    });
+
+    markdown.use(markdownItForInline, 'youtube-playlist-link', 'text', (tokens, index) => {
+      pipe([
+        urlMatchers.getYoutubePlaylistUrlId,
+        map(id => {
+          tokens[index] = {
+            'type': 'html_block',
+            'content': `
+              <youtube-embed
+                id="${id}"
+                type="playlist"
+              />
+            `
+          };
+        }),
+      ])
+      (tokens[index].content);
     });
   },
   chainMarkdown (config) {
