@@ -42,7 +42,13 @@ const fetchAllDocIds = apiFetch => () => apiFetch('/docs/list', {})
 const fetchDocFolders = apiFetch => docId => apiFetch(
   '/docs/get_folder_info',
   { body: { doc_id: docId } }
-);
+)
+  .then(gets (Boolean) (['body', 'folders']))
+  .catch(response =>
+    isPermissionError(response) === Nothing
+      ? Promise.reject(response)
+      : Promise.resolve(Nothing)
+  );
 
 const fetchDocContent = apiFetch => docId => apiFetch(
   '/docs/download',
@@ -65,20 +71,11 @@ const fetchDocMetaData = apiFetch => docId => apiFetch(
   )
   .then(({ body }) => body);
 
-const getDocFolders = apiFetch => docId => fetchDocFolders (apiFetch) (docId)
-  .then(gets (Boolean) (['body', 'folders']))
-  .catch(response =>
-    isPermissionError(response) === Nothing
-      ? Promise.reject(response)
-      : Promise.resolve(Nothing)
-  );
-
 module.exports = apiFetch => ({
   isPermissionError,
-  getDocFolders: getDocFolders(apiFetch),
   foldersToPath,
   fetchAllDocIds: fetchAllDocIds(apiFetch),
-  fetchDocFolders,
+  fetchDocFolders: fetchDocFolders(apiFetch),
   fetchDocContent: fetchDocContent(apiFetch),
   fetchDocMetaData: fetchDocMetaData(apiFetch),
 });

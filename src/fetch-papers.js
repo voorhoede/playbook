@@ -41,7 +41,7 @@ const isDeletedDoc = pipe([
 
 const {
   fetchAllDocIds,
-  getDocFolders,
+  fetchDocFolders,
   fetchDocContent,
   fetchDocMetaData,
   foldersToPath,
@@ -50,7 +50,7 @@ const {
 fetchAllDocIds()
     .then(docIds => docIds.reduce((docs, id) => ({
       ...docs,
-      [id]: getDocFolders(id),
+      [id]: fetchDocFolders(id),
     }), {}))
     .then(promiseAllProps)
     .then(justs)
