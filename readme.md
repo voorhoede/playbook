@@ -2,6 +2,7 @@
 [![Travis Build Status][travis-icon]][travis]
 [![David Dependencies Status][david-icon]][david]
 [![LGTM Grade][lgtm-icon]][lgtm]
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6cb9ad83-2aee-4233-9ed3-62d0fa799b9f/deploy-status)](https://app.netlify.com/sites/voorhoede-playbook/deploys)
 
 Playbook in the form of a website generated with [Vuepress](https://vuepress.vuejs.org/) and fetched [Dropbox Paper](https://www.dropbox.com/paper) documents.
 
