@@ -38,8 +38,9 @@
       "ecmaVersion": 2018
     },
     "rules": {
-      "semi": 1,
-      "no-unexpected-multiline": 0
+      "indent": ["warn", 2],
+      "no-unexpected-multiline": "off",
+      "semi": "warn"
     }
   },
   "repository": {

@@ -18,14 +18,11 @@ const {
 } = require('sanctuary');
 
 const getDocumentLocation = pipe([
-    match(/paper\.dropbox\.com\/doc\/.+--\S{26}-(\w{21})/),
-    chain(match => match.groups[0]),
-    chain(urlId => find
-      (doc => doc.id === urlId)
-      (documentsMetaData)
-    ),
-    map(compose (path.parse) (prop('location'))),
-  ]);
+  match(/paper\.dropbox\.com\/doc\/.+--\S{26}-(\w{21})/),
+  chain(match => match.groups[0]),
+  chain(urlId => find (doc => doc.id === urlId) (documentsMetaData)),
+  map(compose (path.parse) (prop('location'))),
+]);
 
 module.exports = {
   title: 'Playbook',

@@ -31,8 +31,8 @@ const fetchPaginatedDocIds = apiFetch => previousDocIds => ({
 }) =>
   hasMore
     ? apiFetch('/docs/list/continue', {
-        body: { cursor },
-      })
+      body: { cursor },
+    })
       .then(fetchPaginatedDocIds (apiFetch) (previousDocIds.concat(docIds)))
     : previousDocIds.concat(docIds);
 
@@ -66,9 +66,9 @@ const fetchDocContent = apiFetch => docId => apiFetch(
   }));
 
 const fetchDocMetaData = apiFetch => docId => apiFetch(
-    '/docs/get_metadata',
-    { body: { doc_id: docId } }
-  )
+  '/docs/get_metadata',
+  { body: { doc_id: docId } }
+)
   .then(({ body }) => body);
 
 module.exports = apiFetch => ({

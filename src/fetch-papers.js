@@ -48,44 +48,44 @@ const {
 } = main(dropboxPaperApi);
 
 fetchAllDocIds()
-    .then(docIds => docIds.reduce((docs, id) => ({
-      ...docs,
-      [id]: fetchDocFolders(id),
-    }), {}))
-    .then(promiseAllProps)
-    .then(justs)
-    .then(filter (pipe([
-      map(prop('id')),
-      elem(process.env.DROPBOX_PAPER_DIRECTORY_ID),
-    ])))
-    .then(Object.entries)
-    .then(docs => docs.map(([ id, folders ]) => promiseAllProps({
-      id,
-      folders,
-      directory: path.join('docs', foldersToPath(folders.slice(1))),
-      metaData: fetchDocMetaData(id),
-    })))
-    .then(Promise.all.bind(Promise))
-    .then(reject(isDeletedDoc))
-    .then(docs => docs.map(doc =>
-      promiseAllProps({
+  .then(docIds => docIds.reduce((docs, id) => ({
+    ...docs,
+    [id]: fetchDocFolders(id),
+  }), {}))
+  .then(promiseAllProps)
+  .then(justs)
+  .then(filter (pipe([
+    map(prop('id')),
+    elem(process.env.DROPBOX_PAPER_DIRECTORY_ID),
+  ])))
+  .then(Object.entries)
+  .then(docs => docs.map(([ id, folders ]) => promiseAllProps({
+    id,
+    folders,
+    directory: path.join('docs', foldersToPath(folders.slice(1))),
+    metaData: fetchDocMetaData(id),
+  })))
+  .then(Promise.all.bind(Promise))
+  .then(reject(isDeletedDoc))
+  .then(docs => docs.map(doc =>
+    promiseAllProps({
+      ...doc,
+      content: fetchDocContent(doc.id),
+    })
+      .then(doc => ({
         ...doc,
-        content: fetchDocContent(doc.id),
-      })
-        .then(doc => ({
-          ...doc,
-          location: path.join(
-            doc.directory,
-            `${kebabCaseIt(doc.content.metaData.title)}.md`
-          ),
-        }))
-    ))
-    .then(Promise.all.bind(Promise))
-    .then(docs => docs.forEach(doc => {
-      mkdir(doc.directory, { recursive: true })
-        .then(() => writeFile(
-          doc.location,
-          `${jsonToFrontmatter(doc.metaData)}${doc.content.body}`
-        ));
-      writeFile('docs/dump.json', JSON.stringify(docs));
-    }));
+        location: path.join(
+          doc.directory,
+          `${kebabCaseIt(doc.content.metaData.title)}.md`
+        ),
+      }))
+  ))
+  .then(Promise.all.bind(Promise))
+  .then(docs => docs.forEach(doc => {
+    mkdir(doc.directory, { recursive: true })
+      .then(() => writeFile(
+        doc.location,
+        `${jsonToFrontmatter(doc.metaData)}${doc.content.body}`
+      ));
+    writeFile('docs/dump.json', JSON.stringify(docs));
+  }));
