@@ -3,7 +3,7 @@
   "description": "Voorhoede playbook based on Dropbox Paper.",
   "scripts": {
     "start": "npm run docs:content && npm run docs:dev",
-    "test": "ava ./src/test.js",
+    "test": "ava ./src/*.test.js",
     "test:ci": "npm run test -- --verbose && npm run lint -- --max-warnings 0",
     "test:watch": "npm run test -- --watch --verbose",
     "docs:dev": "vuepress dev docs",

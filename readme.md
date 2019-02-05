@@ -43,7 +43,7 @@ npm run docs:build
 Because Vuepress does not support asynchronous configuration the fetching content and building the website is seperated. Which means the needed sidebar data is written to a temporary file so it can be synchronously read from [docs/.vuepress/config.js](docs/.vuepress/config.js).
 
 #### Testing
-Unit tests are present in [src/test.js](src/test.js) and are ran with: `npm test`.
+Unit tests are present in each file matching the implementation filename ending with `.test.js` and are ran with: `npm test`.
 
 #### Style
 The code is written in a functional style using [Sanctuary](https://sanctuary.js.org/) to provide simple, pure functions with no need for `null` checks.
