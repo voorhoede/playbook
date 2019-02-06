@@ -25,11 +25,20 @@
         today: '',
       }
     },
-    props: [
-      'id',
-      'date',
-      'isHomePage',
-    ],
+    props: {
+      id: {
+        type: String,
+        required: true,
+      },
+      date: {
+        type: String,
+        required: true,
+      },
+      isHomePage: {
+        type: Boolean,
+        required: true,
+      },
+    },
     created() {
       this.setCurrentDate()
       this.getVisit()

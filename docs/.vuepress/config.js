@@ -58,7 +58,7 @@ module.exports = {
               <metadata
                 :id="$page.frontmatter.doc_id"
                 :date="$page.frontmatter.last_updated_date"
-                :isHomePage="$page.frontmatter.home"
+                :isHomePage="Boolean($page.frontmatter.home)"
               />
             `,
           });
