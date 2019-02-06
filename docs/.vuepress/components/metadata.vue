@@ -1,6 +1,6 @@
 <template>
   <header class="metadata" v-if="!isHomePage">
-    <span v-if="updatedSinceLastVisit" class="last-updated last-updated--message">
+    <span v-if="hasBeenUpdatedSinceLastVisit" class="last-updated last-updated--message">
       Heads up! This page has been updated since your last visit {{ daysSinceLastVisit }} days ago
     </span>
     <span v-else class="last-updated last-updated--date">
@@ -9,7 +9,8 @@
     <a
       class="edit-link"
       :href="`https://paper.dropbox.com/doc/${id}`"
-      rel="noopener" target="_blank">
+      rel="noopener" target="_blank"
+    >
       Edit on Dropbox
     </a>
   </header>
@@ -22,8 +23,6 @@
         lastUpdate: this.date.split('T')[0],
         lastVisit: '',
         today: '',
-        updatedSinceLastVisit: false,
-        daysSinceLastVisit: 0,
       }
     },
     props: [
@@ -34,10 +33,25 @@
     created() {
       this.setCurrentDate()
       this.getVisit()
-      this.hasBeenUpdatedSinceLastVisit()
     },
     mounted() {
       this.setVisit()
+    },
+    computed: {
+      daysSinceLastVisit() {
+        const lastUpdate = new Date(this.lastUpdate)
+        const lastVisit = new Date(this.lastVisit)
+        const day = 1000 * 60 * 60 * 24
+
+        return  Math.round((lastUpdate - lastVisit) / day)
+      },
+      hasBeenUpdatedSinceLastVisit() {
+        const lastUpdate = new Date(this.lastUpdate)
+        const lastVisit = new Date(this.lastVisit)
+
+        // Check if last edit is older than last visit.
+        return lastVisit < lastUpdate
+      },
     },
     methods: {
       setCurrentDate() {
@@ -52,7 +66,9 @@
         this.today = `${yyyy}-${mm}-${dd}`
       },
       setVisit() {
-        localStorage.setItem(`last-visit-${this.id}`, this.today);
+        if (localStorage) {
+          localStorage.setItem(`last-visit-${this.id}`, this.today);
+        }
       },
       getVisit() {
         const localStorageItem = localStorage.getItem(`last-visit-${this.id}`)
@@ -61,18 +77,6 @@
           ? this.lastVisit = localStorageItem
           : this.lastVisit = this.today
       },
-      hasBeenUpdatedSinceLastVisit() {
-        const lastUpdate = new Date(this.lastUpdate)
-        const lastVisit = new Date(this.lastVisit)
-        const day = 1000 * 60 * 60 * 24
-
-        // Check if last edit is older than last visit.
-        lastVisit < lastUpdate
-          ? this.updatedSinceLastVisit = true
-          : this.updatedSinceLastVisit = false
-
-        this.daysSinceLastVisit = Math.round((lastUpdate - lastVisit) / day)
-      },
     }
   }
 </script>
@@ -80,8 +84,8 @@
 <style scoped>
   .metadata {
     display: flex;
-    justify-content: space-between;
     flex-direction: column;
+    justify-content: space-between;
   }
 
   @media (min-width: 420px) {
@@ -97,10 +101,10 @@
   }
 
   .last-updated--message {
-    color: blue;
     padding: .375rem .5rem;
-    background-color: #fffeca; /* bgPastel */
     border-radius: 4px;
+    background-color: #fffeca; /* bgPastel */
+    color: blue;
     line-height: 1.2;
   }
 
