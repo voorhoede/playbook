@@ -75,12 +75,12 @@
         this.today = `${yyyy}-${mm}-${dd}`
       },
       setVisit() {
-        if (localStorage) {
+        if (window.localStorage) {
           localStorage.setItem(`last-visit-${this.id}`, this.today);
         }
       },
       getVisit() {
-        if (localStorage) {
+        if (window.localStorage) {
           const localStorageItem = localStorage.getItem(`last-visit-${this.id}`)
 
           localStorageItem
