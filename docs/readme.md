@@ -1,5 +1,6 @@
 ---
 home: true
+doc_id: homepage
 heroImage: heroes.svg
 heroText: Playbook
 tagline: Hi! This is our Playbook. This is how we like to work and play at De Voorhoede.
