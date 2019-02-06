@@ -14,14 +14,14 @@
   "dependencies": {
     "case-it": "^1.0.1",
     "dotenv-safe": "^6.1.0",
-    "got": "^9.5.0",
+    "got": "^9.6.0",
     "promise-all-props": "^1.0.1",
     "sanctuary": "^0.15.0"
   },
   "devDependencies": {
     "@vuepress/plugin-pwa": "^1.0.0-alpha.0",
-    "ava": "^1.0.1",
-    "eslint": "^5.12.0",
+    "ava": "^1.2.1",
+    "eslint": "^5.13.0",
     "markdown-it-for-inline": "^0.1.1",
     "vuepress": "^1.0.0-alpha.30"
   },
@@ -38,7 +38,10 @@
       "ecmaVersion": 2018
     },
     "rules": {
-      "indent": ["warn", 2],
+      "indent": [
+        "warn",
+        2
+      ],
       "no-unexpected-multiline": "off",
       "semi": "warn"
     }
