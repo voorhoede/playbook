@@ -47,6 +47,50 @@ const {
   foldersToPath,
 } = main(dropboxPaperApi);
 
+const appendDocContent = docs => Promise.all(
+  docs.map(doc =>
+    promiseAllProps({
+      ...doc,
+      content: fetchDocContent(doc.id),
+    })
+      .then(doc => ({
+        ...doc,
+        location: path.join(
+          doc.directory,
+          `${kebabCaseIt(doc.content.metaData.title)}.md`
+        ),
+      }))
+  )
+);
+
+const appendMetaData = docs => Promise.all(
+  docs.map(([ id, folders ]) => promiseAllProps({
+    id,
+    folders,
+    directory: path.join('docs', foldersToPath(folders.slice(1))),
+    metaData: fetchDocMetaData(id),
+  }))
+);
+
+const saveDocsLocally = docs => docs.forEach(doc => {
+  mkdir(doc.directory, { recursive: true })
+    .then(() => writeFile(
+      doc.location,
+      `${jsonToFrontmatter(doc.metaData)}${doc.content.body}`
+    ));
+
+  writeFile('docs/meta-tree.json', JSON.stringify(
+    docs.map(({ id, folders, content: { metaData }, location }) => ({
+      id,
+      folders,
+      content: {
+        metaData,
+      },
+      location,
+    }))
+  ));
+});
+
 fetchAllDocIds()
   .then(docIds => docIds.reduce((docs, id) => ({
     ...docs,
@@ -59,33 +103,7 @@ fetchAllDocIds()
     elem(process.env.DROPBOX_PAPER_DIRECTORY_ID),
   ])))
   .then(Object.entries)
-  .then(docs => docs.map(([ id, folders ]) => promiseAllProps({
-    id,
-    folders,
-    directory: path.join('docs', foldersToPath(folders.slice(1))),
-    metaData: fetchDocMetaData(id),
-  })))
-  .then(Promise.all.bind(Promise))
+  .then(appendMetaData)
   .then(reject(isDeletedDoc))
-  .then(docs => docs.map(doc =>
-    promiseAllProps({
-      ...doc,
-      content: fetchDocContent(doc.id),
-    })
-      .then(doc => ({
-        ...doc,
-        location: path.join(
-          doc.directory,
-          `${kebabCaseIt(doc.content.metaData.title)}.md`
-        ),
-      }))
-  ))
-  .then(Promise.all.bind(Promise))
-  .then(docs => docs.forEach(doc => {
-    mkdir(doc.directory, { recursive: true })
-      .then(() => writeFile(
-        doc.location,
-        `${jsonToFrontmatter(doc.metaData)}${doc.content.body}`
-      ));
-    writeFile('docs/dump.json', JSON.stringify(docs));
-  }));
+  .then(appendDocContent)
+  .then(saveDocsLocally);

@@ -3,7 +3,7 @@
 const markdownItForInline = require('markdown-it-for-inline');
 const path = require('path');
 
-const documentsMetaData = require('../dump.json');
+const documentsMetaData = require('../meta-tree.json');
 const generateSidebar = require('../../src/generate-sidebar.js');
 const manifest = require('./public/manifest.json');
 const urlMatchers = require('../../src/url-matchers.js');
