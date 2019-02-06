@@ -27,11 +27,9 @@
     props: {
       id: {
         type: String,
-        required: true,
       },
       date: {
         type: String,
-        required: true,
       },
       isHomePage: {
         type: Boolean,
