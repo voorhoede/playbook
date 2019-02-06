@@ -38,11 +38,11 @@
         required: true,
       },
     },
-    created() {
+    mounted() {
       this.setCurrentDate()
       this.getVisit()
     },
-    mounted() {
+    beforeDestroy() {
       this.setVisit()
     },
     computed: {
@@ -77,21 +77,14 @@
         this.today = `${yyyy}-${mm}-${dd}`
       },
       setVisit() {
-        if (this.hasLocalStorage()) {
-          localStorage.setItem(`last-visit-${this.id}`, this.today)
-        }
+        localStorage.setItem(`last-visit-${this.id}`, this.today)
       },
       getVisit() {
-        if (this.hasLocalStorage()) {
-          const localStorageItem = localStorage.getItem(`last-visit-${this.id}`)
+        const localStorageItem = localStorage.getItem(`last-visit-${this.id}`)
 
-          localStorageItem
-            ? this.lastVisit = localStorageItem
-            : this.lastVisit = this.today
-        }
-      },
-      hasLocalStorage() {
-        return Boolean(window && window.localStorage)
+        localStorageItem
+          ? this.lastVisit = localStorageItem
+          : this.lastVisit = this.today
       },
     }
   }
