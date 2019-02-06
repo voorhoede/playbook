@@ -20,7 +20,6 @@
   export default {
     data() {
       return {
-        lastUpdate: this.date.split('T')[0],
         lastVisit: '',
         today: '',
       }
@@ -60,6 +59,9 @@
 
         // Check if last edit is older than last visit.
         return lastVisit < lastUpdate
+      },
+      lastUpdate() {
+        return this.date.split('T')[0]
       },
     },
     methods: {
