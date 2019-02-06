@@ -80,11 +80,13 @@
         }
       },
       getVisit() {
-        const localStorageItem = localStorage.getItem(`last-visit-${this.id}`)
+        if (localStorage) {
+          const localStorageItem = localStorage.getItem(`last-visit-${this.id}`)
 
-        localStorageItem
-          ? this.lastVisit = localStorageItem
-          : this.lastVisit = this.today
+          localStorageItem
+            ? this.lastVisit = localStorageItem
+            : this.lastVisit = this.today
+        }
       },
     }
   }
