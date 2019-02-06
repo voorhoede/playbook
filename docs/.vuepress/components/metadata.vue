@@ -37,29 +37,25 @@
       },
     },
     mounted() {
-      this.setCurrentDate()
-      this.getVisit()
+      this.setCurrentDate();
+      this.getVisit();
     },
     beforeDestroy() {
-      this.setVisit()
+      this.setVisit();
     },
     computed: {
       daysSinceLastVisit() {
-        const lastUpdate = new Date(this.lastUpdate)
-        const lastVisit = new Date(this.lastVisit)
-        const day = 1000 * 60 * 60 * 24
+        const lastUpdate = new Date(this.lastUpdate);
+        const lastVisit = new Date(this.lastVisit);
+        const day = 1000 * 60 * 60 * 24;
 
-        return  Math.round((lastUpdate - lastVisit) / day)
+        return  Math.round((lastUpdate - lastVisit) / day);
       },
       hasBeenUpdatedSinceLastVisit() {
-        const lastUpdate = new Date(this.lastUpdate)
-        const lastVisit = new Date(this.lastVisit)
-
-        // Check if last edit is older than last visit.
-        return lastVisit < lastUpdate
+        return new Date(this.lastVisit) < new Date(this.lastUpdate);
       },
       lastUpdate() {
-        return this.date.split('T')[0]
+        return this.date.split('T')[0];
       },
     },
     methods: {
@@ -69,22 +65,22 @@
         let mm = date.getMonth() + 1;
         const yyyy = date.getFullYear();
 
-        if (dd < 10) { dd = `0${dd}` }
-        if (mm < 10) { mm = `0${mm}` }
+        if (dd < 10) { dd = `0${dd}`; }
+        if (mm < 10) { mm = `0${mm}`; }
 
-        this.today = `${yyyy}-${mm}-${dd}`
+        this.today = `${yyyy}-${mm}-${dd}`;
       },
       setVisit() {
-        localStorage.setItem(`last-visit-${this.id}`, this.today)
+        localStorage.setItem(`last-visit-${this.id}`, this.today);
       },
       getVisit() {
-        const localStorageItem = localStorage.getItem(`last-visit-${this.id}`)
+        const localStorageItem = localStorage.getItem(`last-visit-${this.id}`);
 
         localStorageItem
           ? this.lastVisit = localStorageItem
-          : this.lastVisit = this.today
+          : this.lastVisit = this.today;
       },
-    }
+    },
   }
 </script>
 
