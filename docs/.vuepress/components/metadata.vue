@@ -77,18 +77,21 @@
         this.today = `${yyyy}-${mm}-${dd}`
       },
       setVisit() {
-        if (process.client) {
-          localStorage.setItem(`last-visit-${this.id}`, this.today);
+        if (this.hasLocalStorage()) {
+          localStorage.setItem(`last-visit-${this.id}`, this.today)
         }
       },
       getVisit() {
-        if (process.client) {
+        if (this.hasLocalStorage()) {
           const localStorageItem = localStorage.getItem(`last-visit-${this.id}`)
 
           localStorageItem
             ? this.lastVisit = localStorageItem
             : this.lastVisit = this.today
         }
+      },
+      hasLocalStorage() {
+        return Boolean(window && window.localStorage)
       },
     }
   }
