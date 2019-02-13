@@ -86,4 +86,12 @@ test('getYoutubePlaylistUrlId', t => {
     Just('PL597E0BDDC1D74ED2'),
     'matches complete youtube playlist url with extra characters'
   );
+
+  t.deepEqual(
+    urlMatchers.getYoutubePlaylistUrlId(
+      'https://www.youtube.com/playlist?list=PLcp2b-TPWnAc-W2EFGMV9yDcNbjWZucqZ'
+    ),
+    Just('PLcp2b-TPWnAc-W2EFGMV9yDcNbjWZucqZ'),
+    'matches alternate youtube playlist url'
+  );
 });
