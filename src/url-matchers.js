@@ -8,7 +8,7 @@ const getYoutubeUrlId = pipe([
 ]);
 
 const getYoutubePlaylistUrlId = pipe([
-  match(/^https:\/\/w*\.*youtube\.com\/playlist\?list=(\w{18})/),
+  match(/^https:\/\/w*\.*youtube\.com\/playlist\?list=([\w\d-]+)/),
   chain(match => match.groups[0]),
 ]);
 
