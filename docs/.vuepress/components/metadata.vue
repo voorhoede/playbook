@@ -98,11 +98,6 @@
     }
   }
 
-  .last-updated--date,
-  .edit-link {
-    color: rgba(34, 34, 34, .55); /* Based on VuePress $textColor */
-  }
-
   .last-updated--message {
     padding: .375rem .5rem;
     border-radius: 4px;
