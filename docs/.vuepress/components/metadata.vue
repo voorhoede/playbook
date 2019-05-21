@@ -84,7 +84,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="styl" scoped>
   .metadata {
     display: flex;
     flex-direction: column;
@@ -101,7 +101,7 @@
   .last-updated--message {
     padding: .375rem .5rem;
     border-radius: 4px;
-    background-color: #fffeca; /* bgPastel */
+    background-color: bgPastel;
     color: blue;
     line-height: 1.2;
   }
