@@ -106,4 +106,5 @@ fetchAllDocIds()
   .then(appendMetaData)
   .then(reject(isDeletedDoc))
   .then(appendDocContent)
-  .then(saveDocsLocally);
+  .then(saveDocsLocally)
+  .catch(console.error);
