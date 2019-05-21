@@ -4,7 +4,7 @@
 [![LGTM Grade][lgtm-icon]][lgtm]
 [![Netlify Status][netlify-icon]][netlify]
 
-Playbook in the form of a website generated with [Vuepress](https://vuepress.vuejs.org/) and fetched [Dropbox Paper](https://www.dropbox.com/paper) documents.
+Company playbook containing internal information about common questions & situations at De Voorhoede in the form of a website generated with [Vuepress](https://vuepress.vuejs.org/) and fetched [Dropbox Paper](https://www.dropbox.com/paper) documents.
 
 ## Development
 
