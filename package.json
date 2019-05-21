@@ -42,6 +42,15 @@
         "warn",
         2
       ],
+      "no-console": [
+        1,
+        {
+          "allow": [
+            "info",
+            "error"
+          ]
+        }
+      ],
       "no-unexpected-multiline": "off",
       "semi": "warn"
     }
