@@ -36,6 +36,10 @@ a.sidebar-link {
   padding: spacingHalf spacingMedium;
 }
 
+.sidebar-link:hover {
+  text-decoration: underline;
+}
+
 .sidebar-sub-headers a.sidebar-link.active {
   font-weight: 700;
 }
@@ -52,11 +56,5 @@ a.sidebar-link {
 
   .theme-container.sidebar-open .sidebar {
     transform: translateY(0);
-  }
-}
-
-@media (min-width: 720px) {
-  .sidebar-link:hover {
-    font-weight: 700;
   }
 }
