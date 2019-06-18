@@ -19,10 +19,10 @@
     "sanctuary": "^2.0.0"
   },
   "devDependencies": {
-    "ava": "^1.2.1",
-    "eslint": "^5.13.0",
+    "ava": "^2.1.0",
+    "eslint": "^5.16.0",
     "markdown-it-for-inline": "^0.1.1",
-    "vuepress": "^1.0.0-alpha.37"
+    "vuepress": "^1.0.1"
   },
   "engines": {
     "node": ">= 10.12.0"
