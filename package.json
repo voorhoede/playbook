@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "ava": "^2.1.0",
-    "eslint": "^5.16.0",
+    "eslint": "^6.0.0",
     "markdown-it-for-inline": "^0.1.1",
     "vuepress": "^1.0.1"
   },
