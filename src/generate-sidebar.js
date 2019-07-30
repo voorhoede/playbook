@@ -1,12 +1,13 @@
 'use strict';
 
-const { filter, pipe, map, reduce } = require('sanctuary');
+const { filter, map, pipe, props, reduce, sortBy } = require('sanctuary');
 const path = require('path');
 
 const generateSidebar = pipe([
   filter (({ content, folders }) =>
     folders.length <= 2 && content.metaData.title !== 'readme'
   ),
+  sortBy (props(['content', 'metaData', 'title'])),
   reduce (docs => doc => {
     const containingFolder = doc.folders[doc.folders.length - 1].name;
 

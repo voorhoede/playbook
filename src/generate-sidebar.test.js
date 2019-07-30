@@ -46,12 +46,12 @@ test('generateSidebar', t => {
         children: ['playbook/scrum/one.md','playbook/scrum/two.md'],
       },
       {
-        title: 'Team',
-        children: ['playbook/team/uno'],
-      },
-      {
         title: 'Playbook',
         children: ['playbook/something'],
+      },
+      {
+        title: 'Team',
+        children: ['playbook/team/uno'],
       },
     ]
   );
