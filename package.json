@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "case-it": "^1.0.1",
-    "dotenv-safe": "^6.1.0",
+    "dotenv-safe": "^8.0.0",
     "got": "^9.6.0",
     "promise-all-props": "^1.0.1",
     "sanctuary": "^2.0.0"
