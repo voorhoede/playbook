@@ -1,69 +1,18 @@
 {
+  "private": true,
   "name": "voorhoede-playbook",
-  "description": "Voorhoede playbook based on Dropbox Paper.",
   "scripts": {
     "start": "npm run docs:content && npm run docs:dev",
-    "test": "ava ./src/*.test.js",
-    "test:ci": "npm run test -- --verbose && npm run lint -- --max-warnings 0",
-    "test:watch": "npm run test -- --watch --verbose",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "docs:content": "node ./src/fetch-papers.js",
-    "lint": "eslint --no-ignore ./src/*.js ./docs/.vuepress/config.js"
+    "docs:content": "node -r dotenv-safe/config ./node_modules/vuepress-paper/src/fetch-papers.js"
   },
   "dependencies": {
-    "case-it": "^1.0.1",
     "dotenv-safe": "^6.1.0",
-    "got": "^9.6.0",
-    "promise-all-props": "^1.0.1",
-    "sanctuary": "^2.0.0"
+    "vuepress-paper": "git://github.com/voorhoede/vuepress-paper.git"
   },
   "devDependencies": {
-    "ava": "^2.2.0",
-    "eslint": "^6.1.0",
-    "markdown-it-for-inline": "^0.1.1",
+    "@vuepress/plugin-register-components": "^1.0.0-rc.1",
     "vuepress": "^1.0.3"
-  },
-  "engines": {
-    "node": ">= 10.12.0"
-  },
-  "eslintConfig": {
-    "env": {
-      "es6": true,
-      "node": true
-    },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-      "ecmaVersion": 2018
-    },
-    "rules": {
-      "indent": [
-        "warn",
-        2
-      ],
-      "no-console": [
-        1,
-        {
-          "allow": [
-            "info",
-            "error"
-          ]
-        }
-      ],
-      "no-unexpected-multiline": "off",
-      "semi": "warn"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/voorhoede/dropthisbox.git"
-  },
-  "author": "Selwyn <talk@selwyn.cc>",
-  "license": "MIT",
-  "keywords": [
-    "voorhoede",
-    "playbook",
-    "dropbox",
-    "dropbox paper"
-  ]
+  }
 }
