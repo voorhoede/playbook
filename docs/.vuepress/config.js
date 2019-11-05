@@ -1,86 +1,20 @@
 'use strict';
 
-const markdownItForInline = require('markdown-it-for-inline');
 const path = require('path');
 
 const documentsMetaData = require('../meta-tree.json');
-const generateSidebar = require('../../src/generate-sidebar.js');
-const urlMatchers = require('../../src/url-matchers.js');
 
-const {
-  chain,
-  compose,
-  find,
-  pipe,
-  prop,
-  map,
-  match,
-} = require('sanctuary');
+const vuepressPaperPath = require.resolve('vuepress-paper');
 
-const getDropboxDocumentLocation = pipe([
-  match(/paper\.dropbox\.com\/doc\/.+--\S{26}-(\w{21})/),
-  chain(match => match.groups[0]),
-  chain(urlId => find (doc => doc.id === urlId) (documentsMetaData)),
-  map(compose (path.parse) (prop('location'))),
-]);
+const generateSidebar = require(`${vuepressPaperPath}/../generate-sidebar.js`);
+const { transformMarkdown } = require(`${vuepressPaperPath}/../transform.js`);
 
 module.exports = {
   title: 'Playbook',
   themeConfig: {
     sidebar: generateSidebar(documentsMetaData),
   },
-  extendMarkdown: markdown => {
-    markdown.use(markdownItForInline, 'internal-link', 'link_open', (tokens, index) => {
-      const token = tokens[index];
-
-      pipe([
-        getDropboxDocumentLocation,
-        map(location => {
-          token.attrSet(
-            'href',
-            `/${path.parse(location.dir).name}/${location.name}.html`
-          );
-        }),
-      ])
-      (token.attrGet('href'));
-    });
-
-    markdown.use(markdownItForInline, 'youtube-link', 'text', (tokens, index) => {
-      pipe([
-        urlMatchers.getYoutubeUrlId,
-        map(id => {
-          tokens[index] = {
-            'type': 'html_block',
-            'content': `
-              <youtube-embed
-                id="${id}"
-                type="singleVideo"
-              />
-            `
-          };
-        }),
-      ])
-      (tokens[index].content);
-    });
-
-    markdown.use(markdownItForInline, 'youtube-playlist-link', 'text', (tokens, index) => {
-      pipe([
-        urlMatchers.getYoutubePlaylistUrlId,
-        map(id => {
-          tokens[index] = {
-            'type': 'html_block',
-            'content': `
-              <youtube-embed
-                id="${id}"
-                type="playlist"
-              />
-            `
-          };
-        }),
-      ])
-      (tokens[index].content);
-    });
-  },
+  extendMarkdown: transformMarkdown,
   chainMarkdown (config) {
     config.plugin('add-metadata')
       .use(markdown => {
@@ -106,4 +40,19 @@ module.exports = {
     ['link', { rel: 'icon', href: '/favicon.ico' }],
   ],
   evergreen: true,
+  plugins: [
+    [
+      '@vuepress/plugin-register-components',
+      {
+        components: [
+          {
+            name: 'youtube-embed',
+            path: path.resolve(
+              `${vuepressPaperPath}/../youtube-embed.vue`
+            ),
+          }
+        ]
+      }
+    ],
+  ],
 };
