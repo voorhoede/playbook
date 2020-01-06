@@ -1,3 +1,14 @@
 {
-  "extends": ["config:semverAllMonthly"]
+  "schedule": "before 3am on the first day of the month",
+  "stabilityDays": 7,
+  "packageRules": [
+    {
+      "groupName": "Dependencies",
+      "depTypeList": ["dependencies"]
+    },
+    {
+      "groupName": "Development dependencies",
+      "depTypeList": ["devDependencies"]
+    }
+  ]
 }
