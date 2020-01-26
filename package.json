@@ -16,7 +16,7 @@
     "dotenv-safe": "^8.2.0",
     "got": "^9.6.0",
     "promise-all-props": "^1.0.1",
-    "sanctuary": "^2.0.2"
+    "sanctuary": "^3.0.0"
   },
   "devDependencies": {
     "ava": "^2.4.0",
