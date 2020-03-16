@@ -13,6 +13,6 @@
   },
   "devDependencies": {
     "@vuepress/plugin-register-components": "^1.0.0-rc.1",
-    "vuepress": "^1.0.3"
+    "vuepress": "^1.3.1"
   }
 }
