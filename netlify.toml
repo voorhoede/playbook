@@ -1,9 +1,10 @@
 [build]
-  command = "npm run docs:content && npm run docs:build"
+  command = "yarn docs:content && yarn docs:build"
   publish = "dist"
   [build.environment]
     NODE_VERSION="12"
-    NODE_ENV = "development"
+    NODE_ENV = "production"
+    YARN_FLAGS="--production=false"
   [build.processing]
     skip_processing = true
 
