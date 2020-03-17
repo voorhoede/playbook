@@ -14,7 +14,7 @@ module.exports = {
   themeConfig: {
     sidebar: generateSidebar(documentsMetaData),
   },
-  extendMarkdown: transformMarkdown,
+  extendMarkdown: transformMarkdown(documentsMetaData),
   chainMarkdown (config) {
     config.plugin('add-metadata')
       .use(markdown => {
@@ -42,17 +42,7 @@ module.exports = {
   evergreen: true,
   plugins: [
     [
-      '@vuepress/plugin-register-components',
-      {
-        components: [
-          {
-            name: 'youtube-embed',
-            path: path.resolve(
-              `${vuepressPaperPath}/../youtube-embed.vue`
-            ),
-          }
-        ]
-      }
+      require('vuepress-paper'),
     ],
   ],
 };

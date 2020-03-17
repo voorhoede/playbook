@@ -10,7 +10,7 @@ Company playbook containing internal information about common questions & situat
 ```sh
 git clone git@github.com:voorhoede/playbook.git
 cd playbook
-npm ci
+yarn install --frozen-lockfile
 ```
 
 #### Set environment
@@ -23,13 +23,13 @@ cp .env.example .env
 #### Development
 Fetch content and start local server to preview the website.
 ```sh
-npm start
+yarn start
 ```
 
 #### Production
 ```sh
-npm run docs:content
-npm run docs:build
+yarn docs:content
+yarn docs:build
 ```
 
 [netlify]: https://app.netlify.com/sites/voorhoede-playbook/deploys
