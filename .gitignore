@@ -4,3 +4,4 @@ docs/*
 !docs/readme.md
 .env
 node_modules
+package-lock.json

@@ -23,13 +23,13 @@ cp .env.example .env
 #### Development
 Fetch content and start local server to preview the website.
 ```sh
-yarn start
+yarn dev
 ```
 
 #### Production
+Fetch content and generate static website files.
 ```sh
-yarn docs:content
-yarn docs:build
+env NODE_ENV=production yarn build
 ```
 
 [netlify]: https://app.netlify.com/sites/voorhoede-playbook/deploys
