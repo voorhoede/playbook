@@ -89,6 +89,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-bottom: spacingDouble;
     padding-bottom: spacingHalf;
     border-bottom: 1px solid $borderColor;
     font-size: 1rem;

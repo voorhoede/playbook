@@ -8,10 +8,188 @@
 @import page-navigation
 
 body {
-  font-family: 'apercu', Arial, sans-serif !important;
   margin: 0;
+  font-family: 'Apercu', Arial, sans-serif !important;
+  font-size: 1rem;
+  line-height: 1.3;
+  quotes: '“' '”' '‘' '’';
 }
 
-h1, h2 {
+.theme-default-content:not(.custom) > h1,
+.theme-default-content:not(.custom) > h2
+p, ul, ol, table {
+  margin: 0;
+  padding: 0;
+}
+
+.theme-default-content:not(.custom) > h1,
+.theme-default-content:not(.custom) > h2 {
+  border: none;
+}
+
+.theme-default-content:not(.custom) > h1 {
+  margin-bottom: .6em;
+  font-size: 1.8rem
+  line-height: 1.1;
   color: blue;
+}
+
+.theme-default-content:not(.custom) > h2 {
+  margin-bottom: .3em;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  color: blue;
+}
+
+.theme-default-content:not(.custom) p + h2,
+.theme-default-content:not(.custom) ul + h2,
+.theme-default-content:not(.custom) ol + h2,
+.theme-default-content:not(.custom) table + h2 {
+  margin-top: 1.5em;
+}
+
+hr {
+  margin: 0 0 1.4em 0;
+}
+
+.page p,
+.page ul,
+.page ol {
+  margin-bottom: 1.4em;
+  line-height: 1.4em;
+  font-variant-numeric: oldstyle-nums;
+}
+
+.page p:last-child,
+.page ul:last-child,
+.page ol:last-child {
+  margin-bottom: 0;
+}
+
+.page ul,
+.page ol {
+  padding: 0;
+}
+
+.page li > ul,
+.page li > ol {
+  margin-top: .66em;
+}
+
+.page li {
+  list-style: none;
+  margin-bottom: .66em;
+}
+
+.page ul li,
+.page ol li {
+  position relative;
+  padding-left: 2.643em;
+}
+
+.page ul > li::before {
+  content: "";
+  position: absolute;
+  margin-left: -2.57em;
+  top: .55em;
+  width: 5px;
+  height 5px;
+  background: $textColor;
+  border-radius: 50%;
+}
+
+.page ol {
+  counter-reset: listnumber;
+}
+
+.page ol > li::before {
+  counter-increment: listnumber;
+  content: counter(listnumber) ".";
+  position: absolute;
+  margin-left: -2.643em;
+}
+
+table {
+  margin-bottom: 1.4em;
+}
+
+thead {
+  text-align: left;
+}
+
+th,
+td {
+  line-height: 1.4em;
+  font-variant-numeric: oldstyle-nums;
+}
+
+
+th {
+  vertical-align: bottom;
+}
+
+td {
+  vertical-align: top;
+}
+
+@media (min-width: 720px) {
+  body {
+    font-size: 1.125rem;
+  }
+
+  .theme-default-content:not(.custom) > h1 {
+    margin-bottom: .9em;
+    font-size: 1.8rem
+    line-height: 1.2;
+  }
+
+  .theme-default-content:not(.custom) > h2 {
+    margin-bottom: .45em;
+    font-size: 1.3rem;
+    line-height: 1.2;
+  }
+
+  .page p, .page ul, .page ol, th, td {
+    margin-bottom: 1.4866em;
+    line-height: 1.4866;
+  }
+
+  table {
+    margin-bottom: 2.2em;
+  }
+
+  hr {
+    margin-bottom: 1.7em;
+  }
+}
+
+@media (min-width: 960px) {
+  body {
+    font-size: 1.3rem;
+  }
+
+  .theme-default-content:not(.custom) > h1 {
+    margin-bottom: 1.1em;
+    font-size: 2rem
+    line-height: 1.1;
+  }
+
+  .theme-default-content:not(.custom) > h2 {
+    margin-bottom: .5em;
+    font-size: 1.4rem;
+    line-height: 1.2;
+  }
+
+  .page p, .page ul, .page ol, th, td {
+    margin-bottom: 1.6em;
+    line-height: 1.6;
+  }
+
+  table {
+    margin-bottom: 2.2em;
+  }
+
+  hr {
+    margin-bottom: 1.9em;
+  }
 }
