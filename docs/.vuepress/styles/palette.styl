@@ -84,18 +84,27 @@ hr {
 .page ul li,
 .page ol li {
   position relative;
-  padding-left: 2.643em;
+  padding-left: 1.3265em;
 }
 
 .page ul > li::before {
   content: "";
   position: absolute;
-  margin-left: -2.57em;
+  margin-left: -1.285em;
   top: .55em;
   width: 5px;
   height 5px;
   background: $textColor;
   border-radius: 50%;
+}
+
+.page ul ul > li::before {
+  background: none;
+  border: 1px solid $textColor;
+}
+
+.page ul p + ul {
+  margin-top: -.66em;
 }
 
 .page ol {
@@ -106,11 +115,17 @@ hr {
   counter-increment: listnumber;
   content: counter(listnumber) ".";
   position: absolute;
-  margin-left: -2.643em;
+  margin-left: -1.285em;
+  font-size: 1em;
 }
 
-table {
+table,
+img {
   margin-bottom: 1.4em;
+}
+
+p img:last-child {
+  margin-bottom: 0;
 }
 
 thead {
