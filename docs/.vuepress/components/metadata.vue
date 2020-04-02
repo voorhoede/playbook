@@ -89,6 +89,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-bottom: spacingHalf;
+    border-bottom: 1px solid $borderColor;
+    font-size: 1rem;
   }
 
   @media (min-width: 420px) {

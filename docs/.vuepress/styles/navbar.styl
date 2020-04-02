@@ -3,8 +3,8 @@
 }
 
 .theme-container .navbar {
+  padding-left: 4rem;
   background-color: bgPastel;
-  border-color: border-color;
 }
 
 .navbar .site-name {
@@ -14,9 +14,11 @@
 
 .navbar .links {
   background-color: transparent;
+  max-width: $contentWidth;
 }
 
 .navbar .sidebar-button {
+  left: 1.5rem;
   background-color: blue;
 }
 
@@ -42,8 +44,27 @@
   background-image: url('/icon_menu-exit--white.svg');
 }
 
+.page .last-updated {
+  margin-bottom: spacingQuarter;
+}
+
+@media (min-width: 420px) {
+  .navbar .sidebar-button {
+    left: 2rem;
+  }
+
+  .theme-container .navbar {
+    padding-left: 4.5rem;
+  }
+
+  .page .last-updated {
+    margin-bottom: 0;
+  }
+}
+
 @media (min-width: 720px) {
   .theme-container:not(.no-sidebar) .navbar {
+    padding-left: 0;
     background-color: white;
     border: none;
   }
@@ -98,24 +119,32 @@
   }
 
   .theme-container:not(.no-sidebar) .links {
+    left: 20rem;
     display: flex;
     justify-content: flex-end;
     padding-bottom: .7rem;
     padding-left: 0;
-    width: maxWidthMedium;
-    border-bottom: 1px solid border-color;
+    max-width: maxWidthMedium;
     background-color: transparent;
   }
 }
 
 @media (min-width: 960px) {
   .theme-container:not(.no-sidebar) .links {
-    width: maxWidthLarge;
+    left: 24rem;
+    padding-right: spacingDefault;
+    max-width: maxWidthLarge;
   }
 
   .home-link {
     width: 20rem;
     height: 100%;
     background-color: bgPastel;
+  }
+}
+
+@media (min-width: 1140px) {
+  .theme-container:not(.no-sidebar) .links {
+    width: maxWidthLarge;
   }
 }
