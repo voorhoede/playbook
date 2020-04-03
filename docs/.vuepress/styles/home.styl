@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+.home ~ .navbar {
+  border: 10px solid red;
+}
+
 .home .hero {
   display: grid;
   grid-template-rows: repeat(8, 12.5%);
@@ -51,7 +55,7 @@
   padding: 0;
   background-color: transparent;
   border: none;
-  color: blue;
+  color: $accentColor;
   text-transform: uppercase;
   font-weight: 700;
   transition: transform .2s ease-in-out;
@@ -93,7 +97,7 @@
   grid-row-end: 2;
   margin-top: spacingMedium;
   font-size: 45px;
-  color: blue;
+  color: $accentColor;
 }
 
 .home .hero .description  {
@@ -101,13 +105,13 @@
   grid-row-end: 4;
   align-self: center;
   margin: spacingDefault 0;
-  color: blue;
+  color: $accentColor;
 }
 
 .theme-container.no-sidebar {
   height 100vh;
   box-sizing: border-box;
-  background-color: bgPastel;
+  background-color: brandYellow;
 }
 
 @media (max-width: 419px) {
@@ -212,7 +216,7 @@
 
 @media (min-width: 960px) {
   .theme-container.no-sidebar .search-box input {
-    border-color: blue;
+    border-color: $accentColor;
   }
 }
 

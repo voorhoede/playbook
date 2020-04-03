@@ -1,15 +1,15 @@
 .theme-container.sidebar-open .navbar {
-  background-color: bgPastel;
+  background-color: brandYellow;
 }
 
 .theme-container .navbar {
   padding-left: 4rem;
-  background-color: bgPastel;
+  background-color: brandYellow;
+  border-bottom: 1px solid $accentColor;
 }
 
 .navbar .site-name {
-  margin-left: spacingHalf;
-  color: blue;
+  color: $accentColor;
 }
 
 .navbar .links {
@@ -18,8 +18,9 @@
 }
 
 .navbar .sidebar-button {
-  left: 1.5rem;
-  background-color: blue;
+  top: .5rem;
+  left: spacingDefault;
+  background-color: $accentColor;
 }
 
 .sidebar-button svg,
@@ -49,10 +50,6 @@
 }
 
 @media (min-width: 420px) {
-  .navbar .sidebar-button {
-    left: 2rem;
-  }
-
   .theme-container .navbar {
     padding-left: 4.5rem;
   }
@@ -70,13 +67,18 @@
   }
 
   .theme-container.no-sidebar .navbar {
+    padding-left: 0;
     background-color: transparent;
   }
 
   .home-link {
     width: 16.4rem;
     height: 100%;
-    background-color: bgPastel;
+    background-color: brandYellow;
+  }
+
+  .theme-container.no-sidebar .home-link {
+    background-color: transparent;
   }
 
   .navbar {
@@ -139,12 +141,13 @@
   .home-link {
     width: 20rem;
     height: 100%;
-    background-color: bgPastel;
+    background-color: brandYellow;
   }
 }
 
 @media (min-width: 1140px) {
   .theme-container:not(.no-sidebar) .links {
+    padding-right: 1.5rem;
     width: maxWidthLarge;
   }
 }

@@ -106,7 +106,7 @@
     padding: .375rem .5rem;
     border-radius: 4px;
     background-color: bgPastel;
-    color: blue;
+    color: $accentColor;
     line-height: 1.2;
   }
 
