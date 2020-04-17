@@ -1,20 +1,30 @@
+.search-box {
+  margin-right: 0
+}
+
 .search-box input {
-  color: blue;
-  background-color: transparent;
+  color: $accentColor;
+  background-color: brandYellow;
   background-image: url('/search--blue.svg');
 }
 
 .search-box input:focus {
-  border-color: blue;
+  border-color: $accentColor;
 }
 
 .search-box .suggestions {
   margin-top: 1.2rem;
-  border-color: blue;
+  border-color: $accentColor;
+}
+
+@media (min-width: 720px) {
+  .search-box input {
+    background-color: transparent;
+  }
 }
 
 @media (min-width: 960px) {
   .search-box input {
-    border-color: blue;
+    border-color: $accentColor;
   }
 }

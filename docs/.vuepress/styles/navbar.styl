@@ -1,23 +1,26 @@
 .theme-container.sidebar-open .navbar {
-  background-color: bgPastel;
+  background-color: brandYellow;
 }
 
 .theme-container .navbar {
-  background-color: bgPastel;
-  border-color: border-color;
+  padding-left: 4rem;
+  background-color: brandYellow;
+  border-bottom: 1px solid $accentColor;
 }
 
 .navbar .site-name {
-  margin-left: spacingHalf;
-  color: blue;
+  color: $accentColor;
 }
 
 .navbar .links {
   background-color: transparent;
+  max-width: $contentWidth;
 }
 
 .navbar .sidebar-button {
-  background-color: blue;
+  top: .5rem;
+  left: spacingDefault;
+  background-color: $accentColor;
 }
 
 .sidebar-button svg,
@@ -42,20 +45,40 @@
   background-image: url('/icon_menu-exit--white.svg');
 }
 
+.page .last-updated {
+  margin-bottom: spacingQuarter;
+}
+
+@media (min-width: 420px) {
+  .theme-container .navbar {
+    padding-left: 4.5rem;
+  }
+
+  .page .last-updated {
+    margin-bottom: 0;
+  }
+}
+
 @media (min-width: 720px) {
   .theme-container:not(.no-sidebar) .navbar {
+    padding-left: 0;
     background-color: white;
     border: none;
   }
 
   .theme-container.no-sidebar .navbar {
+    padding-left: 0;
     background-color: transparent;
   }
 
   .home-link {
     width: 16.4rem;
     height: 100%;
-    background-color: bgPastel;
+    background-color: brandYellow;
+  }
+
+  .theme-container.no-sidebar .home-link {
+    background-color: transparent;
   }
 
   .navbar {
@@ -98,24 +121,33 @@
   }
 
   .theme-container:not(.no-sidebar) .links {
+    left: 20rem;
     display: flex;
     justify-content: flex-end;
     padding-bottom: .7rem;
     padding-left: 0;
-    width: maxWidthMedium;
-    border-bottom: 1px solid border-color;
+    max-width: maxWidthMedium;
     background-color: transparent;
   }
 }
 
 @media (min-width: 960px) {
   .theme-container:not(.no-sidebar) .links {
-    width: maxWidthLarge;
+    left: 24rem;
+    padding-right: spacingDefault;
+    max-width: maxWidthLarge;
   }
 
   .home-link {
     width: 20rem;
     height: 100%;
-    background-color: bgPastel;
+    background-color: brandYellow;
+  }
+}
+
+@media (min-width: 1140px) {
+  .theme-container:not(.no-sidebar) .links {
+    padding-right: 1.5rem;
+    width: maxWidthLarge;
   }
 }

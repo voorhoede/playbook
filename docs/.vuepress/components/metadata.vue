@@ -89,6 +89,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    margin-bottom: spacingDouble;
+    padding-bottom: spacingHalf;
+    border-bottom: 1px solid $borderColor;
+    font-size: 1rem;
   }
 
   @media (min-width: 420px) {
@@ -102,7 +106,7 @@
     padding: .375rem .5rem;
     border-radius: 4px;
     background-color: bgPastel;
-    color: blue;
+    color: $accentColor;
     line-height: 1.2;
   }
 

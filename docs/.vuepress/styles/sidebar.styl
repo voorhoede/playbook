@@ -1,12 +1,57 @@
 .theme-container .sidebar {
   box-sizing: border-box;
-  background-color: bgPastel;
-  border: 2px solid bgPastel;
+  background-color: brandYellow;
+  border: none;
+}
+
+.theme-container .sidebar > .sidebar-links {
+  padding: 1.9rem 2rem;
+}
+
+.sidebar ul.sidebar-group-items {
+  margin: -.5rem 0 1.3rem 0;
+}
+
+.sidebar-group li a.sidebar-link {
+  margin: 0 0 spacingHalf spacingDefault;
+  padding: 0;
+}
+
+.sidebar-group li:last-child a.sidebar-link {
+  margin-bottom: 0;
+}
+
+.sidebar-group li a.sidebar-link.active {
+  margin-left: 0;
+  padding-left: spacingDefault;
+  color: $accentColor;
 }
 
 .sidebar-heading {
   margin-bottom: spacingDefault;
-  color: blue;
+  padding: 0;
+  border: 0;
+  font-size: 1.3rem;
+  color: $accentColor;
+}
+
+.sidebar-heading:hover,
+.sidebar-heading.open {
+  color: $accentColor;
+}
+
+@media (min-width: 720px) {
+  .sidebar-heading {
+    font-size: 1.1rem;
+  }
+}
+
+.sidebar-heading .arrow.down {
+  border-top: 6px solid $accentColor;
+}
+
+.sidebar-heading .arrow.right {
+  border-left: 6px solid $accentColor;
 }
 
 .sidebar-heading span {
@@ -20,16 +65,12 @@
   bottom: -7px;
   width: 0%;
   height 100%;
-  border-bottom: 2px solid brandYellow;
+  border-bottom: 2px solid $accentColor;
 }
 
 .sidebar-heading:hover span:after {
   transition: all .4s ease;
   width: 100%;
-}
-
-.sidebar .sidebar-links {
-  color: blue;
 }
 
 a.sidebar-link {
@@ -40,7 +81,16 @@ a.sidebar-link {
   text-decoration: underline;
 }
 
-.sidebar-sub-headers a.sidebar-link.active {
+.sidebar .sidebar-sub-headers {
+  margin-top: spacingHalf;
+  margin-bottom: spacingDefault;
+}
+
+.sidebar .sidebar-sub-headers li a.sidebar-link {
+  margin: 0 0 0 calc(.5rem + 4px);
+}
+
+.sidebar .sidebar-sub-headers li a.sidebar-link.active {
   font-weight: 700;
 }
 
@@ -50,11 +100,15 @@ a.sidebar-link {
     width: 100%;
     height: 100%;
     font-size: 1.2rem;
-    background-color: bgPastel;
+    background-color: brandYellow;
     transform: translateY(-100%);
   }
 
   .theme-container.sidebar-open .sidebar {
     transform: translateY(0);
+  }
+
+  .theme-container .sidebar > .sidebar-links {
+    padding: 1rem spacingDefault;
   }
 }
