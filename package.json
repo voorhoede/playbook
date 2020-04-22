@@ -9,6 +9,6 @@
   "devDependencies": {
     "dotenv-safe": "^8.2.0",
     "vuepress": "^1.4.1",
-    "vuepress-paper": "^1.0.0"
+    "vuepress-paper": "voorhoede/vuepress-paper#prepare-version-bump"
   }
 }
