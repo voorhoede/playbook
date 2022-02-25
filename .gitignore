@@ -5,3 +5,7 @@ docs/*
 .env
 node_modules
 package-lock.json
+credentials.json
+playbookFolders.json
+.yarn
+.yarnrc.yml
