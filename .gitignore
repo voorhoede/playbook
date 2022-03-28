@@ -9,3 +9,5 @@ credentials.json
 playbookFolders.json
 .yarn
 .yarnrc.yml
+**/**/.cache
+**/**/.temp

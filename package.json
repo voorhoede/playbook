@@ -1,20 +1,26 @@
 {
   "private": true,
   "name": "voorhoede-playbook",
+  "type": "commonjs",
   "scripts": {
     "dev": "vuepress dev docs",
     "build": "vuepress build docs"
   },
   "devDependencies": {
     "dotenv-safe": "^8.2.0",
+    "markdown-it-for-inline": "^0.1.1",
     "nodemon": "^2.0.15",
-    "vuepress": "^1.8.2",
+    "rehype-parse": "^8.0.4",
+    "rehype-remark": "^9.1.2",
+    "remark": "^14.0.2",
+    "remark-stringify": "^10.0.2",
+    "sanctuary": "^3.1.0",
+    "unified": "^10.1.2",
+    "vuepress": "^1.9.7",
     "vuepress-paper": "^1.0.2"
   },
   "dependencies": {
     "async": "^3.2.3",
-    "googleapis": "^39.2.0",
-    "jsdom": "^19.0.0",
-    "showdown": "^2.0.0"
+    "googleapis": "^39.2.0"
   }
 }

@@ -1,21 +1,29 @@
-const fs = require('fs');
-const {google} = require('googleapis');
-const {config} = require('dotenv-safe');
+import fs from 'fs';
+import {google} from 'googleapis'
+import {config} from 'dotenv-safe';
+import path from 'path'
+import {unified} from 'unified'
+import rehypeParse from 'rehype-parse'
+import rehypeRemark from 'rehype-remark'
+import remarkStringify from 'remark-stringify'
+
 config();
 const {GOOGLE_PLAYBOOK_FOLDER_NAME} = process.env;
-const showdown  = require('showdown');
-const converter = new showdown.Converter();
-const jsdom = require("jsdom");
+const processor = unified().use(rehypeParse).use(rehypeRemark).use(remarkStringify)
 
-// Load client secrets from a local file.
-fs.readFile('credentials.json', (err, content) => {
+/**
+ * Retrieves doc files from google drive and saves them to file system as markdown
+ */
+
+fs.readFile(path.resolve(path.resolve(), './credentials.json'), (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
   // Authorize a client with credentials, then call the Google Drive API.
-  if (fs.existsSync('documents')) {
-    fs.rmSync('documents', { recursive: true, force: true });
-  }
-  authorize(JSON.parse(content), findPlaybookFolders);
+  // if (fs.existsSync('docs')) {
+  //   fs.rmSync('docs', {recursive: true, force: true});
+  // }
+  authorize(JSON.parse(content), retrieveContentFromDrive);
 });
+
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -44,52 +52,30 @@ function authorize(credentials, callback) {
 }
 
 /**
- * Read the playbook folder json or fetch it from drive
+ * Read the playbook folder json or fetch it from drive and write all files to the docs folder
  * @param {google.auth.JWT} auth An authorized OAuth2 client.
  */
-function findPlaybookFolders(auth) {
+function retrieveContentFromDrive(auth) {
   const drive = google.drive('v3');
-  fs.readFile('playbookFolders.json', async (err, pathsBuffer) => {
+  fs.readFile(path.resolve(path.resolve(), './playbookFolders.json'), async (err, pathsBuffer) => {
     if (err) {
       return getPlaybookFolderFromDrive(drive, auth);
     } else {
       const paths = JSON.parse(pathsBuffer);
       const files = await listFilesAndFolders(drive, auth, paths);
       const contents = await getFileContents(drive, auth, files);
-      ensureDirectoryExistence('./documents')
-      Promise.all(contents.map(content => {
-        const html = cleanHtml(content.html)
-        const dom = new jsdom.JSDOM()
-        ensureDirectoryExistence(`./documents${content.folderName}`)
+      console.log(files);
+      ensureDirectoryExistence('./docs')
+      Promise.all(contents.map(async content => {
+        const data = await createWritableMarkdownString(content)
+        ensureDirectoryExistence(`./docs${content.folderName}`)
         return fs.promises.writeFile(
-          `./documents${content.folderName}/${content.name.replaceAll(' ', '-').replaceAll('.', '').toLowerCase()}.md`,
-          converter.makeMarkdown(html, dom.window.document))
+          `./docs${content.folderName}/${content.name.replaceAll(' ', '-').replaceAll('.', '').toLowerCase()}.md`,
+          data)
       }))
+      return paths
     }
   })
-}
-
-/**
- *
- * @param htmlString
- * @returns {*|string}
- */
-function cleanHtml(htmlString) {
-  const html = new jsdom.JSDOM(htmlString)
-  const styleTag = html.window.document.querySelector('style')
-  const spans = html.window.document.getElementsByTagName('span');
-
-  while(spans.length) {
-    const parent = spans[ 0 ].parentNode;
-    while( spans[ 0 ].firstChild ) {
-      parent.insertBefore(  spans[ 0 ].firstChild, spans[ 0 ] );
-    }
-    parent.removeChild( spans[ 0 ] );
-  }
-  if(styleTag) {
-    styleTag.remove()
-  }
-  return html.serialize()
 }
 
 /**
@@ -113,7 +99,6 @@ async function getFileContents(drive, auth, files) {
       : [])]
   }).flat()
   const documents = flattenFilesObject(files).filter(file => file.mimeType === 'application/vnd.google-apps.document')
-  console.log(documents);
   return  Promise.all(documents.map(async (document) => {
     const res = await drive.files.export({
       fileId: document.id,
@@ -134,11 +119,11 @@ async function getFileContents(drive, auth, files) {
 async function listFilesAndFolders(drive, auth, paths) {
   const files = await getFolderContents(drive, auth, paths.root.id);
   const allFiles = await getRecursiveFolderContents(drive, auth, files);
-  return await fs.promises.writeFile('playbookFolders.json', JSON.stringify({root: paths.root, files: allFiles})).then (err => {
+  fs.promises.writeFile(path.resolve(path.resolve(), './playbookFolders.json'), JSON.stringify({root: paths.root, files: allFiles})).then (err => {
     if (err) return console.error(err);
     console.log('written files to playbookFolders.json');
-    return allFiles
   })
+  return allFiles
 }
 
 /**
@@ -151,6 +136,7 @@ async function listFilesAndFolders(drive, auth, paths) {
 function getFolderContents(drive, auth, folderId) {
   return drive.files.list({
     q: `'${folderId}' in parents`, spaces: 'drive', pageSize: 10,
+    fields: '*',
     auth
   }).then((res, err) => {
     if (err) return console.log('The API returned an error: ' + err);
@@ -197,10 +183,10 @@ function getPlaybookFolderFromDrive(drive, auth) {
       console.error(err);
     } else {
       const root = res.data.files.find(file => file.name === GOOGLE_PLAYBOOK_FOLDER_NAME)
-      fs.writeFile('playbookFolders.json', JSON.stringify({root}), (err) => {
+      fs.writeFile(path.resolve(path.resolve(), './playbookFolders.json'), JSON.stringify({root}), (err) => {
         if (err) return console.error(err);
         console.log('root stored to playbookFolders.json');
-        findPlaybookFolders(auth)
+        retrieveContentFromDrive(auth)
       });
     }
   })
@@ -216,4 +202,26 @@ function ensureDirectoryExistence(dirname) {
     return true;
   }
   fs.mkdirSync(dirname);
+}
+
+
+async function createWritableMarkdownString(content) {
+  const frontmatter = {
+    "doc_id": content.id,
+    owner: content.owners[0].emailAddress,
+    title: content.name,
+    "created_date": content.createdTime,
+    status: {
+      ".tag": "active",
+    },
+    revision: content.version,
+    "last_updated_date": content.modifiedTime,
+    "last_editor": content.lastModifyingUser.emailAddress
+  }
+  const markdown = await processor.process(content.html)
+  return `---
+${JSON.stringify(frontmatter, null, 2)}
+---
+${String(markdown)}
+`
 }
