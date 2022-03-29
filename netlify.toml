@@ -18,3 +18,9 @@
     Referrer-Policy = "no-referrer-when-downgrade"
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "SAMEORIGIN"
+
+[[redirects]]
+  from = "/content/*"
+  to = "https://lh5.googleusercontent.com/:splat"
+  status = 200
+  force = true
