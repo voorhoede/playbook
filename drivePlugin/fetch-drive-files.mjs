@@ -66,7 +66,7 @@ function retrieveContentFromDrive(auth) {
         const data = await createWritableMarkdownString(content)
         ensureDirectoryExistence(`./docs${folderize(content.folderName)}`)
         return fs.promises.writeFile(
-          `./docs${folderize(content.folderName)}/${folderize(content.name).replaceAll('/', '-')}.md`,
+          `./docs${folderize(content.folderName)}/${folderize(content.name).replace(/\//g, '-')}.md`,
           data)
       }))
       return paths
@@ -90,8 +90,8 @@ async function getFileContents(drive, auth, files) {
     }, ...(d.children
       ? flattenFilesObject(
         d.children, `${folderName
-          ? folderName.replaceAll(' ', '-')
-          : ''}/${d.name.replaceAll(' ', '-')}`)
+          ? folderize(folderName)
+          : ''}/${folderize(d.name)}`)
       : [])]
   }).flat()
   const documents = flattenFilesObject(files).filter(file => file.mimeType === 'application/vnd.google-apps.document')
@@ -218,6 +218,6 @@ async function createWritableMarkdownString(content) {
   return `---
 ${JSON.stringify(frontmatter, null, 2)}
 ---
-${String(markdown).replaceAll('https://lh5.googleusercontent.com/', '/content/')}
+${String(markdown).replace(/https:\/\/lh.\.googleusercontent\.com\//g, '/content/')}
 `
 }

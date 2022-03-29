@@ -1,1 +1,1 @@
-module.exports = d => d.replaceAll(' ', '-').replaceAll('.', '').toLowerCase()
+module.exports = d => d.replace(/ /g, '-').replace(/\./g, '').toLowerCase()
