@@ -6,23 +6,20 @@ import {unified} from 'unified'
 import rehypeParse from 'rehype-parse'
 import rehypeRemark from 'rehype-remark'
 import remarkStringify from 'remark-stringify'
+import remarkGfm from 'remark-gfm'
+import folderize from './folderize.cjs'
+import getCredentials from '../scripts/credentials.cjs'
 
 config();
 const {GOOGLE_PLAYBOOK_FOLDER_NAME} = process.env;
-const processor = unified().use(rehypeParse).use(rehypeRemark).use(remarkStringify)
+const processor = unified().use(rehypeParse).use(rehypeRemark).use(remarkGfm) .use(remarkStringify)
 
 /**
  * Retrieves doc files from google drive and saves them to file system as markdown
  */
-
-fs.readFile(path.resolve(path.resolve(), './credentials.json'), (err, content) => {
-  if (err) return console.log('Error loading client secret file:', err);
-  // Authorize a client with credentials, then call the Google Drive API.
-  // if (fs.existsSync('docs')) {
-  //   fs.rmSync('docs', {recursive: true, force: true});
-  // }
-  authorize(JSON.parse(content), retrieveContentFromDrive);
-});
+getCredentials().then(credentials => {
+  authorize(credentials, retrieveContentFromDrive);
+})
 
 
 /**
@@ -64,13 +61,12 @@ function retrieveContentFromDrive(auth) {
       const paths = JSON.parse(pathsBuffer);
       const files = await listFilesAndFolders(drive, auth, paths);
       const contents = await getFileContents(drive, auth, files);
-      console.log(files);
       ensureDirectoryExistence('./docs')
-      Promise.all(contents.map(async content => {
+      await Promise.all(contents.map(async content => {
         const data = await createWritableMarkdownString(content)
-        ensureDirectoryExistence(`./docs${content.folderName}`)
+        ensureDirectoryExistence(`./docs${folderize(content.folderName)}`)
         return fs.promises.writeFile(
-          `./docs${content.folderName}/${content.name.replaceAll(' ', '-').replaceAll('.', '').toLowerCase()}.md`,
+          `./docs${folderize(content.folderName)}/${folderize(content.name).replaceAll('/', '-')}.md`,
           data)
       }))
       return paths
@@ -222,6 +218,6 @@ async function createWritableMarkdownString(content) {
   return `---
 ${JSON.stringify(frontmatter, null, 2)}
 ---
-${String(markdown)}
+${String(markdown).replaceAll('https://lh5.googleusercontent.com/', '/content/')}
 `
 }

@@ -1,15 +1,13 @@
-const folderize = name => name.replaceAll(' ', '-')
+const folderize = require('./folderize.cjs')
 
 function generateSidebar(metaData) {
-  const sidebar = metaData.files.map(file => mapFileOffspring(file))
-  console.log(JSON.stringify(sidebar, null, 4));
-  return sidebar
+  return metaData.files.map(file => mapFileOffspring(file)).sort(sortPages)
 }
 
 function mapFileOffspring(file, folderName = '') {
   const title = file.name
-  const children = file.children && file.children.map(child => mapFileOffspring(child, `${folderName}/${folderize(title)}`))
-  const path = !children && `${folderName}/${folderize(title)}`
+  const children = file.children && file.children.map(child => mapFileOffspring(child, `${folderName}/${folderize(title)}`)).sort(sortPages)
+  const path = !children && `${folderName}/${folderize(title).replaceAll('/', '-')}`
   return {
     title,
     ...(children ? {children} : {}),
@@ -17,4 +15,15 @@ function mapFileOffspring(file, folderName = '') {
   }
 }
 
-module.exports = generateSidebar;
+function sortPages(a, b) {
+  const titleA = a.title.toUpperCase()
+  const titleB = b.title.toUpperCase()
+  if (titleA < titleB) {
+    return -1
+  }
+  if (titleA > titleB) {
+    return 1
+  }
+}
+
+module.exports = generateSidebar
