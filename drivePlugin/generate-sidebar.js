@@ -7,7 +7,7 @@ function generateSidebar(metaData) {
 function mapFileOffspring(file, folderName = '') {
   const title = file.name
   const children = file.children && file.children.map(child => mapFileOffspring(child, `${folderName}/${folderize(title)}`)).sort(sortPages)
-  const path = !children && `${folderName}/${folderize(title).replaceAll('/', '-')}`
+  const path = !children && `${folderName}/${folderize(title).replace(/\//g, '-')}`
   return {
     title,
     ...(children ? {children} : {}),
