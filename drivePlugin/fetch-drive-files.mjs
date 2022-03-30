@@ -131,7 +131,7 @@ async function listFilesAndFolders(drive, auth, paths) {
  */
 function getFolderContents(drive, auth, folderId) {
   return drive.files.list({
-    q: `'${folderId}' in parents`, spaces: 'drive', pageSize: 10,
+    q: `'${folderId}' in parents`, spaces: 'drive', pageSize: 100,
     fields: '*',
     auth
   }).then((res, err) => {
