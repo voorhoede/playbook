@@ -1,5 +1,5 @@
 const dotenv = require('dotenv-safe');
-const { generateSidebar, drivePlugin, getMetaData } = require( '../../drivePlugin/main');
+const { generateSidebar, drivePlugin, getMetaData } = require( '../../scripts/google-drive/main');
 
 dotenv.config();
 
@@ -36,7 +36,7 @@ module.exports = () => getMetaData()
     evergreen: true,
     plugins: [
       [
-        // drivePlugin,
+        drivePlugin,
         { documentsMetaData }
       ]
     ],

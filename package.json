@@ -1,10 +1,9 @@
 {
   "private": true,
   "name": "voorhoede-playbook",
-  "type": "commonjs",
   "packageManager": "yarn@3.2.0",
   "scripts": {
-    "build-docs": "node drivePlugin/fetch-drive-files.mjs",
+    "build-docs": "node scripts/google-drive/fetch-drive-files.mjs",
     "dev": "yarn build-docs && vuepress dev docs",
     "start": "netlify dev",
     "build": "yarn build-docs && vuepress build docs"
@@ -24,6 +23,6 @@
   },
   "dependencies": {
     "async": "^3.2.3",
-    "googleapis": "^39.2.0"
+    "googleapis": "^100.0.0"
   }
 }

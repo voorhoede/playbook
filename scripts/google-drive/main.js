@@ -9,7 +9,7 @@ module.exports = {
   },
   generateSidebar,
   drivePlugin: ({ documentsMetaData }) => ({
-    name: 'vuepress-paper',
+    name: 'vuepress-drive',
     extendMarkdown: transformMarkdown(documentsMetaData),
     plugins: [
       [

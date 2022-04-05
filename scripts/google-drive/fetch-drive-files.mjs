@@ -8,7 +8,7 @@ import rehypeRemark from 'rehype-remark'
 import remarkStringify from 'remark-stringify'
 import remarkGfm from 'remark-gfm'
 import folderize from './folderize.cjs'
-import getCredentials from '../scripts/credentials.cjs'
+import getCredentials from './credentials.cjs'
 
 config();
 const {GOOGLE_PLAYBOOK_FOLDER_NAME} = process.env;
