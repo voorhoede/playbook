@@ -4,6 +4,7 @@ function generateSidebar(metaData) {
   return metaData.files.map(file => mapFileOffspring(file)).sort(sortPages)
 }
 
+const collator = new Intl.Collator(undefined, {numeric: true, sensitivity: 'base'});
 function mapFileOffspring(file, folderName = '') {
   const title = file.name
   const children = file.children && file.children.map(child => mapFileOffspring(child, `${folderName}/${folderize(title)}`)).sort(sortPages)
@@ -18,12 +19,7 @@ function mapFileOffspring(file, folderName = '') {
 function sortPages(a, b) {
   const titleA = a.title.toUpperCase()
   const titleB = b.title.toUpperCase()
-  if (titleA < titleB) {
-    return -1
-  }
-  if (titleA > titleB) {
-    return 1
-  }
+  return collator.compare(titleA, titleB)
 }
 
 module.exports = generateSidebar
