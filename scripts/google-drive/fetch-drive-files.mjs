@@ -9,10 +9,35 @@ import remarkStringify from 'remark-stringify'
 import remarkGfm from 'remark-gfm'
 import folderize from './folderize.cjs'
 import getCredentials from './credentials.cjs'
+import {visit} from 'unist-util-visit'
+import {h} from 'hastscript'
+import qs from 'qs'
 
 config();
 const {GOOGLE_PLAYBOOK_FOLDER_NAME} = process.env;
-const processor = unified().use(rehypeParse).use(rehypeRemark).use(remarkGfm) .use(remarkStringify)
+const processor = unified()
+  .use(rehypeParse)
+  .use(rehypeTransformUrls)
+  .use(rehypeRemark)
+  .use(remarkGfm)
+  .use(remarkStringify)
+
+/** @type {import('unified').Plugin<[], import('hast').Root>} */
+function rehypeTransformUrls() {
+  return (tree) => {
+    visit(tree, 'element', (node) => {
+      if (node.tagName === 'a' && node.properties?.href?.startsWith('https://www.google.com/url')) {
+        const params = qs.parse(new URL(node.properties.href).search.substring(1))
+        node.properties.href = params.q
+      } else if (node.tagName === 'span' && node.properties?.style?.includes('font-weight:700')){
+        node.tagName = 'strong'
+      } else if (node.tagName === 'table') {
+        const theadTr = node.children.find(child => child.tagName === 'tbody').children.shift()
+        node.children.unshift(h('thead', theadTr))
+      }
+    })
+  }
+}
 
 /**
  * Retrieves doc files from google drive and saves them to file system as markdown
@@ -20,7 +45,6 @@ const processor = unified().use(rehypeParse).use(rehypeRemark).use(remarkGfm) .u
 getCredentials().then(credentials => {
   authorize(credentials, retrieveContentFromDrive);
 })
-
 
 /**
  * Create an OAuth2 client with the given credentials, and then execute the
@@ -199,7 +223,6 @@ function ensureDirectoryExistence(dirname) {
   }
   fs.mkdirSync(dirname);
 }
-
 
 async function createWritableMarkdownString(content) {
   const frontmatter = {

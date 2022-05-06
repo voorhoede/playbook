@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "dotenv-safe": "^8.2.0",
+    "hastscript": "^7.0.2",
     "markdown-it-for-inline": "^0.1.1",
     "netlify-cli": "^9.13.6",
     "rehype-parse": "^8.0.4",
@@ -23,6 +24,7 @@
   },
   "dependencies": {
     "async": "^3.2.3",
-    "googleapis": "^100.0.0"
+    "googleapis": "^100.0.0",
+    "unist-util-visit": "^4.1.0"
   }
 }
