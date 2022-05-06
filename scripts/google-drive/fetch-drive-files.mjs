@@ -34,6 +34,13 @@ function rehypeTransformUrls() {
       } else if (node.tagName === 'table') {
         const theadTr = node.children.find(child => child.tagName === 'tbody').children.shift()
         node.children.unshift(h('thead', theadTr))
+      } else if (node.tagName === 'ul' || node.tagName === 'ol') {
+        const level = Number(node?.properties?.className?.find(className => className.startsWith('lst')).slice(-1))
+        console.log(level);
+        if (level === 1) {
+          node.children = [h('li', [h(node.tagName, node.children)])]
+        }
+        console.log(JSON.stringify(node));
       }
     })
   }
@@ -237,10 +244,15 @@ async function createWritableMarkdownString(content) {
     "last_updated_date": content.modifiedTime,
     "last_editor": content.lastModifyingUser.emailAddress
   }
+  if (content.name.startsWith('10.')) {
+  }
   const markdown = await processor.process(content.html)
   return `---
 ${JSON.stringify(frontmatter, null, 2)}
 ---
-${String(markdown).replace(/https:\/\/lh.\.googleusercontent\.com\//g, '/content/')}
+${String(markdown).replace(/https:\/\/lh.\.googleusercontent\.com\//g, '/content/').replace('\n' +
+    '<!---->\n' +
+    '\n' +
+    '*', ' ')}
 `
 }
