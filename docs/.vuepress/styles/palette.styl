@@ -77,6 +77,7 @@ hr {
 }
 
 .page li {
+  list-style: none;
   margin-bottom: .66em;
 }
 
@@ -86,16 +87,16 @@ hr {
   padding-left: 1.3265em;
 }
 
-//.page ul > li::before {
-//  content: "";
-//  position: absolute;
-//  margin-left: -1.285em;
-//  top: .55em;
-//  width: 5px;
-//  height 5px;
-//  background: $textColor;
-//  border-radius: 50%;
-//}
+.page ul > li::before {
+  content: "";
+  position: absolute;
+  margin-left: -1.285em;
+  top: .55em;
+  width: 5px;
+  height 5px;
+  background: $textColor;
+  border-radius: 50%;
+}
 
 .page ul ul > li::before {
   background: none;
