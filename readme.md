@@ -1,7 +1,7 @@
 # De Voorhoede Playbook
 [![Netlify Status][netlify-icon]][netlify]
 
-Company playbook containing internal information about common questions & situations at De Voorhoede in the form of a website generated with [Vuepress](https://vuepress.vuejs.org/) and fetched [Dropbox Paper](https://www.dropbox.com/paper) documents.
+Company playbook containing internal information about common questions & situations at De Voorhoede in the form of a website generated with [Vuepress](https://vuepress.vuejs.org/) and fetched [Google Drive](https://drive.google.com) documents.
 
 ## Development
 

@@ -1,14 +1,9 @@
-'use strict';
-
 const dotenv = require('dotenv-safe');
-const { generateSidebar, paperPlugin, fetchPapers } = require('vuepress-paper');
+const { generateSidebar, drivePlugin, getMetaData } = require( '../../scripts/google-drive/main');
 
 dotenv.config();
 
-module.exports = () => fetchPapers({
-  apiToken: process.env.DROPBOX_API_TOKEN,
-  directoryId: process.env.DROPBOX_PAPER_DIRECTORY_ID
-})
+module.exports = () => getMetaData()
   .then(documentsMetaData => ({
     title: 'Playbook',
     themeConfig: {
@@ -41,7 +36,7 @@ module.exports = () => fetchPapers({
     evergreen: true,
     plugins: [
       [
-        paperPlugin,
+        drivePlugin,
         { documentsMetaData }
       ]
     ],

@@ -1,14 +1,30 @@
 {
   "private": true,
   "name": "voorhoede-playbook",
+  "packageManager": "yarn@3.2.0",
   "scripts": {
-    "dev": "vuepress dev docs",
-    "build": "vuepress build docs"
+    "build-docs": "node scripts/google-drive/fetch-drive-files.mjs",
+    "dev": "yarn build-docs && vuepress dev docs",
+    "start": "netlify dev",
+    "build": "yarn build-docs && vuepress build docs"
   },
-  "dependencies": {},
   "devDependencies": {
     "dotenv-safe": "^8.2.0",
-    "vuepress": "^1.8.2",
-    "vuepress-paper": "^1.0.2"
+    "hastscript": "^7.0.2",
+    "markdown-it-for-inline": "^0.1.1",
+    "netlify-cli": "^9.13.6",
+    "rehype-parse": "^8.0.4",
+    "rehype-remark": "^9.1.2",
+    "remark": "^14.0.2",
+    "remark-gfm": "^3.0.1",
+    "remark-stringify": "^10.0.2",
+    "sanctuary": "^3.1.0",
+    "unified": "^10.1.2",
+    "vuepress": "^1.9.7"
+  },
+  "dependencies": {
+    "async": "^3.2.3",
+    "googleapis": "^100.0.0",
+    "unist-util-visit": "^4.1.0"
   }
 }
