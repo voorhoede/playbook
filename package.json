@@ -23,7 +23,7 @@
     "vuepress": "^1.9.7"
   },
   "dependencies": {
-    "async": "^3.2.3",
+    "async": "^3.2.4",
     "googleapis": "^100.0.0",
     "unist-util-visit": "^4.1.0"
   }
