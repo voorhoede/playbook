@@ -8,9 +8,9 @@ module.exports = {
     return JSON.parse(await fs.promises.readFile(path.resolve(path.resolve(), './playbookFolders.json')))
   },
   generateSidebar,
-  drivePlugin: ({ documentsMetaData }) => ({
+  drivePlugin: ( ) => ({
     name: 'vuepress-drive',
-    extendMarkdown: transformMarkdown(documentsMetaData),
+    extendMarkdown: transformMarkdown,
     plugins: [
       [
         '@vuepress/plugin-register-components',
