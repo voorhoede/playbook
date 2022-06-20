@@ -19,6 +19,7 @@ module.exports = () => getMetaData()
                 <metadata
                   :id="$page.frontmatter.doc_id"
                   :date="$page.frontmatter.last_updated_date"
+                  :editLink="$page.frontmatter.edit_link"
                   :isHomePage="Boolean($page.frontmatter.home)"
                 />
               `,

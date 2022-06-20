@@ -7,11 +7,12 @@
       Last updated: <time :datatime="lastUpdate">{{ lastUpdate }}</time>
     </span>
     <a
+      v-if="editLink"
       class="edit-link"
-      :href="`https://paper.dropbox.com/doc/${id}`"
+      :href="editLink"
       rel="noopener" target="_blank"
     >
-      Edit on Dropbox
+      Edit on Google Drive
     </a>
   </header>
 </template>
@@ -35,6 +36,9 @@
         type: Boolean,
         required: true,
       },
+      editLink: {
+        type: String
+      }
     },
     mounted() {
       this.setCurrentDate();

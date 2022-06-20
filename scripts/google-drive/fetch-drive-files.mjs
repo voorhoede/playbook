@@ -235,7 +235,8 @@ async function createWritableMarkdownString(content) {
     },
     revision: content.version,
     "last_updated_date": content.modifiedTime,
-    "last_editor": content.lastModifyingUser.emailAddress
+    "last_editor": content.lastModifyingUser.emailAddress,
+    "edit_link": content.webViewLink
   }
   const markdown = await processor.process(content.html)
   return `---
