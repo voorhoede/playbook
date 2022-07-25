@@ -81,11 +81,13 @@
 
 .home .hero img {
   position: relative;
-  grid-row-start: 5;
+  grid-row-start: 4;
   grid-row-end: -1;
   z-index: 2;
   align-self: center;
   margin: 0 auto;
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .home .hero h1 {
@@ -183,7 +185,10 @@
     grid-column-start: 1;
     grid-column-end: -1;
     position: absolute;
-    right: 3rem;
+    max-height 75vh;
+    max-width 50vw;
+    right: 10vw;
+    bottom: 15rem;
     margin: 0;
     justify-self: flex-end;
   }
