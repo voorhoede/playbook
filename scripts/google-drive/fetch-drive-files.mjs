@@ -14,7 +14,7 @@ import {h} from 'hastscript'
 import qs from 'qs'
 
 config();
-const {GOOGLE_PLAYBOOK_FOLDER_NAME} = process.env;
+const {GOOGLE_PLAYBOOK_FOLDER_NAME, GOOGLE_SHARED_DRIVE_ID} = process.env;
 const processor = unified()
   .use(rehypeParse)
   .use(rehypeTransformUrls)
@@ -157,6 +157,8 @@ function getFolderContents(drive, auth, folderId) {
   return drive.files.list({
     q: `'${folderId}' in parents`, spaces: 'drive', pageSize: 100,
     fields: '*',
+    includeItemsFromAllDrives: true,
+    supportsAllDrives: true,
     auth
   }).then((res, err) => {
     if (err) return console.log('The API returned an error: ' + err);
@@ -196,14 +198,20 @@ function getRecursiveFolderContents(drive, auth, files) {
  */
 function getPlaybookFolderFromDrive(drive, auth) {
   drive.files.list({
-    q: `name = "${GOOGLE_PLAYBOOK_FOLDER_NAME}"`, spaces: 'drive', auth
+    q: `name = "${GOOGLE_PLAYBOOK_FOLDER_NAME}"`,
+    spaces: 'drive',
+    corpora: 'drive',
+    driveId: GOOGLE_SHARED_DRIVE_ID,
+    includeItemsFromAllDrives: true,
+    supportsAllDrives: true,
+    auth
   }, function (err, res) {
     if (err) {
       // Handle error
       console.error(err);
     } else {
       const root = res.data.files.find(file => file.name === GOOGLE_PLAYBOOK_FOLDER_NAME)
-      fs.writeFile(path.resolve(path.resolve(), './playbookFolders.json'), JSON.stringify({root}), (err) => {
+      fs.writeFile(path.resolve(path.resolve(), './playbookFolders.json'), JSON.stringify({ root }), (err) => {
         if (err) return console.error(err);
         console.log('root stored to playbookFolders.json');
         retrieveContentFromDrive(auth)
@@ -227,7 +235,6 @@ function ensureDirectoryExistence(dirname) {
 async function createWritableMarkdownString(content) {
   const frontmatter = {
     "doc_id": content.id,
-    owner: content.owners[0].emailAddress,
     title: content.name,
     "created_date": content.createdTime,
     status: {
