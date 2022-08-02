@@ -229,7 +229,7 @@ function ensureDirectoryExistence(dirname) {
   if (fs.existsSync(dirname)) {
     return true;
   }
-  fs.mkdirSync(dirname);
+  fs.mkdirSync(dirname, {recursive: true});
 }
 
 async function createWritableMarkdownString(content) {
