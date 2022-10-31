@@ -4,9 +4,9 @@
   "packageManager": "yarn@1.22.19",
   "scripts": {
     "build-docs": "node scripts/google-drive/fetch-drive-files.mjs",
-    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && yarn build-docs && vuepress dev docs",
+    "dev": "yarn build-docs && vuepress dev docs",
     "start": "netlify dev",
-    "build": "yarn build-docs && vuepress build docs"
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && yarn build-docs && vuepress build docs"
   },
   "devDependencies": {
     "dotenv-safe": "^8.2.0",
