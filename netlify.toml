@@ -4,7 +4,7 @@
   [build.environment]
     NODE_VERSION="12"
     NODE_ENV = "production"
-    YARN_FLAGS="--production=false"
+#     YARN_FLAGS="--production=false"
   [build.processing]
     skip_processing = true
 
