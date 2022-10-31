@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "voorhoede-playbook",
-  "packageManager": "yarn@1.23.0",
+  "packageManager": "yarn@1.22.19",
   "scripts": {
     "build-docs": "node scripts/google-drive/fetch-drive-files.mjs",
     "dev": "yarn build-docs && vuepress dev docs",
