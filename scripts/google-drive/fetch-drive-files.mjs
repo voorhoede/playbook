@@ -167,7 +167,7 @@ function getFolderContents(drive, auth, folderId) {
       return files;
     } else {
       console.log('No files found.');
-      return null;
+      return [];
     }
   })
 }
