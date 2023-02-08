@@ -12,7 +12,7 @@
     "dotenv-safe": "^8.2.0",
     "hastscript": "^7.0.2",
     "markdown-it-for-inline": "^0.1.1",
-    "netlify-cli": "^10.5.1",
+    "netlify-cli": "^12.10.0",
     "qs": "^6.10.5",
     "rehype-parse": "^8.0.4",
     "rehype-remark": "^9.1.2",
