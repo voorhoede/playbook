@@ -24,7 +24,7 @@
     "vuepress": "^1.9.7"
   },
   "dependencies": {
-    "googleapis": "^101.0.0",
+    "googleapis": "^132.0.0",
     "unist-util-visit": "^4.1.0"
   }
 }
