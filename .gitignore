@@ -4,9 +4,4 @@ docs/*
 !docs/readme.md
 .env
 node_modules
-package-lock.json
 playbookFolders.json
-.yarn
-.yarnrc.yml
-**/**/.cache
-**/**/.temp

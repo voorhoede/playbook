@@ -1,0 +1,7 @@
+allowBuilds:
+  '@netlify/esbuild': false
+  core-js: false
+  esbuild: false
+  highlight.js: false
+  netlify-cli: false
+  vuepress: false

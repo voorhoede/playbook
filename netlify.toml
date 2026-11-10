@@ -1,10 +1,8 @@
 [build]
-  command = "yarn build"
+  command = "pnpm build"
   publish = "dist"
   [build.environment]
-    NODE_VERSION="12"
     NODE_ENV = "production"
-    YARN_FLAGS="--production=false"
   [build.processing]
     skip_processing = true
 
