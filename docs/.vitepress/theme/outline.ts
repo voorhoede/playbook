@@ -6,9 +6,6 @@ export interface OutlineItem {
   title: string
 }
 
-/**
- * The h2 sections of the page content and the one in view, for the TocSection.
- */
 export function useOutline(selector = '.playbook-content') {
   const route = useRoute()
   const items = ref<OutlineItem[]>([])

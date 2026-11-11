@@ -1,8 +1,4 @@
 <script setup lang="ts">
-/**
- * The site header: the De Voorhoede logo, linking home, and the search from 800px.
- * Built on the AppHeader of the design system, on a white ground above the page header.
- */
 import { withBase } from 'vitepress'
 import SearchBox from './SearchBox.vue'
 </script>

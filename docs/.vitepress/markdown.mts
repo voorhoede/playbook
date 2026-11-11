@@ -1,10 +1,8 @@
 import type { MarkdownRenderer as MarkdownIt } from 'vitepress'
 
 /**
- * A Drive document usually opens with its own `h1`. The page header (HeroHeader) carries the
- * page's one `h1`, so that first heading moves into `frontmatter.title` and leaves the body.
- * Only a heading that opens the document is lifted; any other `h1` becomes an `h2`, so the
- * page keeps a single `h1`.
+ * The page header carries the page's one `h1`: a Drive document's opening `h1` moves into
+ * `frontmatter.title`, and any other `h1` becomes an `h2`.
  */
 export function liftTitle(md: MarkdownIt) {
   const rule: Parameters<typeof md.core.ruler.push>[1] = state => {
@@ -45,10 +43,6 @@ const escapeHtml = (text: string) => text
   .replace(/</g, '&lt;')
   .replace(/>/g, '&gt;')
 
-/**
- * Fenced code renders as the design system's CodeBlock: `blue-dark` on `yellow-light`,
- * in the code font, without syntax colours of its own.
- */
 export function codeBlock(md: MarkdownIt) {
   md.renderer.rules.fence = (tokens, index) => {
     const token = tokens[index]

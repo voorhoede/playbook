@@ -1,8 +1,4 @@
 <script setup lang="ts">
-/**
- * The design system's TocSection, without the reading progress. `side`: the sticky list beside
- * the text. `bar`: the sticky "Contents" bar that opens the list, for narrow screens.
- */
 import { computed, ref, useId, watch } from 'vue'
 import { useRoute } from 'vitepress'
 import { useOutline } from '../outline'

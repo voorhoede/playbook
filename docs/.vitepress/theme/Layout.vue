@@ -1,9 +1,4 @@
 <script setup lang="ts">
-/**
- * The playbook's page, built from the De Voorhoede design system (see design-system/).
- * Every page: the header, one page header (HeroHeader), the page's blocks and the footer, all on
- * one centred container; AppMobileMenu below 800px.
- */
 import { computed } from 'vue'
 import { useData } from 'vitepress'
 import AppHeader from './components/AppHeader.vue'
@@ -37,7 +32,6 @@ function skipToContent() {
   target.scrollIntoView()
 }
 
-/* One card per top-level part of the playbook, for the home page. */
 const sections = computed(() => sidebar.value.map(item => {
   const pages = item.items ? flatten(item.items) : []
   // Drive file names are numbered for sorting ("1. Holidays"); the card text drops the number.

@@ -1,9 +1,5 @@
 import folderize from './folderize.cjs'
 
-/**
- * Turns the Drive folder tree from playbookFolders.json into a VitePress sidebar:
- * folders become groups ({ text, items }), documents become links ({ text, link }).
- */
 export default function generateSidebar(metaData) {
   return metaData.files.map(file => mapFileOffspring(file)).sort(sortPages)
 }

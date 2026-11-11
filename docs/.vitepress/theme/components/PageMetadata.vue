@@ -1,8 +1,4 @@
 <script setup lang="ts">
-/**
- * One quiet line above the text: when the page was last updated and a link to its Google Doc.
- * When the page changed since this browser last showed it, a Callout says so.
- */
 import { computed, ref, watch, onMounted } from 'vue'
 import CalloutBlock from './CalloutBlock.vue'
 
@@ -25,7 +21,6 @@ const storage = {
   set: (key: string, value: string) => { try { localStorage.setItem(key, value) } catch { /* private mode */ } },
 }
 
-/* Read the previous visit of this page, then record this one. */
 function registerVisit() {
   if (!props.id) return
   const key = `last-visit-${props.id}`
@@ -47,7 +42,6 @@ const updatedSinceLastVisit = computed(() =>
       <span v-if="lastUpdate">Updated <time :datetime="lastUpdate">{{ formatDate(lastUpdate) }}</time></span>
       <a v-if="editLink" class="page-metadata__edit" :href="editLink" target="_blank" rel="noreferrer noopener">
         Edit in Google Drive<span class="sr-only"> (opens in a new tab)</span>
-        <!-- Carbon: launch -->
         <svg viewBox="0 0 32 32" width="16" height="16" aria-hidden="true" focusable="false">
           <path fill="currentColor" d="M26 28H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10v2H6v20h20V16h2v10a2 2 0 0 1-2 2z" />
           <path fill="currentColor" d="M20 2v2h6.586L18 12.586 19.414 14 28 5.414V12h2V2H20z" />

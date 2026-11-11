@@ -1,9 +1,3 @@
-/*
- * The playbook's own layer on top of the design system (design-system/tokens.css and bundle.css).
- * It lays out the pages and maps the Drive markdown onto the system's type and blocks.
- * Use tokens only: no raw colours, no spacing outside the scale, no text under 16px.
- */
-
 html {
   background-color: var(--white);
   color: var(--black);
@@ -25,7 +19,7 @@ html {
   position: absolute;
 }
 
-/* ---- The container: header, page header, page and footer share its left edge ---- */
+/* ---- The container ---- */
 .playbook-container {
   box-sizing: border-box;
   width: 100%;
@@ -94,7 +88,7 @@ html {
   }
 }
 
-/* ---- SearchBox: the InputField look with an icon, results in a floating panel ---- */
+/* ---- SearchBox ---- */
 .search-box {
   position: relative;
 }
@@ -218,7 +212,6 @@ html {
   margin-top: var(--spacing-15);
 }
 
-/* The illustration stands on the bottom edge of the header, on the right, from 720px. */
 .playbook-hero__image {
   display: none;
 }
@@ -250,7 +243,7 @@ html {
   }
 }
 
-/* ---- Docs page: navigation | text | contents ---- */
+/* ---- Docs page ---- */
 .playbook-page__sidebar,
 .playbook-page__aside {
   display: none;
@@ -314,7 +307,6 @@ html {
   }
 }
 
-/* From 1280px the contents stand beside the text instead of in the bar. */
 @media (min-width: 1280px) {
   .playbook-page {
     grid-template-columns: 18rem minmax(0, 46rem) 15rem;
@@ -331,7 +323,7 @@ html {
   }
 }
 
-/* ---- Navigation sidebar on gray-light ---- */
+/* ---- Navigation sidebar ---- */
 .playbook-sidebar {
   position: relative;
   padding: var(--spacing-40) var(--spacing-20) var(--block-spacing) 0;
@@ -366,7 +358,6 @@ html {
   }
 }
 
-/* The tree, in the sidebar and in the mobile menu */
 .sidebar-tree--level-1 > .sidebar-tree__item + .sidebar-tree__item {
   margin-top: var(--spacing-5);
 }
@@ -412,7 +403,6 @@ html {
   text-underline-offset: 3px;
 }
 
-/* The current page: bold on the white ground, like the current section of TocSection. */
 .sidebar-tree__link--current {
   background-color: var(--white);
   font-weight: 700;
@@ -437,7 +427,7 @@ html {
   text-underline-offset: 4px;
 }
 
-/* ---- Page metadata: one quiet line above the text ---- */
+/* ---- Page metadata ---- */
 .page-metadata {
   display: flex;
   flex-direction: column;
@@ -466,7 +456,7 @@ html {
   text-decoration-thickness: 2px;
 }
 
-/* ---- The Drive content as RichTextBlock ---- */
+/* ---- Drive content ---- */
 .playbook-content h2,
 .playbook-content h3,
 .playbook-content h4,
@@ -490,7 +480,6 @@ html {
   margin-top: 0;
 }
 
-/* The permalink VitePress puts in each heading: a # in the margin on hover and focus. */
 .playbook-content .header-anchor {
   position: absolute;
   left: -.8em;
@@ -549,7 +538,6 @@ html {
   vertical-align: top;
 }
 
-/* A quote in a Drive doc is a highlighted passage: the Callout ground. */
 .playbook-content blockquote {
   padding: var(--spacing-30);
   background-color: var(--yellow-light);
@@ -587,7 +575,7 @@ html {
   margin-top: var(--spacing-60);
 }
 
-/* ---- Home page: the topics ---- */
+/* ---- Home page ---- */
 .playbook-topics {
   padding-block: var(--block-spacing);
 }
@@ -610,7 +598,7 @@ html {
   padding-block: var(--block-spacing);
 }
 
-/* ---- AppMobileMenu: the search and the tree in the yellow menu ---- */
+/* ---- AppMobileMenu ---- */
 .app-mobile-menu__content {
   overflow-y: auto;
   padding-bottom: calc(var(--mobile-icon-height) + 2 * var(--mobile-icon-bottom));
@@ -639,7 +627,7 @@ html {
   background-color: var(--yellow-light);
 }
 
-/* ---- Footer on the AppFooter ground ---- */
+/* ---- Footer ---- */
 .playbook-footer {
   background-color: var(--yellow);
 }
@@ -663,7 +651,6 @@ html {
   margin: 0;
 }
 
-/* Underlined, so the link doesn't rely on colour alone. */
 .playbook-footer__legal a {
   color: var(--blue);
   text-decoration: underline;

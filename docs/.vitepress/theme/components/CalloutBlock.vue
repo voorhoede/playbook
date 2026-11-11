@@ -1,5 +1,4 @@
 <script setup lang="ts">
-/** The design system's Callout: a highlighted block inside the text. */
 defineProps<{
   title?: string
   headingLevel?: 2 | 3

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-/** The footer on the AppFooter's yellow ground: the logo, and who makes the playbook. */
 import { withBase } from 'vitepress'
 
 const year = new Date().getFullYear()

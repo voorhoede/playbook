@@ -1,5 +1,4 @@
 <script setup lang="ts">
-/** The design system's BreadcrumbsBlock: back to the previous page, on to the next one. */
 import { withBase } from 'vitepress'
 import type { SidebarItem } from '../navigation'
 

@@ -1,8 +1,4 @@
 <script setup lang="ts">
-/**
- * Full-text search over the playbook (VitePress' local search index), styled as the design
- * system's InputField with the results in a floating panel.
- */
 import { computed, markRaw, onBeforeUnmount, onMounted, ref, shallowRef, useId, watch } from 'vue'
 import { useRouter, withBase } from 'vitepress'
 import MiniSearch from 'minisearch'
@@ -108,7 +104,6 @@ const status = computed(() => {
   <div class="search-box" @focusout="(event: FocusEvent) => { if (!(event.currentTarget as HTMLElement).contains(event.relatedTarget as Node)) open = false }">
     <label class="search-box__label">
       <span class="sr-only">{{ props.label }}</span>
-      <!-- Carbon: search -->
       <svg class="search-box__icon" viewBox="0 0 32 32" width="20" height="20" aria-hidden="true" focusable="false">
         <path fill="currentColor" d="M29 27.586l-7.552-7.552a11.018 11.018 0 1 0-1.414 1.414L27.586 29zM4 13a9 9 0 1 1 9 9 9.01 9.01 0 0 1-9-9z" />
       </svg>

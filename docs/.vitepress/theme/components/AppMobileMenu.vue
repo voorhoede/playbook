@@ -1,8 +1,4 @@
 <script setup lang="ts">
-/**
- * The design system's AppMobileMenu, without its slide-in: a square blue button bottom right
- * that opens a full-screen yellow menu with the search and the playbook's navigation.
- */
 import { ref, watch } from 'vue'
 import { useRoute, withBase } from 'vitepress'
 import SearchBox from './SearchBox.vue'

@@ -1,9 +1,4 @@
 <script setup lang="ts">
-/**
- * The design system's HeroHeader in its title form: the page's one h1 on yellow-light, with an
- * optional lead below it and an illustration on the right. Laid out on the playbook's container
- * instead of the site grid, so it lines up with the navigation and the text below.
- */
 import { withBase } from 'vitepress'
 
 defineProps<{

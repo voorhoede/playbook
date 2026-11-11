@@ -1,5 +1,4 @@
 <script setup lang="ts">
-/** The design system's ContentCard, type-led: title with the arrow, text and meta. One link. */
 import { withBase } from 'vitepress'
 
 withDefaults(defineProps<{

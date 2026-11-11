@@ -1,7 +1,4 @@
-/*
- * The full Apercu files. The design system ships Basic Latin subsets, which miss the Dutch
- * diacritics (ë, é, ï) the playbook needs, so its font faces are left out of tokens.css.
- */
+/* The full Apercu files: the Basic Latin subsets miss Dutch diacritics (ë, é, ï). */
 @font-face {
   font-family: "apercu";
   src: url("/fonts/apercu-regular.woff2") format("woff2");

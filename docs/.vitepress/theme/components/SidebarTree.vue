@@ -1,8 +1,4 @@
 <script setup lang="ts">
-/**
- * The playbook's navigation tree. A folder is a toggle that opens its pages; the folder that
- * holds the current page is open, and the current page is bold with aria-current.
- */
 import { ref, watch } from 'vue'
 import { withBase } from 'vitepress'
 import { containsPath, normalizePath, type SidebarItem } from '../navigation'

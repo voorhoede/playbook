@@ -1,5 +1,4 @@
 <script setup lang="ts">
-/** The design system's AppButton: a link with `to`, a button without. */
 import { computed } from 'vue'
 import { withBase } from 'vitepress'
 
