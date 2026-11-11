@@ -60,14 +60,14 @@ const sections = computed(() => sidebar.value.map(item => {
 
     <main v-if="isHome" id="main" class="playbook-home">
       <HeroHeader
-        :title="frontmatter.heroText ?? 'Playbook'"
+        :title="frontmatter.title"
         :intro="frontmatter.tagline"
         :image="frontmatter.heroImage"
       />
       <section class="playbook-container playbook-topics" aria-labelledby="topics-title">
         <div class="playbook-topics__head">
           <h2 id="topics-title" class="h2">Topics</h2>
-          <AppButton v-if="firstPage" :label="frontmatter.actionText ?? 'Start reading'" :to="firstPage" secondary />
+          <AppButton v-if="firstPage" :label="frontmatter.actionText" :to="firstPage" secondary />
         </div>
         <ul class="card-grid__list card-grid__list--3">
           <li v-for="section in sections" :key="section.title">

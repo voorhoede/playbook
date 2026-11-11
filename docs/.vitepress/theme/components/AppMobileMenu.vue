@@ -42,7 +42,7 @@ function toggleMenu() {
       aria-controls="app-mobile-menu-content"
       @click="toggleMenu"
     >
-      <div :class="['app-mobile-menu__button-icon', open ? 'app-mobile-menu__button-icon--close' : 'app-mobile-menu__button-icon--open']" />
+      <span :class="['app-mobile-menu__button-icon', open ? 'app-mobile-menu__button-icon--close' : 'app-mobile-menu__button-icon--open']" />
       <span class="sr-only">{{ open ? 'Close menu' : 'Open menu' }}</span>
     </button>
     <div v-show="open" id="app-mobile-menu-content" class="app-mobile-menu__content">

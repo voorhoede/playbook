@@ -1,8 +1,6 @@
 import { defineConfig } from 'vitepress'
 import { generateSidebar, getMetaData } from '../../scripts/google-drive/main.mjs'
-import { codeBlock, liftTitle } from './markdown.mts'
-
-
+import { liftTitle } from './markdown.mts'
 
 export default async () => {
   const documentsMetaData = await getMetaData()
@@ -16,6 +14,7 @@ export default async () => {
     cleanUrls: false,
     // The content comes from Google Drive: a broken link there shouldn't break the deploy.
     ignoreDeadLinks: true,
+    appearance: false,
     head: [
       ['link', { rel: 'icon', href: '/favicon.ico', sizes: '32x32' }],
       ['link', { rel: 'icon', href: '/images/voorhoede-favicon.png', type: 'image/png' }],
@@ -31,7 +30,6 @@ export default async () => {
       anchor: { level: [2, 3] },
       config(md) {
         liftTitle(md)
-        codeBlock(md)
       },
     },
   })

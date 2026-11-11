@@ -31,22 +31,5 @@ export function liftTitle(md: MarkdownIt) {
   }
 
   // Before markdown-it-anchor, so a demoted heading gets its id like any other h2.
-  try {
-    md.core.ruler.before('anchor', 'lift-title', rule)
-  } catch {
-    md.core.ruler.push('lift-title', rule)
-  }
-}
-
-const escapeHtml = (text: string) => text
-  .replace(/&/g, '&amp;')
-  .replace(/</g, '&lt;')
-  .replace(/>/g, '&gt;')
-
-export function codeBlock(md: MarkdownIt) {
-  md.renderer.rules.fence = (tokens, index) => {
-    const token = tokens[index]
-    const language = token.info.trim().split(/\s+/)[0] || 'text'
-    return `<div class="code-block" v-pre><pre class="language-${escapeHtml(language)}"><code>${escapeHtml(token.content)}</code></pre></div>\n`
-  }
+  md.core.ruler.before('anchor', 'lift-title', rule)
 }
