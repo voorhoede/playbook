@@ -1,0 +1,92 @@
+/* De Voorhoede tokens, copied as is. Do not edit. */
+:root {
+  --white: #ffffff; /* Page background and text on `blue`, `blue-dark` and `black`. */
+  --gray-light: #f6f6f6; /* Light gray surface: `ContentCard` on a `white` page, code blocks, the `dimmed` block style. */
+  --gray: #888888; /* Borders, hairlines and disabled states. Marked "use?" in the sketch: only 3.5:1 on white, so never for text. */
+  --black: #000000; /* Body text on `white`, `gray-light`, `blue-light`, `yellow-light` and `yellow`. */
+  --blue-light: #dae8ff; /* Lightest blue: small accents only. Never a section background (2026-10-30: use `yellow-light` instead). Text on it: `black` or `blue`. */
+  --blue: #0000ff; /* Web blue: headings, links, the primary action (buttons, Let's talk), focus outlines, the logo grid ground. 8.6:1 with white text. */
+  --blue-dark: #000028; /* Darkest blue: the Tech menu pill, the `HeroHeader` of tech pages and tech `ContentCard` ground, pressed states. Everything on it is `white`: text, labels, arrows, lines. Never `yellow`. */
+  --yellow-light: #fffeca; /* Light yellow: the `HeroHeader` and `HomeHero` ground and the one coloured section ground. */
+  --yellow: #ffe400; /* Yellow: large fields, the logo world. Text on it: `black` (16:1) or `blue`. */
+  --yellow-dark: #7a6a00; /* Dark yellow. Never a background (Sjoerd, 2026-11-10); no assigned use yet. */
+  --soft-red: #ff3e3e; /* Form errors: error message text and invalid input border/outline. 3.5:1 on `white`: pair the message with its text, never colour alone (source pair kept as is). */
+  --spacing-5: 5px; /* Gap between a label and its input; list item gaps; small offsets. */
+  --spacing-10: 10px; /* Button groups, tight gaps, the gap between a card arrow and its title. */
+  --spacing-15: 15px; /* Input field top margin; list indent on small screens; gaps inside small components. */
+  --spacing-20: 20px; /* Padding inside compact components; gaps between related items. */
+  --spacing-30: 30px; /* Card padding and card grid gaps; between stacked fields; between a heading and its text. */
+  --spacing-40: 40px; /* Between content blocks inside a section; under a block title. */
+  --spacing-60: 60px; /* Between a section heading and a wide module. */
+  --spacing-80: 80px; /* Between page blocks below 1100px (`block-spacing`). */
+  --spacing-120: 120px; /* Between page blocks from 1100px (`block-spacing`). */
+  --spacing-160: 160px; /* Largest vertical rhythm: page header spacing. */
+  --block-spacing: 80px; /* The one vertical rhythm between page blocks: the gap between blocks (and between the page header and the first block), the top and bottom padding of a block on a coloured ground, and the space before the footer. `spacing-80`, `spacing-120` from 1100px (Sjoerd, 2026-11-10). */
+  --border-radius: 3px; /* Filled buttons (primary and small) only. Every surface is square: cards, panels, images, inputs. */
+  --border-radius-pill: 2rem; /* The pill. It means one thing: a small clickable label (`TagList` tag, the Tech menu pill). Never on a surface or a static label. */
+  --box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, 0.27); /* The only shadow: floating elements (the `MenuDropdown` panel, the `GlossaryTerm` popover). Cards have none. */
+  --grid-margin: 16px; /* Outer page margin column of the grid. */
+  --grid-gutter-large: 20px; /* Grid gutter on large screens. */
+  --grid-column-small: 25px; /* Fixed grid column width below 720px. */
+  --grid-column-medium: 30px; /* Fixed grid column width from 720px. */
+  --grid-column-large: 35px; /* Fixed grid column width from 1100px. */
+  --app-header-height-small: 3.125rem; /* Header height below 720px (50px). */
+  --app-header-height-large: 4.0625rem; /* Header height from 720px (65px). */
+  --scroll-to-height: 150px; /* Height of the scroll-to arrow area. */
+  --event-intro-width: 550px; /* Max width of the event intro text. */
+  --z-index-base: 0; /* Local: decoration drawn behind a component's content (button fill, accent panels). Only inside an isolated component. */
+  --z-index-raised: 1; /* Local: content or a link overlay lifted over its sibling inside a component. */
+  --z-index-sticky: 100; /* Page layer: sticky elements such as a table of contents or a reading bar. */
+  --z-index-header: 200; /* Page layer: AppHeader, above sticky content. */
+  --z-index-overlay: 300; /* Page layer: AppMobileMenu, dialogs, popovers and bottom sheets. */
+  --z-index-skip-link: 400; /* Page layer: the skip link, above everything when focused. */
+  --font-sans: "apercu", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, Verdana, sans-serif;
+  --font-code: Consolas, Menlo, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+}
+@media (min-width: 1100px) {
+  :root {
+    --block-spacing: var(--spacing-120);
+  }
+}
+.h1 {
+  font-family: var(--font-sans);
+  font-size: clamp(2.4375rem, 2.079rem + 1.795vw, 3.3125rem);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.h2 {
+  font-family: var(--font-sans);
+  font-size: clamp(1.9375rem, 1.502rem + 2.179vw, 3rem);
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.h3 {
+  font-family: var(--font-sans);
+  font-size: clamp(1.5rem, 1.269rem + 1.154vw, 2.0625rem);
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+.lead {
+  font-family: var(--font-sans);
+  font-size: clamp(1.125rem, 1.022rem + 0.5128vw, 1.375rem);
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.body {
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 0.9487rem + 0.2564vw, 1.125rem);
+  line-height: 1.6;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.small {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0;
+}
