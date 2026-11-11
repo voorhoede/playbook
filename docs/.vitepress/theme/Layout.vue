@@ -54,22 +54,22 @@ const sections = computed(() => sidebar.value.map(item => {
 </script>
 
 <template>
-  <div class="playbook">
-    <a class="skip-link app-button app-button--small small font-bold" :href="`#${skipTarget}`" @click.prevent="skipToContent"><span>Skip to content</span></a>
+  <div class="layout">
+    <a class="layout__skip-link app-button app-button--small small font-bold" :href="`#${skipTarget}`" @click.prevent="skipToContent"><span>Skip to content</span></a>
     <AppHeader />
 
-    <main v-if="isHome" id="main" class="playbook-home">
+    <main v-if="isHome" id="main">
       <HeroHeader
         :title="frontmatter.title"
         :intro="frontmatter.tagline"
         :image="frontmatter.heroImage"
       />
-      <section class="playbook-container playbook-topics" aria-labelledby="topics-title">
-        <div class="playbook-topics__head">
+      <section class="container layout__topics" aria-labelledby="topics-title">
+        <div class="layout__topics-head">
           <h2 id="topics-title" class="h2">Topics</h2>
           <AppButton v-if="firstPage" :label="frontmatter.actionText" :to="firstPage" secondary />
         </div>
-        <ul class="card-grid__list card-grid__list--3">
+        <ul class="layout__cards">
           <li v-for="section in sections" :key="section.title">
             <ContentCard v-bind="section" />
           </li>
@@ -77,9 +77,9 @@ const sections = computed(() => sidebar.value.map(item => {
       </section>
     </main>
 
-    <main v-else-if="isNotFound" id="main" class="playbook-not-found">
+    <main v-else-if="isNotFound" id="main" class="layout__not-found">
       <HeroHeader title="Page not found" />
-      <div class="playbook-container playbook-not-found__body">
+      <div class="container layout__not-found-body">
         <p class="lead">This page isn’t in the playbook (anymore). Search for it, or start from the home page.</p>
         <AppButton label="Go to the home page" to="/" />
       </div>
@@ -87,22 +87,22 @@ const sections = computed(() => sidebar.value.map(item => {
 
     <main v-else id="main">
       <HeroHeader :title="page.title" />
-      <div class="playbook-container playbook-page">
-        <PlaybookSidebar class="playbook-page__sidebar" />
-        <div class="playbook-page__main">
+      <div class="container layout__page">
+        <PlaybookSidebar class="layout__sidebar" />
+        <div class="layout__main">
           <TocSection variant="bar" />
           <!-- The skip link lands here, past the title and the navigation. -->
-          <article id="content" class="playbook-article" tabindex="-1" :aria-label="page.title">
+          <article id="content" class="layout__article" tabindex="-1" :aria-label="page.title">
             <PageMetadata
               :id="frontmatter.doc_id"
               :date="frontmatter.last_updated_date"
               :edit-link="frontmatter.edit_link"
             />
-            <Content class="playbook-content rich-text body list" />
+            <Content class="layout__content body" />
             <BreadcrumbsBlock :previous="previous" :next="next" />
           </article>
         </div>
-        <aside class="playbook-page__aside">
+        <aside class="layout__aside">
           <TocSection variant="side" />
         </aside>
       </div>
@@ -115,209 +115,27 @@ const sections = computed(() => sidebar.value.map(item => {
 
 <style>
 /* The sidebar's ground runs out to the left edge of the window; nothing else may widen the page. */
-.playbook {
+.layout {
   overflow-x: clip;
 }
 
-.playbook-page__sidebar,
-.playbook-page__aside {
-  display: none;
-}
-
-.playbook-page__main {
-  min-width: 0;
-}
-
-.playbook-article {
-  padding: var(--spacing-40) 0 var(--block-spacing);
-}
-
-.playbook-article:focus {
-  outline: none;
-}
-
-/* Below 800px the text takes the full width of the container; the bar runs edge to edge. */
-.playbook-page__main > .toc-section__bar {
-  margin-inline: calc(-1 * var(--grid-margin));
-}
-
-@media (min-width: 720px) {
-  .playbook-page__main > .toc-section__bar {
-    margin-inline: calc(-2 * var(--grid-margin));
-  }
-
-  .playbook-page__main > .toc-section__bar {
-    display: block;
-  }
-}
-
-@media (min-width: 800px) {
-  .playbook-page {
-    display: grid;
-    grid-template-columns: 16rem minmax(0, 1fr);
-    column-gap: var(--spacing-40);
-  }
-
-  .playbook-page__sidebar {
-    display: block;
-  }
-
-  .playbook-page__main > .toc-section__bar {
-    margin-inline: 0;
-  }
-
-  .playbook-article {
-    max-width: 46rem;
-  }
-}
-
-@media (min-width: 1100px) {
-  .playbook-page {
-    grid-template-columns: 18rem minmax(0, 1fr);
-    column-gap: var(--spacing-60);
-  }
-
-  .playbook-article {
-    padding-top: var(--spacing-60);
-  }
-}
-
-@media (min-width: 1280px) {
-  .playbook-page {
-    grid-template-columns: 18rem minmax(0, 46rem) 15rem;
-    justify-content: space-between;
-  }
-
-  .playbook-page__aside {
-    display: block;
-    padding-top: var(--spacing-60);
-  }
-
-  .playbook-page__main > .toc-section__bar {
-    display: none;
-  }
-}
-
-.playbook-content h2,
-.playbook-content h3,
-.playbook-content h4,
-.playbook-content h5,
-.playbook-content h6 {
-  position: relative;
-}
-
-.playbook-content h2 {
-  margin: var(--spacing-60) 0 var(--spacing-20);
-}
-
-.playbook-content h3,
-.playbook-content h4,
-.playbook-content h5,
-.playbook-content h6 {
-  margin: var(--spacing-40) 0 var(--spacing-15);
-}
-
-.playbook-content > :first-child {
-  margin-top: 0;
-}
-
-.playbook-content .header-anchor {
+.layout__skip-link.app-button {
   position: absolute;
-  left: -.8em;
-  padding-right: .2em;
-  opacity: 0;
-  text-decoration: none;
-  background: none;
+  z-index: var(--z-index-skip-link);
+  top: var(--spacing-15);
+  left: -9999rem;
 }
 
-.playbook-content .header-anchor::before {
-  content: '#';
+.layout__skip-link:focus {
+  left: var(--spacing-15);
 }
 
-.playbook-content :is(h2, h3, h4, h5, h6):hover .header-anchor,
-.playbook-content .header-anchor:focus {
-  opacity: 1;
-}
-
-.playbook-content li > ul,
-.playbook-content li > ol {
-  margin-top: var(--spacing-5);
-}
-
-.playbook-content ol > li + li {
-  margin-top: var(--spacing-5);
-}
-
-.playbook-content img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-/* Tables scroll sideways on small screens instead of widening the page. */
-.playbook-content table {
-  display: block;
-  max-width: 100%;
-  overflow-x: auto;
-}
-
-.playbook-content th {
-  padding: var(--spacing-30) var(--spacing-5);
-  font-weight: 700;
-  vertical-align: bottom;
-}
-
-/* Markdown tables have a <thead>: the header style of RichTextBlock goes to that row only. */
-.playbook-content thead + tbody tr:first-child {
-  border-bottom: 1px solid var(--gray);
-  color: var(--black);
-}
-
-.playbook-content thead + tbody tr:first-child td {
-  padding: var(--spacing-15) var(--spacing-5);
-  font-weight: 400;
-  vertical-align: top;
-}
-
-.playbook-content blockquote {
-  padding: var(--spacing-30);
-  background-color: var(--yellow-light);
-}
-
-.playbook-content blockquote > * + * {
-  margin-top: var(--spacing-15);
-}
-
-/* A horizontal rule becomes space: blocks are set apart by space and ground, not by lines. */
-.playbook-content hr {
-  height: 0;
-  margin: var(--spacing-40) 0;
-  border: 0;
-}
-
-.playbook-content blockquote {
-  margin-bottom: var(--spacing-30);
-}
-
-@media (min-width: 720px) {
-  .playbook-content blockquote {
-    margin-bottom: var(--spacing-40);
-  }
-}
-
-.playbook-content blockquote:last-child {
-  margin-bottom: 0;
-}
-
-.playbook-article .breadcrumbs-block {
-  margin-top: var(--spacing-60);
-}
-
-.playbook-topics {
+/* Home page */
+.layout__topics {
   padding-block: var(--block-spacing);
 }
 
-.playbook-topics__head {
+.layout__topics-head {
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -326,11 +144,280 @@ const sections = computed(() => sidebar.value.map(item => {
   margin-bottom: var(--spacing-40);
 }
 
-.playbook-not-found__body {
+.layout__cards {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--spacing-30);
+}
+
+@media (min-width: 720px) {
+  .layout__cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .layout__cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Not found */
+.layout__not-found-body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: var(--spacing-30);
   padding-block: var(--block-spacing);
+}
+
+/* Docs page */
+.layout__sidebar,
+.layout__aside {
+  display: none;
+}
+
+.layout__main {
+  min-width: 0;
+}
+
+.layout__article {
+  padding: var(--spacing-40) 0 var(--block-spacing);
+}
+
+.layout__article:focus {
+  outline: none;
+}
+
+.layout__article .breadcrumbs-block {
+  margin-top: var(--spacing-60);
+}
+
+/* Below 800px the text takes the full width of the container; the bar runs edge to edge. */
+.layout__main > .toc-section__bar {
+  margin-inline: calc(-1 * var(--grid-margin));
+}
+
+@media (min-width: 720px) {
+  .layout__main > .toc-section__bar {
+    margin-inline: calc(-2 * var(--grid-margin));
+  }
+}
+
+@media (min-width: 800px) {
+  .layout__page {
+    display: grid;
+    grid-template-columns: 16rem minmax(0, 1fr);
+    column-gap: var(--spacing-40);
+  }
+
+  .layout__sidebar {
+    display: block;
+  }
+
+  .layout__main > .toc-section__bar {
+    margin-inline: 0;
+  }
+
+  .layout__article {
+    max-width: 46rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .layout__page {
+    grid-template-columns: 18rem minmax(0, 1fr);
+    column-gap: var(--spacing-60);
+  }
+
+  .layout__article {
+    padding-top: var(--spacing-60);
+  }
+}
+
+@media (min-width: 1280px) {
+  .layout__page {
+    grid-template-columns: 18rem minmax(0, 46rem) 15rem;
+    justify-content: space-between;
+  }
+
+  .layout__aside {
+    display: block;
+    padding-top: var(--spacing-60);
+  }
+
+  .layout__main > .toc-section__bar {
+    display: none;
+  }
+}
+
+/* The Drive content */
+.layout__content {
+  overflow-wrap: break-word;
+}
+
+.layout__content > :first-child {
+  margin-top: 0;
+}
+
+.layout__content :is(h2, h3, h4, h5, h6) {
+  position: relative;
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.layout__content h2 {
+  margin: var(--spacing-60) 0 var(--spacing-20);
+  font-size: clamp(1.9375rem, 1.502rem + 2.179vw, 3rem);
+  line-height: 1.25;
+}
+
+.layout__content :is(h3, h4, h5, h6) {
+  margin: var(--spacing-40) 0 var(--spacing-15);
+  font-size: clamp(1.5rem, 1.269rem + 1.154vw, 2.0625rem);
+  line-height: 1.3;
+}
+
+.layout__content .header-anchor {
+  position: absolute;
+  left: -.8em;
+  padding-right: .2em;
+  opacity: 0;
+  background: none;
+}
+
+.layout__content .header-anchor::before {
+  content: '#';
+}
+
+.layout__content :is(h2, h3, h4, h5, h6):hover .header-anchor,
+.layout__content .header-anchor:focus {
+  opacity: 1;
+}
+
+.layout__content :is(p, ul, ol, table, blockquote):not(:last-child) {
+  margin-bottom: var(--spacing-30);
+}
+
+@media (min-width: 720px) {
+  .layout__content :is(p, ul, ol, table, blockquote):not(:last-child) {
+    margin-bottom: var(--spacing-40);
+  }
+}
+
+.layout__content a {
+  padding-bottom: .15rem;
+  color: var(--blue);
+  background: transparent linear-gradient(to top, transparent 1px, var(--blue) 1px, var(--blue) 2px, transparent 2px);
+}
+
+.layout__content a:hover,
+.layout__content a:focus {
+  color: var(--blue-dark);
+  background: transparent linear-gradient(to top, var(--blue) 2px, transparent 2px);
+}
+
+.layout__content code {
+  padding: .1em .25rem;
+  background-color: var(--yellow-light);
+  color: var(--blue-dark);
+  font-family: var(--font-code);
+  font-size: max(1rem, .9em);
+}
+
+.layout__content a > code {
+  color: inherit;
+  background: transparent linear-gradient(to top, transparent 2px, var(--yellow-light) 1px);
+}
+
+.layout__content :is(ul, ol) {
+  padding-left: var(--spacing-30);
+}
+
+/* Paragraph followed by a list? Pull them closer together. */
+.layout__content p + :is(ul, ol) {
+  margin-top: calc(-1 * var(--spacing-15));
+}
+
+.layout__content ol {
+  list-style: decimal;
+}
+
+.layout__content li > :is(ul, ol),
+.layout__content li + li {
+  margin-top: var(--spacing-5);
+}
+
+.layout__content ul > li {
+  position: relative;
+}
+
+/* The bullet: a dot in the middle of the x-height. */
+.layout__content ul > li::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--spacing-15) + 1px);
+  width: 3px;
+  height: 3px;
+  margin-top: calc(.8em - 1px);
+  background-color: currentColor;
+  border-radius: 50%;
+}
+
+@media (min-width: 1100px) {
+  .layout__content ul > li::before {
+    left: calc(-1 * var(--spacing-30) + 1px);
+  }
+}
+
+.layout__content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tables scroll sideways on small screens instead of widening the page. */
+.layout__content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.layout__content tr {
+  border-bottom: 1px solid var(--gray);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.layout__content thead tr {
+  border-bottom-width: 2px;
+  color: var(--blue);
+}
+
+.layout__content th {
+  padding: var(--spacing-30) var(--spacing-5);
+  font-weight: 700;
+  vertical-align: bottom;
+}
+
+.layout__content td {
+  padding: var(--spacing-15) var(--spacing-5);
+  text-align: center;
+}
+
+.layout__content blockquote {
+  padding: var(--spacing-30);
+  background-color: var(--yellow-light);
+}
+
+.layout__content blockquote > * + * {
+  margin-top: var(--spacing-15);
+}
+
+/* A horizontal rule becomes space: blocks are set apart by space and ground, not by lines. */
+.layout__content hr {
+  height: 0;
+  margin: var(--spacing-40) 0;
+  border: 0;
 }
 </style>

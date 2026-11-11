@@ -6,7 +6,7 @@ export interface OutlineItem {
   title: string
 }
 
-export function useOutline(selector = '.playbook-content') {
+export function useOutline(selector = '.layout__content') {
   const route = useRoute()
   const items = ref<OutlineItem[]>([])
   const currentId = ref<string | null>(null)

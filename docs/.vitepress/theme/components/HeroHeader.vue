@@ -9,23 +9,23 @@ defineProps<{
 </script>
 
 <template>
-  <div :class="['playbook-hero', image && 'playbook-hero--has-image']">
-    <div class="playbook-container playbook-hero__content">
-      <div class="playbook-hero__text">
+  <div :class="['hero-header', image && 'hero-header--has-image']">
+    <div class="container hero-header__content">
+      <div class="hero-header__text">
         <h1 class="h1">{{ title }}</h1>
-        <p v-if="intro" class="playbook-hero__intro lead">{{ intro }}</p>
+        <p v-if="intro" class="hero-header__intro lead">{{ intro }}</p>
       </div>
-      <img v-if="image" class="playbook-hero__image" :src="withBase(image)" alt="" loading="eager">
+      <img v-if="image" class="hero-header__image" :src="withBase(image)" alt="" loading="eager">
     </div>
   </div>
 </template>
 
 <style>
-.playbook-hero {
+.hero-header {
   background-color: var(--yellow-light);
 }
 
-.playbook-hero__content {
+.hero-header__content {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -34,34 +34,34 @@ defineProps<{
 }
 
 @media (min-width: 1100px) {
-  .playbook-hero__content {
+  .hero-header__content {
     padding-block: var(--spacing-60);
   }
 }
 
-.playbook-hero__text {
+.hero-header__text {
   max-width: 50rem;
 }
 
-.playbook-hero__intro {
+.hero-header__intro {
   max-width: 40rem;
   margin-top: var(--spacing-15);
 }
 
-.playbook-hero__image {
+.hero-header__image {
   display: none;
 }
 
 @media (min-width: 720px) {
-  .playbook-hero--has-image .playbook-hero__content {
+  .hero-header--has-image .hero-header__content {
     padding-bottom: 0;
   }
 
-  .playbook-hero--has-image .playbook-hero__text {
+  .hero-header--has-image .hero-header__text {
     padding-bottom: var(--spacing-40);
   }
 
-  .playbook-hero__image {
+  .hero-header__image {
     display: block;
     flex: none;
     width: auto;
@@ -70,11 +70,11 @@ defineProps<{
 }
 
 @media (min-width: 1100px) {
-  .playbook-hero--has-image .playbook-hero__text {
+  .hero-header--has-image .hero-header__text {
     padding-bottom: var(--spacing-60);
   }
 
-  .playbook-hero__image {
+  .hero-header__image {
     height: 15rem;
   }
 }

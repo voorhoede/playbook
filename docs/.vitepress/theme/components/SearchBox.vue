@@ -165,14 +165,20 @@ const status = computed(() => {
 }
 
 .search-box__input {
+  display: block;
+  width: 100%;
   min-height: 44px;
-  margin-top: 0;
+  border: 1px solid var(--blue);
   padding: var(--spacing-5) var(--spacing-40) var(--spacing-5) calc(var(--spacing-15) + 20px + var(--spacing-10));
   /* Apercu sits high in its line box: nudge the text down so it looks centred in the field. */
   padding-top: calc(var(--spacing-5) + .15em);
   padding-bottom: calc(var(--spacing-5) - .15em);
   line-height: 1.5;
   background-color: var(--white);
+}
+
+.search-box__input:focus {
+  outline: 2px solid var(--blue);
 }
 
 .search-box__input::placeholder {

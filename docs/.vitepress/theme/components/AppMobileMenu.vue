@@ -13,7 +13,7 @@ const button = ref<HTMLButtonElement>()
 watch(open, value => {
   document.documentElement.classList.toggle('scroll-lock', value)
   // The menu covers the page: keep keyboard and screen reader focus out of what lies behind it.
-  document.querySelectorAll<HTMLElement>('.playbook > :not(.app-mobile-menu)').forEach(element => {
+  document.querySelectorAll<HTMLElement>('.layout > :not(.app-mobile-menu)').forEach(element => {
     element.inert = value
   })
 })
@@ -46,12 +46,12 @@ function toggleMenu() {
       <span class="sr-only">{{ open ? 'Close menu' : 'Open menu' }}</span>
     </button>
     <div v-show="open" id="app-mobile-menu-content" class="app-mobile-menu__content">
-      <nav class="playbook-mobile-menu__nav" aria-label="Playbook">
-        <a :href="withBase('/')" class="playbook-mobile-menu__home">
+      <nav class="app-mobile-menu__nav" aria-label="Playbook">
+        <a :href="withBase('/')" class="app-mobile-menu__home">
           <img class="app-mobile-menu__logo" :src="withBase('/images/voorhoede-logo.svg')" alt="">
           <span class="h3">Playbook</span>
         </a>
-        <SearchBox class="playbook-mobile-menu__search" />
+        <SearchBox />
         <SidebarTree :items="sidebar" :current-path="currentPath" />
       </nav>
     </div>
@@ -59,31 +59,98 @@ function toggleMenu() {
 </template>
 
 <style>
-.app-mobile-menu__content {
-  overflow-y: auto;
-  padding-bottom: calc(var(--mobile-icon-height) + 2 * var(--mobile-icon-bottom));
+.app-mobile-menu {
+  --app-mobile-menu-offset: 20px;
+  --app-mobile-menu-button-size: 52px;
+  position: relative;
+  z-index: var(--z-index-overlay);
 }
 
-.playbook-mobile-menu__nav {
+@media (min-width: 800px) {
+  .app-mobile-menu {
+    display: none;
+  }
+}
+
+.app-mobile-menu__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: var(--app-mobile-menu-offset);
+  right: var(--app-mobile-menu-offset);
+  z-index: var(--z-index-raised);
+  width: var(--app-mobile-menu-button-size);
+  height: var(--app-mobile-menu-button-size);
+  border: none;
+  background-color: var(--blue);
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+}
+
+.app-mobile-menu__button:focus,
+.app-mobile-menu__button:active {
+  background: var(--white);
+}
+
+.app-mobile-menu__button-icon {
+  width: 25px;
+  height: 25px;
+}
+
+.app-mobile-menu__button-icon--open {
+  background-image: url('/images/icon_menu-passive--white.svg');
+}
+
+.app-mobile-menu__button-icon--close {
+  background-image: url('/images/icon_menu-exit--white.svg');
+}
+
+.app-mobile-menu__button:is(:focus, :active) .app-mobile-menu__button-icon--open {
+  background-image: url('/images/icon_menu-passive--blue.svg');
+}
+
+.app-mobile-menu__button:is(:focus, :active) .app-mobile-menu__button-icon--close {
+  background-image: url('/images/icon_menu-exit--blue.svg');
+}
+
+.app-mobile-menu__content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 12px 20px calc(var(--app-mobile-menu-button-size) + 2 * var(--app-mobile-menu-offset));
+  background-color: var(--yellow);
+  box-shadow: rgba(0, 0, 0, .3) 0 0 3px 1px;
+}
+
+.app-mobile-menu__nav {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-30);
   font-size: 1.125rem;
 }
 
-.playbook-mobile-menu__home {
+.app-mobile-menu__home {
   display: flex;
   align-items: center;
   gap: var(--spacing-15);
   color: var(--blue);
-  text-decoration: none;
 }
 
-.playbook-mobile-menu__home .app-mobile-menu__logo {
-  margin: 0;
+.app-mobile-menu__logo {
+  width: auto;
+  height: 1.4375rem;
 }
 
-.playbook-mobile-menu__nav .sidebar-tree__link--current {
+.app-mobile-menu__nav .sidebar-tree__link--current {
   background-color: var(--yellow-light);
+}
+
+/* Set on <html> while the menu is open. */
+.scroll-lock {
+  overflow: hidden;
 }
 </style>
