@@ -14,6 +14,8 @@ export default async () => {
     outDir: '../dist',
     // Keep the .html URLs of the VuePress site, so existing links keep working.
     cleanUrls: false,
+    // The content comes from Google Drive: a broken link there shouldn't break the deploy.
+    ignoreDeadLinks: true,
     head: [
       ['link', { rel: 'icon', href: '/favicon.ico', sizes: '32x32' }],
       ['link', { rel: 'icon', href: '/images/voorhoede-favicon.png', type: 'image/png' }],
