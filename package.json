@@ -3,14 +3,16 @@
   "name": "voorhoede-playbook",
   "scripts": {
     "build-docs": "node scripts/google-drive/fetch-drive-files.mjs",
-    "dev": "pnpm build-docs && vuepress dev docs",
+    "dev": "pnpm build-docs && vitepress dev docs",
+    "dev:theme": "vitepress dev docs",
     "start": "netlify dev",
-    "build": "pnpm build-docs && vuepress build docs"
+    "build": "pnpm build-docs && vitepress build docs",
+    "preview": "vitepress preview docs"
   },
   "devDependencies": {
     "dotenv-safe": "^8.2.0",
     "hastscript": "^7.0.2",
-    "markdown-it-for-inline": "^0.1.1",
+    "minisearch": "^7.1.2",
     "netlify-cli": "^10.5.1",
     "qs": "^6.10.5",
     "rehype-parse": "^8.0.4",
@@ -18,9 +20,9 @@
     "remark": "^14.0.2",
     "remark-gfm": "^3.0.1",
     "remark-stringify": "^10.0.2",
-    "sanctuary": "^3.1.0",
     "unified": "^10.1.2",
-    "vuepress": "^1.9.7"
+    "vitepress": "^1.6.4",
+    "vue": "^3.5.22"
   },
   "dependencies": {
     "googleapis": "^101.0.0",

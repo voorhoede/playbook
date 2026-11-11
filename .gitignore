@@ -1,7 +1,9 @@
 dist
 docs/*
-!docs/.vuepress
-!docs/readme.md
+!docs/.vitepress
+docs/.vitepress/cache
+!docs/index.md
+!docs/public
 .env
 node_modules
 playbookFolders.json

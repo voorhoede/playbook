@@ -1,0 +1,85 @@
+<script setup lang="ts">
+/**
+ * The design system's TocSection. `side`: the sticky list beside the text, with the reading
+ * progress. `bar`: the sticky "Contents" bar that opens the list, for narrow screens.
+ */
+import { computed, ref, useId, watch } from 'vue'
+import { useRoute } from 'vitepress'
+import { useOutline } from '../outline'
+
+const props = withDefaults(defineProps<{
+  variant?: 'side' | 'bar'
+  label?: string
+  contentsLabel?: string
+}>(), { variant: 'side', label: 'On this page', contentsLabel: 'Contents' })
+
+const { items, currentId, progress } = useOutline()
+const open = ref(false)
+const toggle = ref<HTMLButtonElement>()
+const panelId = useId()
+const route = useRoute()
+
+const current = computed(() => items.value.find(item => item.id === currentId.value) ?? items.value[0])
+watch(() => route.path, () => { open.value = false })
+
+function close() {
+  if (!open.value) return
+  open.value = false
+  toggle.value?.focus()
+}
+</script>
+
+<template>
+  <template v-if="items.length > 1">
+    <section v-if="props.variant === 'side'" class="toc-section">
+      <div class="toc-section__progress" aria-hidden="true">
+        <span :style="{ transform: `scaleX(${progress})` }" />
+      </div>
+      <nav class="toc-section__nav small" :aria-label="label">
+        <ul class="flat-list toc-section__list">
+          <li v-for="item in items" :key="item.id" class="toc-section__list-item">
+            <a :href="`#${item.id}`" class="toc-section__link" :aria-current="item.id === currentId ? 'location' : undefined">
+              <span>{{ item.title }}</span>
+              <span class="toc-section__link-bold" aria-hidden="true">{{ item.title }}</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </section>
+
+    <div v-else class="toc-section__bar" @keydown.esc="close">
+      <button
+        ref="toggle"
+        type="button"
+        class="toc-section__toggle small"
+        :aria-expanded="open"
+        :aria-controls="panelId"
+        @click="open = !open"
+      >
+        <span>{{ contentsLabel }}:</span>
+        <span class="toc-section__current">{{ current?.title }}</span>
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+          <path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5" />
+        </svg>
+      </button>
+      <div class="toc-section__progress" aria-hidden="true">
+        <span :style="{ transform: `scaleX(${progress})` }" />
+      </div>
+      <nav :id="panelId" class="toc-section__panel small" :aria-label="contentsLabel" :hidden="!open">
+        <ul class="flat-list toc-section__list">
+          <li v-for="item in items" :key="item.id" class="toc-section__list-item">
+            <a
+              :href="`#${item.id}`"
+              class="toc-section__link"
+              :aria-current="item.id === currentId ? 'location' : undefined"
+              @click="open = false"
+            >
+              <span>{{ item.title }}</span>
+              <span class="toc-section__link-bold" aria-hidden="true">{{ item.title }}</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </template>
+</template>

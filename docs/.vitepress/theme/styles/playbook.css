@@ -1,0 +1,478 @@
+/*
+ * The playbook's own layer on top of the design system (design-system/tokens.css and bundle.css).
+ * It lays out the docs pages and maps the Drive markdown onto the system's type and blocks.
+ * Use tokens only: no raw colours, no spacing outside the scale, no text under 16px.
+ */
+
+html {
+  background-color: var(--white);
+  color: var(--black);
+  scroll-padding-top: var(--spacing-80);
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+}
+
+/* ---- AppHeader: the logo with the playbook's name, search from 800px ---- */
+.playbook-header__home {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-15);
+  text-decoration: none;
+}
+
+.playbook-header__name {
+  color: var(--black);
+}
+
+.playbook-header__home:hover .playbook-header__name {
+  background: transparent linear-gradient(to top, var(--black) 2px, transparent 2px);
+}
+
+.playbook-header__search {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  .playbook-header__search {
+    display: block;
+    width: 16rem;
+  }
+}
+
+/* ---- SearchBox: the InputField look, results in a floating panel ---- */
+.search-box {
+  position: relative;
+}
+
+.search-box__label {
+  display: block;
+}
+
+.search-box__input {
+  margin-top: 0;
+  padding: var(--spacing-5) var(--spacing-10);
+  background-color: var(--white);
+}
+
+.search-box__input::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+.search-box__panel {
+  position: absolute;
+  z-index: var(--z-index-overlay);
+  top: calc(100% + var(--spacing-5));
+  right: 0;
+  width: min(28rem, calc(100vw - 2 * var(--grid-margin)));
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: var(--spacing-10) 0;
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+}
+
+.search-box__result a {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-10) var(--spacing-20);
+  text-decoration: none;
+}
+
+.search-box__result-title {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.search-box__result--active a,
+.search-box__result a:hover {
+  background-color: var(--blue-light);
+}
+
+.search-box__result--active .search-box__result-title,
+.search-box__result a:hover .search-box__result-title {
+  text-decoration: underline;
+}
+
+.search-box__empty {
+  padding: var(--spacing-10) var(--spacing-20);
+}
+
+/* ---- The docs page: navigation, text, contents ---- */
+.playbook-page__sidebar {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  .playbook-page {
+    display: grid;
+    grid-template-columns: 17rem minmax(0, 1fr);
+  }
+
+  .playbook-page__sidebar {
+    display: block;
+  }
+}
+
+@media (min-width: 1100px) {
+  .playbook-page {
+    grid-template-columns: 20rem minmax(0, 1fr);
+  }
+}
+
+.playbook-page__main {
+  min-width: 0;
+}
+
+/* The sidebar: a gray-light ground, its text on the logo line. */
+.playbook-sidebar {
+  padding: var(--spacing-40) var(--spacing-30) var(--block-spacing) calc(2 * var(--grid-margin));
+  background-color: var(--gray-light);
+}
+
+.playbook-sidebar > .sidebar-tree {
+  position: sticky;
+  top: var(--spacing-20);
+  max-height: calc(100vh - var(--spacing-40));
+  overflow-y: auto;
+  /* room for the focus outline of the links inside the scroll area */
+  padding: var(--spacing-5);
+  margin: calc(-1 * var(--spacing-5));
+}
+
+@media (min-width: 1100px) {
+  .playbook-sidebar {
+    padding-left: calc(3 * var(--grid-margin));
+  }
+}
+
+/* The tree, in the sidebar and in the mobile menu */
+.sidebar-tree--level-1 > .sidebar-tree__item + .sidebar-tree__item {
+  margin-top: var(--spacing-10);
+}
+
+.sidebar-tree .sidebar-tree {
+  margin: var(--spacing-5) 0 var(--spacing-10);
+  padding-left: var(--spacing-20);
+}
+
+.sidebar-tree__toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-5);
+  width: 100%;
+  padding: var(--spacing-5) 0;
+  border: 0;
+  background: none;
+  color: var(--blue);
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar-tree__chevron {
+  flex: none;
+  margin-top: .25em;
+  transition: transform .2s ease-out;
+}
+
+.sidebar-tree__toggle[aria-expanded="true"] .sidebar-tree__chevron {
+  transform: rotate(90deg);
+}
+
+.sidebar-tree__link {
+  display: block;
+  margin-inline: calc(-1 * var(--spacing-10));
+  padding: var(--spacing-5) var(--spacing-10);
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.sidebar-tree__link:hover,
+.sidebar-tree__toggle:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* The current page: bold on the white ground, like the current section of TocSection. */
+.sidebar-tree__link--current {
+  background-color: var(--white);
+  font-weight: 700;
+}
+
+/* TocSection: the contents beside the text from 1280px, as a sticky bar below that.
+   (The design system switches at 720px; next to the sidebar the text needs the room.) */
+.playbook-article__aside {
+  display: none;
+}
+
+@media (min-width: 720px) and (max-width: 1279px) {
+  .playbook-page__toc-bar.toc-section__bar {
+    display: block;
+  }
+}
+
+@media (min-width: 1280px) {
+  .playbook-page__toc-bar.toc-section__bar {
+    display: none;
+  }
+}
+
+.playbook-article {
+  padding: var(--spacing-40) var(--grid-margin) var(--block-spacing);
+}
+
+@media (min-width: 720px) {
+  .playbook-article {
+    padding-inline: calc(2 * var(--grid-margin));
+  }
+}
+
+@media (min-width: 800px) {
+  .playbook-article {
+    padding-left: var(--spacing-40);
+  }
+}
+
+@media (min-width: 1100px) {
+  .playbook-article {
+    padding: var(--spacing-60) calc(3 * var(--grid-margin)) var(--block-spacing) var(--spacing-60);
+  }
+}
+
+@media (min-width: 1280px) {
+  .playbook-article {
+    display: grid;
+    grid-template-columns: minmax(0, 46rem) 220px;
+    gap: var(--spacing-60);
+  }
+
+  .playbook-article__aside {
+    display: block;
+  }
+}
+
+/* ---- Page metadata ---- */
+.page-metadata {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-20);
+  margin-bottom: var(--spacing-40);
+}
+
+.page-metadata__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-10) var(--spacing-30);
+}
+
+/* ---- The Drive content as RichTextBlock ---- */
+.playbook-content h2,
+.playbook-content h3,
+.playbook-content h4,
+.playbook-content h5,
+.playbook-content h6 {
+  position: relative;
+}
+
+.playbook-content h2 {
+  margin: var(--spacing-60) 0 var(--spacing-20);
+}
+
+.playbook-content h3,
+.playbook-content h4,
+.playbook-content h5,
+.playbook-content h6 {
+  margin: var(--spacing-40) 0 var(--spacing-15);
+}
+
+.playbook-content > :first-child {
+  margin-top: 0;
+}
+
+/* The permalink VitePress puts in each heading: a # in the margin on hover and focus. */
+.playbook-content .header-anchor {
+  position: absolute;
+  left: -.8em;
+  padding-right: .2em;
+  opacity: 0;
+  text-decoration: none;
+  background: none;
+}
+
+.playbook-content .header-anchor::before {
+  content: '#';
+}
+
+.playbook-content :is(h2, h3, h4, h5, h6):hover .header-anchor,
+.playbook-content .header-anchor:focus {
+  opacity: 1;
+}
+
+.playbook-content li > ul,
+.playbook-content li > ol {
+  margin-top: var(--spacing-5);
+}
+
+.playbook-content ol > li + li {
+  margin-top: var(--spacing-5);
+}
+
+.playbook-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tables scroll sideways on small screens instead of widening the page. */
+.playbook-content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.playbook-content th {
+  padding: var(--spacing-30) var(--spacing-5);
+  font-weight: 700;
+  vertical-align: bottom;
+}
+
+/* Markdown tables have a <thead>: the header style of RichTextBlock goes to that row only. */
+.playbook-content thead + tbody tr:first-child {
+  border-bottom: 1px solid var(--gray);
+  color: var(--black);
+}
+
+.playbook-content thead + tbody tr:first-child td {
+  padding: var(--spacing-15) var(--spacing-5);
+  font-weight: 400;
+  vertical-align: top;
+}
+
+/* A quote in a Drive doc is a highlighted passage: the Callout ground. */
+.playbook-content blockquote {
+  padding: var(--spacing-30);
+  background-color: var(--yellow-light);
+}
+
+.playbook-content blockquote > * + * {
+  margin-top: var(--spacing-15);
+}
+
+/* A horizontal rule becomes space: blocks are set apart by space and ground, not by lines. */
+.playbook-content hr {
+  height: 0;
+  margin: var(--spacing-40) 0;
+  border: 0;
+}
+
+.playbook-content blockquote,
+.playbook-content .code-block,
+.playbook-content .youtube-embed {
+  margin-bottom: var(--spacing-30);
+}
+
+@media (min-width: 720px) {
+  .playbook-content blockquote,
+  .playbook-content .code-block,
+  .playbook-content .youtube-embed {
+    margin-bottom: var(--spacing-40);
+  }
+}
+
+.playbook-content blockquote:last-child,
+.playbook-content .code-block:last-child,
+.playbook-content .youtube-embed:last-child {
+  margin-bottom: 0;
+}
+
+.playbook-article .breadcrumbs-block {
+  margin-top: var(--spacing-60);
+}
+
+/* ---- Home page ---- */
+.playbook-home .card-grid {
+  padding-block: var(--block-spacing);
+}
+
+/* ---- Not found ---- */
+.playbook-not-found__body {
+  row-gap: var(--spacing-30);
+  padding-block: var(--block-spacing);
+}
+
+/* ---- AppMobileMenu: the search and the tree in the yellow menu ---- */
+.app-mobile-menu__content {
+  gap: var(--spacing-30);
+  overflow-y: auto;
+  padding-bottom: calc(var(--mobile-icon-height) + 2 * var(--mobile-icon-bottom));
+}
+
+.playbook-mobile-menu__home {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-15);
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.playbook-mobile-menu__home .app-mobile-menu__logo {
+  margin: 0;
+}
+
+.playbook-mobile-menu__search .search-box__panel {
+  left: 0;
+  width: auto;
+}
+
+.playbook-mobile-menu__nav {
+  font-size: 1.125rem;
+}
+
+.playbook-mobile-menu__nav .sidebar-tree__link--current {
+  background-color: var(--yellow-light);
+}
+
+/* ---- Footer on the AppFooter ground ---- */
+.playbook-footer {
+  padding-block: var(--spacing-60);
+  background-color: var(--yellow);
+}
+
+.playbook-footer__layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-30);
+}
+
+.playbook-footer__home img {
+  display: block;
+  width: auto;
+  height: 2.125rem;
+}
+
+.playbook-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-10) var(--spacing-30);
+}
+
+.playbook-footer__links a,
+.playbook-footer__legal a {
+  color: var(--blue);
+}
+
+@media (min-width: 1100px) {
+  .playbook-footer__layout {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: var(--spacing-30) var(--spacing-80);
+  }
+
+  .playbook-footer__legal {
+    grid-column: 1 / -1;
+  }
+}
