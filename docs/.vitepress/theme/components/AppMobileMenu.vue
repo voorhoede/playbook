@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useRoute, withBase } from 'vitepress'
 import SearchBox from './SearchBox.vue'
 import SidebarTree from './SidebarTree.vue'
@@ -19,6 +19,12 @@ watch(open, value => {
 })
 
 watch(() => route.path, () => { open.value = false })
+
+// From 800px the menu is hidden, so it has to close or the page stays inert.
+const wide = typeof window === 'undefined' ? null : window.matchMedia('(min-width: 800px)')
+const closeWhenWide = () => { if (wide?.matches) open.value = false }
+onMounted(() => wide?.addEventListener('change', closeWhenWide))
+onBeforeUnmount(() => wide?.removeEventListener('change', closeWhenWide))
 
 function toggleMenu() {
   open.value = !open.value
