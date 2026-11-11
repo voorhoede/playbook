@@ -11,7 +11,7 @@ function mapFileOffspring(file, folderName = '') {
     .sort(sortPages)
   return items
     ? { text, items }
-    : { text, link: `${folderName}/${folderize(text).replace(/\//g, '-')}` }
+    : { text, link: `${folderName}/${folderize(text).replace(/\//g, '-')}.html` }
 }
 
 const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' })
