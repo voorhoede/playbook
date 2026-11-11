@@ -74,11 +74,11 @@ html {
   box-shadow: var(--box-shadow);
 }
 
-.search-box__result a {
+.search-box__result {
   display: flex;
   flex-direction: column;
   padding: var(--spacing-10) var(--spacing-20);
-  text-decoration: none;
+  cursor: pointer;
 }
 
 .search-box__result-title {
@@ -86,13 +86,13 @@ html {
   font-weight: 700;
 }
 
-.search-box__result--active a,
-.search-box__result a:hover {
+.search-box__result--active,
+.search-box__result:hover {
   background-color: var(--blue-light);
 }
 
 .search-box__result--active .search-box__result-title,
-.search-box__result a:hover .search-box__result-title {
+.search-box__result:hover .search-box__result-title {
   text-decoration: underline;
 }
 
@@ -253,6 +253,10 @@ html {
   }
 }
 
+.playbook-article__body:focus {
+  outline: none;
+}
+
 /* ---- Page metadata ---- */
 .page-metadata {
   display: flex;
@@ -406,7 +410,6 @@ html {
 
 /* ---- AppMobileMenu: the search and the tree in the yellow menu ---- */
 .app-mobile-menu__content {
-  gap: var(--spacing-30);
   overflow-y: auto;
   padding-bottom: calc(var(--mobile-icon-height) + 2 * var(--mobile-icon-bottom));
 }
@@ -429,6 +432,9 @@ html {
 }
 
 .playbook-mobile-menu__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-30);
   font-size: 1.125rem;
 }
 
@@ -460,9 +466,17 @@ html {
   gap: var(--spacing-10) var(--spacing-30);
 }
 
+/* Underlined, so the links don't rely on colour alone. */
 .playbook-footer__links a,
 .playbook-footer__legal a {
   color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.playbook-footer__links a:hover,
+.playbook-footer__legal a:hover {
+  text-decoration-thickness: 2px;
 }
 
 @media (min-width: 1100px) {

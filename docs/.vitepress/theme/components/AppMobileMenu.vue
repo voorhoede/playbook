@@ -20,6 +20,10 @@ watch(open, value => {
   if (value) { visible.value = true; state.value = 'enter' }
   else if (visible.value) state.value = 'leave'
   document.documentElement.classList.toggle('scroll-lock', value)
+  // The menu covers the page: keep keyboard and screen reader focus out of what lies behind it.
+  document.querySelectorAll<HTMLElement>('.playbook > :not(.app-mobile-menu)').forEach(element => {
+    element.inert = value
+  })
 })
 
 watch(() => route.path, () => { open.value = false })
@@ -59,12 +63,12 @@ function toggleMenu() {
       ]"
       @animationend="onAnimationEnd"
     >
-      <a :href="withBase('/')" class="playbook-mobile-menu__home">
-        <img class="app-mobile-menu__logo" :src="withBase('/images/voorhoede-logo.svg')" alt="">
-        <span class="h3">Playbook</span>
-      </a>
-      <SearchBox class="playbook-mobile-menu__search" />
       <nav class="playbook-mobile-menu__nav" aria-label="Playbook">
+        <a :href="withBase('/')" class="playbook-mobile-menu__home">
+          <img class="app-mobile-menu__logo" :src="withBase('/images/voorhoede-logo.svg')" alt="">
+          <span class="h3">Playbook</span>
+        </a>
+        <SearchBox class="playbook-mobile-menu__search" />
         <SidebarTree :items="sidebar" :current-path="currentPath" />
       </nav>
     </div>

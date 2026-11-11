@@ -77,6 +77,13 @@ function onKeydown(event: KeyboardEvent) {
 }
 
 const showPanel = computed(() => open.value && query.value.trim().length >= 2)
+
+/* Announced to screen readers while typing: how many results there are. */
+const status = computed(() => {
+  if (!showPanel.value || !index.value) return ''
+  const count = results.value.length
+  return count ? `${count} ${count === 1 ? 'result' : 'results'}, use the arrow keys to choose` : 'No pages found'
+})
 </script>
 
 <template>
@@ -106,14 +113,15 @@ const showPanel = computed(() => open.value && query.value.trim().length >= 2)
           role="option"
           :aria-selected="i === active"
           :class="['search-box__result', i === active && 'search-box__result--active']"
+          @mousedown.prevent
+          @click="go(result.href)"
         >
-          <a :href="result.href" tabindex="-1" @click.prevent="go(result.href)">
-            <span class="search-box__result-title body">{{ result.title }}</span>
-            <span v-if="result.trail.length" class="search-box__result-trail small">{{ result.trail.join(' › ') }}</span>
-          </a>
+          <span class="search-box__result-title body">{{ result.title }}</span>
+          <span v-if="result.trail.length" class="search-box__result-trail small">{{ result.trail.join(' › ') }}</span>
         </li>
       </ul>
-      <p v-else class="search-box__empty small" role="status">No pages found for “{{ query.trim() }}”.</p>
+      <p v-else class="search-box__empty small">No pages found for “{{ query.trim() }}”.</p>
     </div>
+    <p class="sr-only" role="status">{{ status }}</p>
   </div>
 </template>

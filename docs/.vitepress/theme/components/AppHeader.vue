@@ -5,7 +5,7 @@ import SearchBox from './SearchBox.vue'
 </script>
 
 <template>
-  <div class="app-header grid">
+  <header class="app-header grid">
     <div class="app-header__content">
       <a class="app-header__home-link playbook-header__home" :href="withBase('/')">
         <img class="app-header__logo" :src="withBase('/images/logo-with-text.svg')" alt="" width="190" height="32">
@@ -16,5 +16,5 @@ import SearchBox from './SearchBox.vue'
         <SearchBox class="playbook-header__search" />
       </div>
     </div>
-  </div>
+  </header>
 </template>

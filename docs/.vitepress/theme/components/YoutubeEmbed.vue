@@ -8,6 +8,9 @@ const props = defineProps<{
   title?: string
 }>()
 
+/* A bare URL as link text makes a poor accessible name. */
+const name = computed(() => props.title && !/^https?:\/\//.test(props.title) ? props.title : 'YouTube video')
+
 const src = computed(() => props.type === 'playlist'
   ? `https://www.youtube-nocookie.com/embed/videoseries?list=${props.id}`
   : `https://www.youtube-nocookie.com/embed/${props.id}`)
@@ -19,7 +22,7 @@ const src = computed(() => props.type === 'playlist'
       <iframe
         class="fixed-ratio__content"
         :src="src"
-        :title="title || 'YouTube video'"
+        :title="name"
         loading="lazy"
         allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
         allowfullscreen

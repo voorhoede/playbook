@@ -32,6 +32,7 @@ const href = computed(() => props.to && !props.external ? withBase(props.to) : p
   >
     <span v-if="primary || small">{{ label }}</span>
     <template v-else>{{ label }} →</template>
+    <span v-if="external" class="sr-only"> (opens in a new tab)</span>
   </a>
   <button v-else :class="classes">
     <span v-if="primary || small">{{ label }}</span>

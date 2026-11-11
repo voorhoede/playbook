@@ -25,6 +25,16 @@ const { sidebar, previous, next } = useNavigation()
 const isHome = computed(() => frontmatter.value.layout === 'home')
 const isNotFound = computed(() => page.value.isNotFound)
 
+/* The router only scrolls to a #hash; the skip link also has to move keyboard focus. */
+const skipTarget = computed(() => isHome.value || isNotFound.value ? 'main' : 'content')
+function skipToContent() {
+  const target = document.getElementById(skipTarget.value)
+  if (!target) return
+  if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1')
+  target.focus({ preventScroll: true })
+  target.scrollIntoView()
+}
+
 /* One card per top-level part of the playbook, for the home page. */
 const sections = computed(() => sidebar.value.map(item => {
   const pages = item.items ? flatten(item.items) : []
@@ -42,7 +52,7 @@ const sections = computed(() => sidebar.value.map(item => {
 
 <template>
   <div class="playbook">
-    <a class="skip-link app-button app-button--small small font-bold" href="#main"><span>Skip to content</span></a>
+    <a class="skip-link app-button app-button--small small font-bold" :href="`#${skipTarget}`" @click.prevent="skipToContent"><span>Skip to content</span></a>
     <AppHeader />
 
     <main v-if="isHome" id="main" class="playbook-home">
@@ -71,14 +81,15 @@ const sections = computed(() => sidebar.value.map(item => {
       </div>
     </main>
 
-    <template v-else>
+    <main v-else id="main">
       <HeroHeader :title="page.title" />
       <div class="playbook-page">
         <PlaybookSidebar class="playbook-page__sidebar" />
-        <main id="main" class="playbook-page__main">
+        <div class="playbook-page__main">
           <TocSection variant="bar" class="playbook-page__toc-bar" />
           <div class="playbook-article">
-            <article class="playbook-article__body">
+            <!-- The skip link lands here, past the title and the navigation. -->
+            <article id="content" class="playbook-article__body" tabindex="-1" :aria-label="page.title">
               <PageMetadata
                 :id="frontmatter.doc_id"
                 :date="frontmatter.last_updated_date"
@@ -91,9 +102,9 @@ const sections = computed(() => sidebar.value.map(item => {
               <TocSection variant="side" />
             </aside>
           </div>
-        </main>
+        </div>
       </div>
-    </template>
+    </main>
 
     <AppMobileMenu />
     <AppFooter />
