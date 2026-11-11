@@ -7,11 +7,11 @@ import { normalizePath, useNavigation } from '../navigation'
 
 interface Result { id: string, title?: string, titles?: string[] }
 
-const props = withDefaults(defineProps<{
-  label?: string
+const props = defineProps<{
   /* Focus this field with the / key. */
   shortcut?: boolean
-}>(), { label: 'Search the playbook' })
+}>()
+const label = 'Search the playbook'
 
 const input = ref<HTMLInputElement>()
 
@@ -103,7 +103,7 @@ const status = computed(() => {
 <template>
   <div class="search-box" @focusout="(event: FocusEvent) => { if (!(event.currentTarget as HTMLElement).contains(event.relatedTarget as Node)) open = false }">
     <label class="search-box__label">
-      <span class="sr-only">{{ props.label }}</span>
+      <span class="sr-only">{{ label }}</span>
       <svg class="search-box__icon" viewBox="0 0 32 32" width="20" height="20" aria-hidden="true" focusable="false">
         <path fill="currentColor" d="M29 27.586l-7.552-7.552a11.018 11.018 0 1 0-1.414 1.414L27.586 29zM4 13a9 9 0 1 1 9 9 9.01 9.01 0 0 1-9-9z" />
       </svg>
@@ -112,7 +112,7 @@ const status = computed(() => {
         v-model="query"
         class="search-box__input body"
         type="search"
-        :placeholder="props.label"
+        :placeholder="label"
         autocomplete="off"
         role="combobox"
         :aria-expanded="showPanel"
@@ -124,7 +124,7 @@ const status = computed(() => {
       <kbd v-if="shortcut && !query" class="search-box__shortcut small" aria-hidden="true">/</kbd>
     </label>
     <div v-show="showPanel" class="search-box__panel">
-      <ul :id="listId" class="search-box__results" role="listbox" :aria-label="props.label">
+      <ul :id="listId" class="search-box__results" role="listbox" :aria-label="label">
         <li
           v-for="(result, i) in results"
           :id="`${listId}-${i}`"

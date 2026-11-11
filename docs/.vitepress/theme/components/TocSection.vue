@@ -5,9 +5,7 @@ import { useOutline } from '../outline'
 
 const props = withDefaults(defineProps<{
   variant?: 'side' | 'bar'
-  label?: string
-  contentsLabel?: string
-}>(), { variant: 'side', label: 'On this page', contentsLabel: 'Contents' })
+}>(), { variant: 'side' })
 
 const { items, currentId } = useOutline()
 const open = ref(false)
@@ -28,8 +26,8 @@ function close() {
 <template>
   <template v-if="items.length > 1">
     <section v-if="props.variant === 'side'" class="toc-section">
-      <p class="toc-section__title small font-bold" aria-hidden="true">{{ label }}</p>
-      <nav class="toc-section__nav small" :aria-label="label">
+      <p class="toc-section__title small font-bold" aria-hidden="true">On this page</p>
+      <nav class="toc-section__nav small" aria-label="On this page">
         <ul class="flat-list toc-section__list">
           <li v-for="item in items" :key="item.id" class="toc-section__list-item">
             <a :href="`#${item.id}`" class="toc-section__link" :aria-current="item.id === currentId ? 'location' : undefined">
@@ -50,13 +48,13 @@ function close() {
         :aria-controls="panelId"
         @click="open = !open"
       >
-        <span>{{ contentsLabel }}:</span>
+        <span>Contents:</span>
         <span class="toc-section__current">{{ current?.title }}</span>
         <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
           <path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5" />
         </svg>
       </button>
-      <nav :id="panelId" class="toc-section__panel small" :aria-label="contentsLabel" :hidden="!open">
+      <nav :id="panelId" class="toc-section__panel small" aria-label="Contents" :hidden="!open">
         <ul class="flat-list toc-section__list">
           <li v-for="item in items" :key="item.id" class="toc-section__list-item">
             <a

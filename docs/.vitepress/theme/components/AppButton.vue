@@ -1,40 +1,19 @@
 <script setup lang="ts">
-import { computed } from 'vue'
 import { withBase } from 'vitepress'
 
-const props = defineProps<{
+defineProps<{
   label: string
-  to?: string
+  to: string
   secondary?: boolean
-  small?: boolean
-  external?: boolean
 }>()
-
-const primary = computed(() => !props.secondary && !props.small)
-const classes = computed(() => [
-  'app-button',
-  !props.small && 'body',
-  primary.value && 'app-button--primary font-bold',
-  props.secondary && 'app-button--secondary',
-  props.small && 'app-button--small small font-bold',
-])
-const href = computed(() => props.to && !props.external ? withBase(props.to) : props.to)
 </script>
 
 <template>
   <a
-    v-if="to"
-    :class="classes"
-    :href="href"
-    :target="external ? '_blank' : undefined"
-    :rel="external ? 'noreferrer noopener' : undefined"
+    :class="['app-button', 'body', secondary ? 'app-button--secondary' : 'app-button--primary font-bold']"
+    :href="withBase(to)"
   >
-    <span v-if="primary || small">{{ label }}</span>
-    <template v-else>{{ label }} →</template>
-    <span v-if="external" class="sr-only"> (opens in a new tab)</span>
+    <template v-if="secondary">{{ label }} →</template>
+    <span v-else>{{ label }}</span>
   </a>
-  <button v-else :class="classes">
-    <span v-if="primary || small">{{ label }}</span>
-    <template v-else>{{ label }} →</template>
-  </button>
 </template>
