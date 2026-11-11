@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { withBase } from 'vitepress'
-
-const year = new Date().getFullYear()
 </script>
 
 <template>
@@ -11,7 +9,7 @@ const year = new Date().getFullYear()
         <img :src="withBase('/images/logo-with-text.svg')" alt="Playbook home" width="190" height="32">
       </a>
       <p class="playbook-footer__legal small">
-        © De Voorhoede {{ year }} ·
+        © De Voorhoede ·
         <a href="https://www.voorhoede.nl" rel="noopener">voorhoede.nl</a>
       </p>
     </div>
