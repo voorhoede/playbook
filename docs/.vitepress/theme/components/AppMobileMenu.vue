@@ -57,3 +57,33 @@ function toggleMenu() {
     </div>
   </div>
 </template>
+
+<style>
+.app-mobile-menu__content {
+  overflow-y: auto;
+  padding-bottom: calc(var(--mobile-icon-height) + 2 * var(--mobile-icon-bottom));
+}
+
+.playbook-mobile-menu__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-30);
+  font-size: 1.125rem;
+}
+
+.playbook-mobile-menu__home {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-15);
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.playbook-mobile-menu__home .app-mobile-menu__logo {
+  margin: 0;
+}
+
+.playbook-mobile-menu__nav .sidebar-tree__link--current {
+  background-color: var(--yellow-light);
+}
+</style>

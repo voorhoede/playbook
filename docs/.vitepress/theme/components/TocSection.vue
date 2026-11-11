@@ -72,3 +72,23 @@ function close() {
     </div>
   </template>
 </template>
+
+<style>
+.toc-section__title {
+  margin: 0;
+  padding-inline: var(--spacing-20);
+}
+
+.toc-section .toc-section__list,
+.toc-section__panel .toc-section__list {
+  gap: 0;
+}
+
+/* Room around the text, so the highlight of the current section reads as a block. The list
+   scrolls (overflow), so the room is padding inside the column, not a negative margin. */
+.toc-section__link {
+  margin-inline: 0;
+  padding: var(--spacing-10) var(--spacing-20);
+  text-underline-offset: 4px;
+}
+</style>

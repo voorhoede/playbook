@@ -112,3 +112,225 @@ const sections = computed(() => sidebar.value.map(item => {
     <AppFooter />
   </div>
 </template>
+
+<style>
+/* The sidebar's ground runs out to the left edge of the window; nothing else may widen the page. */
+.playbook {
+  overflow-x: clip;
+}
+
+.playbook-page__sidebar,
+.playbook-page__aside {
+  display: none;
+}
+
+.playbook-page__main {
+  min-width: 0;
+}
+
+.playbook-article {
+  padding: var(--spacing-40) 0 var(--block-spacing);
+}
+
+.playbook-article:focus {
+  outline: none;
+}
+
+/* Below 800px the text takes the full width of the container; the bar runs edge to edge. */
+.playbook-page__main > .toc-section__bar {
+  margin-inline: calc(-1 * var(--grid-margin));
+}
+
+@media (min-width: 720px) {
+  .playbook-page__main > .toc-section__bar {
+    margin-inline: calc(-2 * var(--grid-margin));
+  }
+
+  .playbook-page__main > .toc-section__bar {
+    display: block;
+  }
+}
+
+@media (min-width: 800px) {
+  .playbook-page {
+    display: grid;
+    grid-template-columns: 16rem minmax(0, 1fr);
+    column-gap: var(--spacing-40);
+  }
+
+  .playbook-page__sidebar {
+    display: block;
+  }
+
+  .playbook-page__main > .toc-section__bar {
+    margin-inline: 0;
+  }
+
+  .playbook-article {
+    max-width: 46rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .playbook-page {
+    grid-template-columns: 18rem minmax(0, 1fr);
+    column-gap: var(--spacing-60);
+  }
+
+  .playbook-article {
+    padding-top: var(--spacing-60);
+  }
+}
+
+@media (min-width: 1280px) {
+  .playbook-page {
+    grid-template-columns: 18rem minmax(0, 46rem) 15rem;
+    justify-content: space-between;
+  }
+
+  .playbook-page__aside {
+    display: block;
+    padding-top: var(--spacing-60);
+  }
+
+  .playbook-page__main > .toc-section__bar {
+    display: none;
+  }
+}
+
+.playbook-content h2,
+.playbook-content h3,
+.playbook-content h4,
+.playbook-content h5,
+.playbook-content h6 {
+  position: relative;
+}
+
+.playbook-content h2 {
+  margin: var(--spacing-60) 0 var(--spacing-20);
+}
+
+.playbook-content h3,
+.playbook-content h4,
+.playbook-content h5,
+.playbook-content h6 {
+  margin: var(--spacing-40) 0 var(--spacing-15);
+}
+
+.playbook-content > :first-child {
+  margin-top: 0;
+}
+
+.playbook-content .header-anchor {
+  position: absolute;
+  left: -.8em;
+  padding-right: .2em;
+  opacity: 0;
+  text-decoration: none;
+  background: none;
+}
+
+.playbook-content .header-anchor::before {
+  content: '#';
+}
+
+.playbook-content :is(h2, h3, h4, h5, h6):hover .header-anchor,
+.playbook-content .header-anchor:focus {
+  opacity: 1;
+}
+
+.playbook-content li > ul,
+.playbook-content li > ol {
+  margin-top: var(--spacing-5);
+}
+
+.playbook-content ol > li + li {
+  margin-top: var(--spacing-5);
+}
+
+.playbook-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tables scroll sideways on small screens instead of widening the page. */
+.playbook-content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.playbook-content th {
+  padding: var(--spacing-30) var(--spacing-5);
+  font-weight: 700;
+  vertical-align: bottom;
+}
+
+/* Markdown tables have a <thead>: the header style of RichTextBlock goes to that row only. */
+.playbook-content thead + tbody tr:first-child {
+  border-bottom: 1px solid var(--gray);
+  color: var(--black);
+}
+
+.playbook-content thead + tbody tr:first-child td {
+  padding: var(--spacing-15) var(--spacing-5);
+  font-weight: 400;
+  vertical-align: top;
+}
+
+.playbook-content blockquote {
+  padding: var(--spacing-30);
+  background-color: var(--yellow-light);
+}
+
+.playbook-content blockquote > * + * {
+  margin-top: var(--spacing-15);
+}
+
+/* A horizontal rule becomes space: blocks are set apart by space and ground, not by lines. */
+.playbook-content hr {
+  height: 0;
+  margin: var(--spacing-40) 0;
+  border: 0;
+}
+
+.playbook-content blockquote {
+  margin-bottom: var(--spacing-30);
+}
+
+@media (min-width: 720px) {
+  .playbook-content blockquote {
+    margin-bottom: var(--spacing-40);
+  }
+}
+
+.playbook-content blockquote:last-child {
+  margin-bottom: 0;
+}
+
+.playbook-article .breadcrumbs-block {
+  margin-top: var(--spacing-60);
+}
+
+.playbook-topics {
+  padding-block: var(--block-spacing);
+}
+
+.playbook-topics__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-20) var(--spacing-40);
+  margin-bottom: var(--spacing-40);
+}
+
+.playbook-not-found__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-30);
+  padding-block: var(--block-spacing);
+}
+</style>

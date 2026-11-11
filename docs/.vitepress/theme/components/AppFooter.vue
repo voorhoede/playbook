@@ -15,3 +15,38 @@ import { withBase } from 'vitepress'
     </div>
   </footer>
 </template>
+
+<style>
+.playbook-footer {
+  background-color: var(--yellow);
+}
+
+.playbook-footer__content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-20) var(--spacing-40);
+  padding-block: var(--spacing-40);
+}
+
+.playbook-footer__home img {
+  display: block;
+  width: auto;
+  height: 1.875rem;
+}
+
+.playbook-footer__legal {
+  margin: 0;
+}
+
+.playbook-footer__legal a {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.playbook-footer__legal a:hover {
+  text-decoration-thickness: 2px;
+}
+</style>

@@ -53,3 +53,33 @@ const updatedSinceLastVisit = computed(() =>
     </CalloutBlock>
   </div>
 </template>
+
+<style>
+.page-metadata {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-20);
+  margin-bottom: var(--spacing-40);
+}
+
+.page-metadata__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-5) var(--spacing-20);
+  margin: 0;
+}
+
+.page-metadata__edit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-5);
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.page-metadata__edit:hover {
+  text-decoration-thickness: 2px;
+}
+</style>

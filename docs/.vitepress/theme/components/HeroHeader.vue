@@ -19,3 +19,63 @@ defineProps<{
     </div>
   </div>
 </template>
+
+<style>
+.playbook-hero {
+  background-color: var(--yellow-light);
+}
+
+.playbook-hero__content {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-40);
+  padding-block: var(--spacing-40);
+}
+
+@media (min-width: 1100px) {
+  .playbook-hero__content {
+    padding-block: var(--spacing-60);
+  }
+}
+
+.playbook-hero__text {
+  max-width: 50rem;
+}
+
+.playbook-hero__intro {
+  max-width: 40rem;
+  margin-top: var(--spacing-15);
+}
+
+.playbook-hero__image {
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .playbook-hero--has-image .playbook-hero__content {
+    padding-bottom: 0;
+  }
+
+  .playbook-hero--has-image .playbook-hero__text {
+    padding-bottom: var(--spacing-40);
+  }
+
+  .playbook-hero__image {
+    display: block;
+    flex: none;
+    width: auto;
+    height: 12rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .playbook-hero--has-image .playbook-hero__text {
+    padding-bottom: var(--spacing-60);
+  }
+
+  .playbook-hero__image {
+    height: 15rem;
+  }
+}
+</style>

@@ -50,3 +50,55 @@ function toggle(item: SidebarItem) {
     </li>
   </ul>
 </template>
+
+<style>
+.sidebar-tree--level-1 > .sidebar-tree__item + .sidebar-tree__item {
+  margin-top: var(--spacing-5);
+}
+
+.sidebar-tree .sidebar-tree {
+  margin: 0 0 var(--spacing-10);
+  padding-left: var(--spacing-20);
+}
+
+.sidebar-tree__toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-5);
+  width: 100%;
+  padding: var(--spacing-5) 0;
+  border: 0;
+  background: none;
+  color: var(--blue);
+  text-align: left;
+  cursor: pointer;
+}
+
+.sidebar-tree__chevron {
+  flex: none;
+  margin-top: .25em;
+}
+
+.sidebar-tree__toggle[aria-expanded="true"] .sidebar-tree__chevron {
+  transform: rotate(90deg);
+}
+
+.sidebar-tree__link {
+  display: block;
+  margin-inline: calc(-1 * var(--spacing-15));
+  padding: var(--spacing-5) var(--spacing-15);
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.sidebar-tree__link:hover,
+.sidebar-tree__toggle:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sidebar-tree__link--current {
+  background-color: var(--white);
+  font-weight: 700;
+}
+</style>

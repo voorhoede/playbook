@@ -13,3 +13,52 @@ import SearchBox from './SearchBox.vue'
     </div>
   </header>
 </template>
+
+<style>
+.playbook-header {
+  position: relative;
+  z-index: var(--z-index-header);
+  background-color: var(--white);
+}
+
+.playbook-header__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-30);
+  min-height: var(--app-header-height-small);
+}
+
+@media (min-width: 1100px) {
+  .playbook-header__content {
+    min-height: calc(var(--app-header-height-large) + var(--spacing-10));
+  }
+}
+
+.playbook-header__home {
+  display: block;
+}
+
+.playbook-header__logo {
+  display: block;
+  width: auto;
+  height: 1.625rem;
+}
+
+@media (min-width: 1100px) {
+  .playbook-header__logo {
+    height: 2.125rem;
+  }
+}
+
+.playbook-header__search {
+  display: none;
+}
+
+@media (min-width: 800px) {
+  .playbook-header__search {
+    display: block;
+    width: min(26rem, 40vw);
+  }
+}
+</style>

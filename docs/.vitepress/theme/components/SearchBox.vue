@@ -144,3 +144,100 @@ const status = computed(() => {
     <p class="sr-only" role="status">{{ status }}</p>
   </div>
 </template>
+
+<style>
+.search-box {
+  position: relative;
+}
+
+.search-box__label {
+  position: relative;
+  display: block;
+}
+
+.search-box__icon {
+  position: absolute;
+  top: 50%;
+  left: var(--spacing-15);
+  color: var(--blue);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.search-box__input {
+  min-height: 44px;
+  margin-top: 0;
+  padding: var(--spacing-5) var(--spacing-40) var(--spacing-5) calc(var(--spacing-15) + 20px + var(--spacing-10));
+  /* Apercu sits high in its line box: nudge the text down so it looks centred in the field. */
+  padding-top: calc(var(--spacing-5) + .15em);
+  padding-bottom: calc(var(--spacing-5) - .15em);
+  line-height: 1.5;
+  background-color: var(--white);
+}
+
+.search-box__input::placeholder {
+  color: var(--black);
+}
+
+.search-box__input::-webkit-search-cancel-button {
+  cursor: pointer;
+}
+
+.search-box__shortcut {
+  position: absolute;
+  top: 50%;
+  right: var(--spacing-10);
+  min-width: 1.5rem;
+  padding: 0 var(--spacing-5);
+  background-color: var(--gray-light);
+  color: var(--black);
+  font-family: var(--font-code);
+  line-height: 1.5rem;
+  text-align: center;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.search-box__input:focus ~ .search-box__shortcut {
+  display: none;
+}
+
+.search-box__panel {
+  position: absolute;
+  z-index: var(--z-index-overlay);
+  top: calc(100% + var(--spacing-5));
+  right: 0;
+  left: 0;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding: var(--spacing-10) 0;
+  background-color: var(--white);
+  box-shadow: var(--box-shadow);
+}
+
+.search-box__result {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-10) var(--spacing-20);
+  cursor: pointer;
+}
+
+.search-box__result-title {
+  color: var(--blue);
+  font-weight: 700;
+}
+
+.search-box__result--active,
+.search-box__result:hover {
+  background-color: var(--blue-light);
+}
+
+.search-box__result--active .search-box__result-title,
+.search-box__result:hover .search-box__result-title {
+  text-decoration: underline;
+}
+
+.search-box__empty {
+  padding: var(--spacing-10) var(--spacing-20);
+}
+</style>
