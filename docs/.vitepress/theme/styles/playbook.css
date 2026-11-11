@@ -67,29 +67,14 @@ html {
   }
 }
 
-/* "De Voorhoede Playbook": the logo with the name set on the wordmark's baseline. */
 .playbook-header__home {
-  display: flex;
-  align-items: flex-end;
-  gap: var(--spacing-10);
-  color: var(--blue);
-  text-decoration: none;
+  display: block;
 }
 
 .playbook-header__logo {
   display: block;
   width: auto;
   height: 1.625rem;
-}
-
-.playbook-header__name {
-  line-height: 1;
-}
-
-.playbook-header__home:hover .playbook-header__name {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 4px;
 }
 
 @media (min-width: 1100px) {
@@ -132,6 +117,10 @@ html {
   min-height: 44px;
   margin-top: 0;
   padding: var(--spacing-5) var(--spacing-40) var(--spacing-5) calc(var(--spacing-15) + 20px + var(--spacing-10));
+  /* Apercu sits high in its line box: nudge the text down so it looks centred in the field. */
+  padding-top: calc(var(--spacing-5) + .15em);
+  padding-bottom: calc(var(--spacing-5) - .15em);
+  line-height: 1.5;
   background-color: var(--white);
 }
 
@@ -432,6 +421,7 @@ html {
 /* ---- Contents (TocSection) ---- */
 .toc-section__title {
   margin: 0;
+  padding-inline: var(--spacing-20);
 }
 
 .toc-section .toc-section__list,
@@ -439,10 +429,11 @@ html {
   gap: 0;
 }
 
-/* Room around the text, so the highlight of the current section reads as a block. */
+/* Room around the text, so the highlight of the current section reads as a block. The list
+   scrolls (overflow), so the room is padding inside the column, not a negative margin. */
 .toc-section__link {
-  margin-inline: calc(-1 * var(--spacing-15));
-  padding: var(--spacing-10) var(--spacing-15);
+  margin-inline: 0;
+  padding: var(--spacing-10) var(--spacing-20);
   text-underline-offset: 4px;
 }
 
