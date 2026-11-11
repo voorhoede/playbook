@@ -567,22 +567,19 @@ html {
 }
 
 .playbook-content blockquote,
-.playbook-content .code-block,
-.playbook-content .youtube-embed {
+.playbook-content .code-block {
   margin-bottom: var(--spacing-30);
 }
 
 @media (min-width: 720px) {
   .playbook-content blockquote,
-  .playbook-content .code-block,
-  .playbook-content .youtube-embed {
+  .playbook-content .code-block {
     margin-bottom: var(--spacing-40);
   }
 }
 
 .playbook-content blockquote:last-child,
-.playbook-content .code-block:last-child,
-.playbook-content .youtube-embed:last-child {
+.playbook-content .code-block:last-child {
   margin-bottom: 0;
 }
 

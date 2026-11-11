@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import { generateSidebar, getMetaData, transformMarkdown } from '../../scripts/google-drive/main.mjs'
+import { generateSidebar, getMetaData } from '../../scripts/google-drive/main.mjs'
 import { codeBlock, liftTitle } from './markdown.mts'
 
 
@@ -28,7 +28,6 @@ export default async () => {
     markdown: {
       anchor: { level: [2, 3] },
       config(md) {
-        transformMarkdown(md)
         liftTitle(md)
         codeBlock(md)
       },
