@@ -28,7 +28,6 @@ defineProps<{
   overflow-wrap: break-word;
 }
 
-/* primary, and small (the skip link): white text on a blue ground that grows on hover. */
 .app-button--primary,
 .app-button--small {
   position: relative;
@@ -81,7 +80,6 @@ defineProps<{
   transform: translateX(.5em);
 }
 
-/* secondary: blue text on an underline that draws away on hover. */
 .app-button--secondary {
   color: var(--blue);
 }

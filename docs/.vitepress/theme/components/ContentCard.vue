@@ -44,7 +44,6 @@ defineProps<{
   padding: var(--spacing-30);
 }
 
-/* The title, with the arrow at the end of its first line. */
 .content-card__head {
   display: flex;
   align-items: flex-start;

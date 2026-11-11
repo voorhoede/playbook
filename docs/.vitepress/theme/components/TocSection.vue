@@ -74,7 +74,6 @@ function close() {
 </template>
 
 <style>
-/* side: a sticky list in the column beside the text, from 720px. */
 .toc-section {
   display: none;
 }
@@ -132,7 +131,6 @@ function close() {
   font-weight: 700;
 }
 
-/* bar: a sticky "Contents: <section>" bar that opens the list, for narrow screens. */
 .toc-section__bar {
   position: sticky;
   z-index: var(--z-index-sticky);

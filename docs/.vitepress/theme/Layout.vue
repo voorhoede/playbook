@@ -334,7 +334,6 @@ const sections = computed(() => sidebar.value.map(item => {
   padding-left: var(--spacing-30);
 }
 
-/* Paragraph followed by a list? Pull them closer together. */
 .layout__content p + :is(ul, ol) {
   margin-top: calc(-1 * var(--spacing-15));
 }
