@@ -1,7 +1,7 @@
 # De Voorhoede Playbook
 [![Netlify Status][netlify-icon]][netlify]
 
-Company playbook containing internal information about common questions & situations at De Voorhoede in the form of a website generated with [VitePress](https://vitepress.dev/) and fetched [Google Drive](https://drive.google.com) documents. It is styled with the De Voorhoede design system.
+Company playbook containing internal information about common questions & situations at De Voorhoede in the form of a website generated with [VitePress](https://vitepress.dev/) and fetched [Google Drive](https://drive.google.com) documents. It is styled according to the De Voorhoede styles.
 
 ## Development
 
