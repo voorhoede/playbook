@@ -15,6 +15,8 @@ export default async () => {
     // The content comes from Google Drive: a broken link there shouldn't break the deploy.
     ignoreDeadLinks: true,
     appearance: false,
+    // Matches scroll-padding-top in playbook.css; clears the sticky contents bar.
+    scrollOffset: 80,
     head: [
       ['link', { rel: 'icon', href: '/favicon.ico', sizes: '32x32' }],
       ['link', { rel: 'icon', href: '/images/voorhoede-favicon.png', type: 'image/png' }],

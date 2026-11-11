@@ -28,6 +28,7 @@ export function useOutline(selector = '.playbook-content') {
     frame = 0
     const root = document.querySelector<HTMLElement>(selector)
     if (!root) return
+    // More than scrollOffset in config.mts, so a heading jumped to counts as the current one.
     const offset = 120
     let current: string | null = items.value[0]?.id ?? null
     for (const item of items.value) {
