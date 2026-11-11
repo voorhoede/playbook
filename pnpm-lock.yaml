@@ -21,9 +21,6 @@ importers:
       hastscript:
         specifier: ^7.0.2
         version: 7.2.0
-      markdown-it-for-inline:
-        specifier: ^0.1.1
-        version: 0.1.1
       minisearch:
         specifier: ^7.1.2
         version: 7.2.0
@@ -48,9 +45,6 @@ importers:
       remark-stringify:
         specifier: ^10.0.2
         version: 10.0.3
-      sanctuary:
-        specifier: ^3.1.0
-        version: 3.1.0
       unified:
         specifier: ^10.1.2
         version: 10.1.2
@@ -883,66 +877,79 @@ packages:
     resolution: {integrity: sha512-ksR3ZmzHrm6HOUP8UlDBy5hNTcG9cEIa3EyGnxn5BjorLRjBh4ucxhwjwwVEm0dqcIN4Egc/XjDUiPQwN1ic9A==}
     cpu: [arm]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-arm-musleabihf@4.68.2':
     resolution: {integrity: sha512-STZVVBM35wULVsQah0xKfCBQMPpHliOfjnRaUNT35jrbpfapUrD8ix6Yhl7tLHW0xQSWotXSSghjUi/DclwRSw==}
     cpu: [arm]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-arm64-gnu@4.68.2':
     resolution: {integrity: sha512-Fm/GPC2R0zlJYQIp9aY9L1lO2z+P+UrcvXG6fhubfo/BbMOLZlLXshnbECOTqr3pxfZFb6nNn0QgDETDtrX7TQ==}
     cpu: [arm64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-arm64-musl@4.68.2':
     resolution: {integrity: sha512-VoqlckWcwNF3WqsUkLZg91zYFgBvrC37Lc5e8AU+BKdCUFDMPoN0Rsin/LvF+rBVF527gWo5KT0oHkaAZaL1GA==}
     cpu: [arm64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-loong64-gnu@4.68.2':
     resolution: {integrity: sha512-Zr8X/SUf7Jjwxt99BqPDF/Wq+sz4oUBIP6HBaFQWwb8wO1nV6LBIpD6jB9cMybLho93Z+B8rrN0uXEL6oNOUJQ==}
     cpu: [loong64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-loong64-musl@4.68.2':
     resolution: {integrity: sha512-2EhrYEJNXIyhSZESwm/kCke1tiH7QAPOU3v3MsLM9J+Nfn2QCDe/pGROUAvYFK0BL2MEbzNgfrqrbnE5CFXkLw==}
     cpu: [loong64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-ppc64-gnu@4.68.2':
     resolution: {integrity: sha512-IC0dYuEQknw0m2FYBNBKlbrgBJBH5OMRiaRfCc4CFSpYnmDnqTpNSv+TgX+loezGTdRjBNZuYZi3t+Oc5NxNYg==}
     cpu: [ppc64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-ppc64-musl@4.68.2':
     resolution: {integrity: sha512-Zlzm6fGuDvtAqMEl071/g17vxq6u2Y2v/rON/gDY4NvzWLJ41BGAlwhF3QuAzwq05zIPo4LYzdqwhx3oisYCUw==}
     cpu: [ppc64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-riscv64-gnu@4.68.2':
     resolution: {integrity: sha512-KhEpYRtHZ3Kj4shavjXeH+K1bQlA6UbP6MJ45rMPF/11JlZb1SRNLeuWCdigUEoMMaFO4+LwwcS+ew1SoLJu/g==}
     cpu: [riscv64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-musl@4.68.2':
     resolution: {integrity: sha512-LPn9qvPsM/Ofd6Ekq3im6nB8Tk1ruJhTd3x/2bJkTR8m/XTsfxA+EU0RJ23WJqgJg123kitHAqbEK7B4cL1uPg==}
     cpu: [riscv64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-linux-s390x-gnu@4.68.2':
     resolution: {integrity: sha512-Q1+E+pzSP+FiXuIZtxKR+pK7l2KQ9gsM+VaFPv1LR277kp7l61crG46WGLKLLay3Js5cvyU9Keqdzxa1EcFO+g==}
     cpu: [s390x]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-x64-gnu@4.68.2':
     resolution: {integrity: sha512-3Btp4Lca/WzsmbaKu9Lh9d/XwyRDIegd/5khRBusHGw/Ll6SoF5Shn63OrjPdkLcpNi2PGDApXzNmxriRxGYjA==}
     cpu: [x64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-x64-musl@4.68.2':
     resolution: {integrity: sha512-5SKVaUiVs18+DGBnpg0mORGxgq/0udczngGxV/vf2nvK1djqpOKIxY/+8rBWxAbWGRE4RnnwxWabDwJN3pCwIQ==}
     cpu: [x64]
     os: [linux]
+    libc: [musl]
 
   '@rollup/rollup-openbsd-x64@4.68.2':
     resolution: {integrity: sha512-KBpm48/lESsHgWd+dRlcy18APBYhXU4Jb6VlJoqbpWNwfpztFXwP22qVv9aHd3k1quSrmLeJwYLc7rpQ+BFZrw==}
@@ -3668,9 +3675,6 @@ packages:
   mark.js@8.11.1:
     resolution: {integrity: sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==}
 
-  markdown-it-for-inline@0.1.1:
-    resolution: {integrity: sha512-lLQuczOg90a9q9anIUbmq+M+FFrIYNN5TfpccLDRchQic8nj/uTqaJKoYr73FF2tR4O8mFfh2ZzCDAAB2MZJgA==}
-
   markdown-table@3.1.0:
     resolution: {integrity: sha512-xpeSCdM+B+6P3ncfgaB7FoDbtJ30xAe6Z18TGT7AgXJsHqCElCICZovQqdRMm7kHgpTyYv36EupqewoFFSB8vw==}
 
@@ -4789,30 +4793,6 @@ packages:
 
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
-
-  sanctuary-def@0.22.0:
-    resolution: {integrity: sha512-lywS27TfuPHzelMh6M1YWBcB//Lom4Gko/tGjKYbDPkPet1B5KplsSdjY+5sF4mwp6+PDUodsk/Y3Uskrc/ebw==}
-
-  sanctuary-either@2.1.0:
-    resolution: {integrity: sha512-AsQCma2yGAVS7Dlxme/09NZWQfcXBNylVmkuvarp8uOe9otSwClOgQyyePN2OxO4hTf3Au1Ck4ggm+97Je06kA==}
-
-  sanctuary-maybe@2.1.0:
-    resolution: {integrity: sha512-xCmvaEkYaIz5klWUrsgvgORKTL3bVYxATp7HyGBY0ZCu9tHJtSYDTpwnqMkRknHFIU986Kr2M/dJdiFvuc6UCQ==}
-
-  sanctuary-pair@2.1.0:
-    resolution: {integrity: sha512-yY1JzzIJ/Ex7rjN8NmQLB7yv6GVzNeaMvxoYSW8w1ReLQI0n2sGOVCnAVipZuCv7wmfd+BavSXp59rklJeYytw==}
-
-  sanctuary-show@2.0.0:
-    resolution: {integrity: sha512-REj4ZiioUXnDLj6EpJ9HcYDIEGaEexmB9Fg5o6InZR9f0x5PfnnC21QeU9SZ9E7G8zXSZPNjy8VRUK4safbesw==}
-
-  sanctuary-type-classes@12.1.0:
-    resolution: {integrity: sha512-oWP071Q88dEgJwxHLZp8tc7DoS+mWmYhYOuhP85zznPpIxV1ZjJfyRvcR59YCazyFxyFeBif7bJx1giLhDZW0Q==}
-
-  sanctuary-type-identifiers@3.0.0:
-    resolution: {integrity: sha512-YFXYcG0Ura1dSPd/1xLYtE2XAWUEsBHhMTZvYBOvwT8MeFQwdUOCMm2DC+r94z6H93FVq0qxDac8/D7QpJj6Mg==}
-
-  sanctuary@3.1.0:
-    resolution: {integrity: sha512-yTpWmslb5Q2jXcHYeIfCzJksIpe3pngBaFBDpjdPXONWyVSB3hBVDZZ8EmitohaMZqjLB+JREeEL0YOVtdxILA==}
 
   sax@1.2.4:
     resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
@@ -9782,8 +9762,6 @@ snapshots:
 
   mark.js@8.11.1: {}
 
-  markdown-it-for-inline@0.1.1: {}
-
   markdown-table@3.1.0: {}
 
   math-intrinsics@1.1.0: {}
@@ -11256,46 +11234,6 @@ snapshots:
   safe-stable-stringify@2.5.0: {}
 
   safer-buffer@2.1.2: {}
-
-  sanctuary-def@0.22.0:
-    dependencies:
-      sanctuary-either: 2.1.0
-      sanctuary-show: 2.0.0
-      sanctuary-type-classes: 12.1.0
-      sanctuary-type-identifiers: 3.0.0
-
-  sanctuary-either@2.1.0:
-    dependencies:
-      sanctuary-show: 2.0.0
-      sanctuary-type-classes: 12.1.0
-
-  sanctuary-maybe@2.1.0:
-    dependencies:
-      sanctuary-show: 2.0.0
-      sanctuary-type-classes: 12.1.0
-
-  sanctuary-pair@2.1.0:
-    dependencies:
-      sanctuary-show: 2.0.0
-      sanctuary-type-classes: 12.1.0
-
-  sanctuary-show@2.0.0: {}
-
-  sanctuary-type-classes@12.1.0:
-    dependencies:
-      sanctuary-type-identifiers: 3.0.0
-
-  sanctuary-type-identifiers@3.0.0: {}
-
-  sanctuary@3.1.0:
-    dependencies:
-      sanctuary-def: 0.22.0
-      sanctuary-either: 2.1.0
-      sanctuary-maybe: 2.1.0
-      sanctuary-pair: 2.1.0
-      sanctuary-show: 2.0.0
-      sanctuary-type-classes: 12.1.0
-      sanctuary-type-identifiers: 3.0.0
 
   sax@1.2.4:
     optional: true
