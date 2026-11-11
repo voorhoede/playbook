@@ -1,7 +1,7 @@
 <script setup lang="ts">
 /**
- * The design system's TocSection. `side`: the sticky list beside the text, with the reading
- * progress. `bar`: the sticky "Contents" bar that opens the list, for narrow screens.
+ * The design system's TocSection, without the reading progress. `side`: the sticky list beside
+ * the text. `bar`: the sticky "Contents" bar that opens the list, for narrow screens.
  */
 import { computed, ref, useId, watch } from 'vue'
 import { useRoute } from 'vitepress'
@@ -13,7 +13,7 @@ const props = withDefaults(defineProps<{
   contentsLabel?: string
 }>(), { variant: 'side', label: 'On this page', contentsLabel: 'Contents' })
 
-const { items, currentId, progress } = useOutline()
+const { items, currentId } = useOutline()
 const open = ref(false)
 const toggle = ref<HTMLButtonElement>()
 const panelId = useId()
@@ -32,9 +32,7 @@ function close() {
 <template>
   <template v-if="items.length > 1">
     <section v-if="props.variant === 'side'" class="toc-section">
-      <div class="toc-section__progress" aria-hidden="true">
-        <span :style="{ transform: `scaleX(${progress})` }" />
-      </div>
+      <p class="toc-section__title small font-bold" aria-hidden="true">{{ label }}</p>
       <nav class="toc-section__nav small" :aria-label="label">
         <ul class="flat-list toc-section__list">
           <li v-for="item in items" :key="item.id" class="toc-section__list-item">
@@ -62,9 +60,6 @@ function close() {
           <path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.5" />
         </svg>
       </button>
-      <div class="toc-section__progress" aria-hidden="true">
-        <span :style="{ transform: `scaleX(${progress})` }" />
-      </div>
       <nav :id="panelId" class="toc-section__panel small" :aria-label="contentsLabel" :hidden="!open">
         <ul class="flat-list toc-section__list">
           <li v-for="item in items" :key="item.id" class="toc-section__list-item">

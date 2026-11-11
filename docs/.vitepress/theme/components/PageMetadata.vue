@@ -1,10 +1,9 @@
 <script setup lang="ts">
 /**
- * When the page was last updated, a link to its Google Doc and, when the page changed since
- * this browser last showed it, a Callout that says so.
+ * One quiet line above the text: when the page was last updated and a link to its Google Doc.
+ * When the page changed since this browser last showed it, a Callout says so.
  */
 import { computed, ref, watch, onMounted } from 'vue'
-import AppButton from './AppButton.vue'
 import CalloutBlock from './CalloutBlock.vue'
 
 const props = defineProps<{
@@ -43,15 +42,20 @@ const updatedSinceLastVisit = computed(() =>
 </script>
 
 <template>
-  <div class="page-metadata">
+  <div v-if="lastUpdate || editLink" class="page-metadata">
+    <p class="page-metadata__line small">
+      <span v-if="lastUpdate">Updated <time :datetime="lastUpdate">{{ formatDate(lastUpdate) }}</time></span>
+      <a v-if="editLink" class="page-metadata__edit" :href="editLink" target="_blank" rel="noreferrer noopener">
+        Edit in Google Drive<span class="sr-only"> (opens in a new tab)</span>
+        <!-- Carbon: launch -->
+        <svg viewBox="0 0 32 32" width="16" height="16" aria-hidden="true" focusable="false">
+          <path fill="currentColor" d="M26 28H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h10v2H6v20h20V16h2v10a2 2 0 0 1-2 2z" />
+          <path fill="currentColor" d="M20 2v2h6.586L18 12.586 19.414 14 28 5.414V12h2V2H20z" />
+        </svg>
+      </a>
+    </p>
     <CalloutBlock v-if="updatedSinceLastVisit" title="Updated since your last visit">
       <p>You last read this page on {{ formatDate(lastVisit!) }}. It was updated on {{ formatDate(lastUpdate!) }}.</p>
     </CalloutBlock>
-    <div v-if="lastUpdate || editLink" class="page-metadata__row">
-      <p v-if="lastUpdate" class="small">
-        Last updated on <time :datetime="lastUpdate">{{ formatDate(lastUpdate) }}</time>
-      </p>
-      <AppButton v-if="editLink" label="Edit on Google Drive" :to="editLink" secondary external />
-    </div>
   </div>
 </template>

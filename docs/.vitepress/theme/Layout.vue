@@ -1,16 +1,15 @@
 <script setup lang="ts">
 /**
  * The playbook's page, built from the De Voorhoede design system (see design-system/).
- * Every page: AppHeader, one page header, the page's blocks, AppFooter; AppMobileMenu below 800px.
+ * Every page: the header, one page header (HeroHeader), the page's blocks and the footer, all on
+ * one centred container; AppMobileMenu below 800px.
  */
 import { computed } from 'vue'
 import { useData } from 'vitepress'
 import AppHeader from './components/AppHeader.vue'
 import AppMobileMenu from './components/AppMobileMenu.vue'
 import AppFooter from './components/AppFooter.vue'
-import HomeHero from './components/HomeHero.vue'
 import HeroHeader from './components/HeroHeader.vue'
-import CardGrid from './components/CardGrid.vue'
 import ContentCard from './components/ContentCard.vue'
 import AppButton from './components/AppButton.vue'
 import PlaybookSidebar from './components/PlaybookSidebar.vue'
@@ -20,7 +19,10 @@ import BreadcrumbsBlock from './components/BreadcrumbsBlock.vue'
 import { firstLink, flatten, useNavigation } from './navigation'
 
 const { page, frontmatter } = useData()
-const { sidebar, previous, next } = useNavigation()
+const { sidebar, pages, previous, next } = useNavigation()
+
+/* "Start reading" opens the first page of the playbook, so the link can't go stale. */
+const firstPage = computed(() => pages.value[0]?.link)
 
 const isHome = computed(() => frontmatter.value.layout === 'home')
 const isNotFound = computed(() => page.value.isNotFound)
@@ -39,13 +41,20 @@ function skipToContent() {
 const sections = computed(() => sidebar.value.map(item => {
   const pages = item.items ? flatten(item.items) : []
   // Drive file names are numbered for sorting ("1. Holidays"); the card text drops the number.
-  const names = pages.slice(0, 3).map(page => page.text.replace(/^\d+[.)]\s*/, ''))
-  const rest = pages.length - names.length
+  // A topic whose one page has the topic's own name says nothing more than its title.
+  const names = pages
+    .map(page => page.text.replace(/^\d+[.)]\s*/, ''))
+    .filter(name => name.toLowerCase() !== item.text.toLowerCase())
+  const shown = names.slice(0, 3)
+  const rest = names.length - shown.length
+  const body = shown.length
+    ? shown.join(', ') + (rest > 0 ? ` and ${rest} more` : '')
+    : undefined
   return {
     title: item.text,
     href: firstLink(item) ?? '/',
-    body: item.items ? names.join(', ') + (rest > 0 ? ` and ${rest} more.` : '.') : undefined,
-    meta: item.items ? `${pages.length} ${pages.length === 1 ? 'page' : 'pages'}` : undefined,
+    body: body && !/[.!?…]$/.test(body) ? `${body}.` : body,
+    meta: pages.length > 1 ? `${pages.length} pages` : undefined,
   }
 }))
 </script>
@@ -56,53 +65,52 @@ const sections = computed(() => sidebar.value.map(item => {
     <AppHeader />
 
     <main v-if="isHome" id="main" class="playbook-home">
-      <HomeHero
+      <HeroHeader
         :title="frontmatter.heroText ?? 'Playbook'"
         :intro="frontmatter.tagline"
-        :illustration="frontmatter.heroImage"
+        :image="frontmatter.heroImage"
       />
-      <CardGrid title="What’s in the playbook">
-        <template v-if="frontmatter.actionLink" #action>
-          <AppButton :label="frontmatter.actionText ?? 'Start reading'" :to="frontmatter.actionLink" secondary />
-        </template>
-        <li v-for="section in sections" :key="section.title">
-          <ContentCard v-bind="section" />
-        </li>
-      </CardGrid>
+      <section class="playbook-container playbook-topics" aria-labelledby="topics-title">
+        <div class="playbook-topics__head">
+          <h2 id="topics-title" class="h2">Topics</h2>
+          <AppButton v-if="firstPage" :label="frontmatter.actionText ?? 'Start reading'" :to="firstPage" secondary />
+        </div>
+        <ul class="card-grid__list card-grid__list--3">
+          <li v-for="section in sections" :key="section.title">
+            <ContentCard v-bind="section" />
+          </li>
+        </ul>
+      </section>
     </main>
 
     <main v-else-if="isNotFound" id="main" class="playbook-not-found">
       <HeroHeader title="Page not found" />
-      <div class="playbook-not-found__body grid">
-        <p class="lead section-text">This page isn’t in the playbook (anymore). Search for it, or start from the home page.</p>
-        <div class="section-text">
-          <AppButton label="Go to the home page" to="/" />
-        </div>
+      <div class="playbook-container playbook-not-found__body">
+        <p class="lead">This page isn’t in the playbook (anymore). Search for it, or start from the home page.</p>
+        <AppButton label="Go to the home page" to="/" />
       </div>
     </main>
 
     <main v-else id="main">
       <HeroHeader :title="page.title" />
-      <div class="playbook-page">
+      <div class="playbook-container playbook-page">
         <PlaybookSidebar class="playbook-page__sidebar" />
         <div class="playbook-page__main">
-          <TocSection variant="bar" class="playbook-page__toc-bar" />
-          <div class="playbook-article">
-            <!-- The skip link lands here, past the title and the navigation. -->
-            <article id="content" class="playbook-article__body" tabindex="-1" :aria-label="page.title">
-              <PageMetadata
-                :id="frontmatter.doc_id"
-                :date="frontmatter.last_updated_date"
-                :edit-link="frontmatter.edit_link"
-              />
-              <Content class="playbook-content rich-text body list" />
-              <BreadcrumbsBlock :previous="previous" :next="next" />
-            </article>
-            <aside class="playbook-article__aside">
-              <TocSection variant="side" />
-            </aside>
-          </div>
+          <TocSection variant="bar" />
+          <!-- The skip link lands here, past the title and the navigation. -->
+          <article id="content" class="playbook-article" tabindex="-1" :aria-label="page.title">
+            <PageMetadata
+              :id="frontmatter.doc_id"
+              :date="frontmatter.last_updated_date"
+              :edit-link="frontmatter.edit_link"
+            />
+            <Content class="playbook-content rich-text body list" />
+            <BreadcrumbsBlock :previous="previous" :next="next" />
+          </article>
         </div>
+        <aside class="playbook-page__aside">
+          <TocSection variant="side" />
+        </aside>
       </div>
     </main>
 

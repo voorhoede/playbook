@@ -3,7 +3,7 @@
  * Full-text search over the playbook (VitePress' local search index), styled as the design
  * system's InputField with the results in a floating panel.
  */
-import { computed, markRaw, ref, shallowRef, useId, watch } from 'vue'
+import { computed, markRaw, onBeforeUnmount, onMounted, ref, shallowRef, useId, watch } from 'vue'
 import { useRouter, withBase } from 'vitepress'
 import MiniSearch from 'minisearch'
 import localSearchIndex from '@localSearchIndex'
@@ -11,7 +11,25 @@ import { normalizePath, useNavigation } from '../navigation'
 
 interface Result { id: string, title?: string, titles?: string[] }
 
-const props = withDefaults(defineProps<{ label?: string }>(), { label: 'Search the playbook' })
+const props = withDefaults(defineProps<{
+  label?: string
+  /* Focus this field with the / key. */
+  shortcut?: boolean
+}>(), { label: 'Search the playbook' })
+
+const input = ref<HTMLInputElement>()
+
+function onShortcut(event: KeyboardEvent) {
+  if (event.key !== '/' || event.ctrlKey || event.metaKey || event.altKey) return
+  const target = event.target as HTMLElement
+  if (target.closest('input, textarea, select, [contenteditable="true"]')) return
+  if (!input.value?.offsetParent) return
+  event.preventDefault()
+  input.value.focus()
+}
+
+onMounted(() => { if (props.shortcut) window.addEventListener('keydown', onShortcut) })
+onBeforeUnmount(() => window.removeEventListener('keydown', onShortcut))
 
 const router = useRouter()
 const { pages } = useNavigation()
@@ -90,11 +108,16 @@ const status = computed(() => {
   <div class="search-box" @focusout="(event: FocusEvent) => { if (!(event.currentTarget as HTMLElement).contains(event.relatedTarget as Node)) open = false }">
     <label class="search-box__label">
       <span class="sr-only">{{ props.label }}</span>
+      <!-- Carbon: search -->
+      <svg class="search-box__icon" viewBox="0 0 32 32" width="20" height="20" aria-hidden="true" focusable="false">
+        <path fill="currentColor" d="M29 27.586l-7.552-7.552a11.018 11.018 0 1 0-1.414 1.414L27.586 29zM4 13a9 9 0 1 1 9 9 9.01 9.01 0 0 1-9-9z" />
+      </svg>
       <input
+        ref="input"
         v-model="query"
         class="search-box__input body"
         type="search"
-        placeholder="Search"
+        :placeholder="props.label"
         autocomplete="off"
         role="combobox"
         :aria-expanded="showPanel"
@@ -103,9 +126,10 @@ const status = computed(() => {
         @focus="loadIndex(); open = true"
         @keydown="onKeydown"
       >
+      <kbd v-if="shortcut && !query" class="search-box__shortcut small" aria-hidden="true">/</kbd>
     </label>
     <div v-show="showPanel" class="search-box__panel">
-      <ul v-if="results.length" :id="listId" class="search-box__results" role="listbox" :aria-label="props.label">
+      <ul :id="listId" class="search-box__results" role="listbox" :aria-label="props.label">
         <li
           v-for="(result, i) in results"
           :id="`${listId}-${i}`"
@@ -120,7 +144,7 @@ const status = computed(() => {
           <span v-if="result.trail.length" class="search-box__result-trail small">{{ result.trail.join(' › ') }}</span>
         </li>
       </ul>
-      <p v-else class="search-box__empty small">No pages found for “{{ query.trim() }}”.</p>
+      <p v-if="!results.length" class="search-box__empty small">No pages found for “{{ query.trim() }}”.</p>
     </div>
     <p class="sr-only" role="status">{{ status }}</p>
   </div>

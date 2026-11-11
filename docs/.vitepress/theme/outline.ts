@@ -7,14 +7,12 @@ export interface OutlineItem {
 }
 
 /**
- * The h2 sections of the page content, the one in view and how far the reader is,
- * for the TocSection.
+ * The h2 sections of the page content and the one in view, for the TocSection.
  */
 export function useOutline(selector = '.playbook-content') {
   const route = useRoute()
   const items = ref<OutlineItem[]>([])
   const currentId = ref<string | null>(null)
-  const progress = ref(0)
   let frame = 0
 
   function collect() {
@@ -40,9 +38,6 @@ export function useOutline(selector = '.playbook-content') {
       if (heading && heading.getBoundingClientRect().top - offset <= 0) current = item.id
     }
     currentId.value = current
-    const { top, height } = root.getBoundingClientRect()
-    const total = height - window.innerHeight
-    progress.value = total > 0 ? Math.min(1, Math.max(0, -top / total)) : 1
   }
 
   const onScroll = () => { if (!frame) frame = requestAnimationFrame(update) }
@@ -59,5 +54,5 @@ export function useOutline(selector = '.playbook-content') {
   })
   watch(() => route.path, () => nextTick(collect))
 
-  return { items, currentId, progress }
+  return { items, currentId }
 }

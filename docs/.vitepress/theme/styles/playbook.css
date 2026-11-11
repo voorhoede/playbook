@@ -1,6 +1,6 @@
 /*
  * The playbook's own layer on top of the design system (design-system/tokens.css and bundle.css).
- * It lays out the docs pages and maps the Drive markdown onto the system's type and blocks.
+ * It lays out the pages and maps the Drive markdown onto the system's type and blocks.
  * Use tokens only: no raw colours, no spacing outside the scale, no text under 16px.
  */
 
@@ -10,25 +10,92 @@ html {
   scroll-padding-top: var(--spacing-80);
 }
 
+/* The sidebar's ground runs out to the left edge of the window; nothing else may widen the page. */
+.playbook {
+  overflow-x: clip;
+}
+
 :focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 2px;
 }
 
-/* ---- AppHeader: the logo with the playbook's name, search from 800px ---- */
-.playbook-header__home {
+/* .app-button > span is lifted with position: relative; a visually hidden span must stay hidden. */
+.app-button > .sr-only {
+  position: absolute;
+}
+
+/* ---- The container: header, page header, page and footer share its left edge ---- */
+.playbook-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 90rem; /* 1440px */
+  margin-inline: auto;
+  padding-inline: var(--grid-margin);
+}
+
+@media (min-width: 720px) {
+  .playbook-container {
+    padding-inline: calc(2 * var(--grid-margin));
+  }
+}
+
+@media (min-width: 1100px) {
+  .playbook-container {
+    padding-inline: calc(3 * var(--grid-margin));
+  }
+}
+
+/* ---- Header ---- */
+.playbook-header {
+  position: relative;
+  z-index: var(--z-index-header);
+  background-color: var(--white);
+}
+
+.playbook-header__content {
   display: flex;
   align-items: center;
-  gap: var(--spacing-15);
+  justify-content: space-between;
+  gap: var(--spacing-30);
+  min-height: var(--app-header-height-small);
+}
+
+@media (min-width: 1100px) {
+  .playbook-header__content {
+    min-height: calc(var(--app-header-height-large) + var(--spacing-10));
+  }
+}
+
+/* "De Voorhoede Playbook": the logo with the name set on the wordmark's baseline. */
+.playbook-header__home {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-10);
+  color: var(--blue);
   text-decoration: none;
 }
 
+.playbook-header__logo {
+  display: block;
+  width: auto;
+  height: 1.625rem;
+}
+
 .playbook-header__name {
-  color: var(--black);
+  line-height: 1;
 }
 
 .playbook-header__home:hover .playbook-header__name {
-  background: transparent linear-gradient(to top, var(--black) 2px, transparent 2px);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+@media (min-width: 1100px) {
+  .playbook-header__logo {
+    height: 2.125rem;
+  }
 }
 
 .playbook-header__search {
@@ -38,27 +105,61 @@ html {
 @media (min-width: 800px) {
   .playbook-header__search {
     display: block;
-    width: 16rem;
+    width: min(26rem, 40vw);
   }
 }
 
-/* ---- SearchBox: the InputField look, results in a floating panel ---- */
+/* ---- SearchBox: the InputField look with an icon, results in a floating panel ---- */
 .search-box {
   position: relative;
 }
 
 .search-box__label {
+  position: relative;
   display: block;
 }
 
+.search-box__icon {
+  position: absolute;
+  top: 50%;
+  left: var(--spacing-15);
+  color: var(--blue);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
 .search-box__input {
+  min-height: 44px;
   margin-top: 0;
-  padding: var(--spacing-5) var(--spacing-10);
+  padding: var(--spacing-5) var(--spacing-40) var(--spacing-5) calc(var(--spacing-15) + 20px + var(--spacing-10));
   background-color: var(--white);
+}
+
+.search-box__input::placeholder {
+  color: var(--black);
 }
 
 .search-box__input::-webkit-search-cancel-button {
   cursor: pointer;
+}
+
+.search-box__shortcut {
+  position: absolute;
+  top: 50%;
+  right: var(--spacing-10);
+  min-width: 1.5rem;
+  padding: 0 var(--spacing-5);
+  background-color: var(--gray-light);
+  color: var(--black);
+  font-family: var(--font-code);
+  line-height: 1.5rem;
+  text-align: center;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.search-box__input:focus ~ .search-box__shortcut {
+  display: none;
 }
 
 .search-box__panel {
@@ -66,7 +167,7 @@ html {
   z-index: var(--z-index-overlay);
   top: calc(100% + var(--spacing-5));
   right: 0;
-  width: min(28rem, calc(100vw - 2 * var(--grid-margin)));
+  left: 0;
   max-height: 70vh;
   overflow-y: auto;
   padding: var(--spacing-10) 0;
@@ -100,35 +201,162 @@ html {
   padding: var(--spacing-10) var(--spacing-20);
 }
 
-/* ---- The docs page: navigation, text, contents ---- */
-.playbook-page__sidebar {
+/* ---- Page header (HeroHeader) ---- */
+.playbook-hero {
+  background-color: var(--yellow-light);
+}
+
+.playbook-hero__content {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-40);
+  padding-block: var(--spacing-40);
+}
+
+@media (min-width: 1100px) {
+  .playbook-hero__content {
+    padding-block: var(--spacing-60);
+  }
+}
+
+.playbook-hero__text {
+  max-width: 50rem;
+}
+
+.playbook-hero__intro {
+  max-width: 40rem;
+  margin-top: var(--spacing-15);
+}
+
+/* The illustration stands on the bottom edge of the header, on the right, from 720px. */
+.playbook-hero__image {
   display: none;
 }
 
-@media (min-width: 800px) {
-  .playbook-page {
-    display: grid;
-    grid-template-columns: 17rem minmax(0, 1fr);
+@media (min-width: 720px) {
+  .playbook-hero--has-image .playbook-hero__content {
+    padding-bottom: 0;
   }
 
-  .playbook-page__sidebar {
+  .playbook-hero--has-image .playbook-hero__text {
+    padding-bottom: var(--spacing-40);
+  }
+
+  .playbook-hero__image {
     display: block;
+    flex: none;
+    width: auto;
+    height: 12rem;
   }
 }
 
 @media (min-width: 1100px) {
-  .playbook-page {
-    grid-template-columns: 20rem minmax(0, 1fr);
+  .playbook-hero--has-image .playbook-hero__text {
+    padding-bottom: var(--spacing-60);
   }
+
+  .playbook-hero__image {
+    height: 15rem;
+  }
+}
+
+/* ---- Docs page: navigation | text | contents ---- */
+.playbook-page__sidebar,
+.playbook-page__aside {
+  display: none;
 }
 
 .playbook-page__main {
   min-width: 0;
 }
 
-/* The sidebar: a gray-light ground, its text on the logo line. */
+.playbook-article {
+  padding: var(--spacing-40) 0 var(--block-spacing);
+}
+
+.playbook-article:focus {
+  outline: none;
+}
+
+/* Below 800px the text takes the full width of the container; the bar runs edge to edge. */
+.playbook-page__main > .toc-section__bar {
+  margin-inline: calc(-1 * var(--grid-margin));
+}
+
+@media (min-width: 720px) {
+  .playbook-page__main > .toc-section__bar {
+    margin-inline: calc(-2 * var(--grid-margin));
+  }
+
+  .playbook-page__main > .toc-section__bar {
+    display: block;
+  }
+}
+
+@media (min-width: 800px) {
+  .playbook-page {
+    display: grid;
+    grid-template-columns: 16rem minmax(0, 1fr);
+    column-gap: var(--spacing-40);
+  }
+
+  .playbook-page__sidebar {
+    display: block;
+  }
+
+  .playbook-page__main > .toc-section__bar {
+    margin-inline: 0;
+  }
+
+  .playbook-article {
+    max-width: 46rem;
+  }
+}
+
+@media (min-width: 1100px) {
+  .playbook-page {
+    grid-template-columns: 18rem minmax(0, 1fr);
+    column-gap: var(--spacing-60);
+  }
+
+  .playbook-article {
+    padding-top: var(--spacing-60);
+  }
+}
+
+/* From 1280px the contents stand beside the text instead of in the bar. */
+@media (min-width: 1280px) {
+  .playbook-page {
+    grid-template-columns: 18rem minmax(0, 46rem) 15rem;
+    justify-content: space-between;
+  }
+
+  .playbook-page__aside {
+    display: block;
+    padding-top: var(--spacing-60);
+  }
+
+  .playbook-page__main > .toc-section__bar {
+    display: none;
+  }
+}
+
+/* ---- Navigation sidebar on gray-light ---- */
 .playbook-sidebar {
-  padding: var(--spacing-40) var(--spacing-30) var(--block-spacing) calc(2 * var(--grid-margin));
+  position: relative;
+  padding: var(--spacing-40) var(--spacing-20) var(--block-spacing) 0;
+  background-color: var(--gray-light);
+}
+
+/* The ground continues to the left edge of the window, past the container. */
+.playbook-sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 100%;
+  bottom: 0;
+  width: 100vw;
   background-color: var(--gray-light);
 }
 
@@ -137,24 +365,25 @@ html {
   top: var(--spacing-20);
   max-height: calc(100vh - var(--spacing-40));
   overflow-y: auto;
-  /* room for the focus outline of the links inside the scroll area */
-  padding: var(--spacing-5);
-  margin: calc(-1 * var(--spacing-5));
+  /* room for the highlight and focus outline of the links inside the scroll area */
+  margin-left: calc(-1 * var(--spacing-15));
+  padding-left: var(--spacing-15);
+  padding-block: var(--spacing-5);
 }
 
 @media (min-width: 1100px) {
   .playbook-sidebar {
-    padding-left: calc(3 * var(--grid-margin));
+    padding-top: var(--spacing-60);
   }
 }
 
 /* The tree, in the sidebar and in the mobile menu */
 .sidebar-tree--level-1 > .sidebar-tree__item + .sidebar-tree__item {
-  margin-top: var(--spacing-10);
+  margin-top: var(--spacing-5);
 }
 
 .sidebar-tree .sidebar-tree {
-  margin: var(--spacing-5) 0 var(--spacing-10);
+  margin: 0 0 var(--spacing-10);
   padding-left: var(--spacing-20);
 }
 
@@ -174,7 +403,6 @@ html {
 .sidebar-tree__chevron {
   flex: none;
   margin-top: .25em;
-  transition: transform .2s ease-out;
 }
 
 .sidebar-tree__toggle[aria-expanded="true"] .sidebar-tree__chevron {
@@ -183,8 +411,8 @@ html {
 
 .sidebar-tree__link {
   display: block;
-  margin-inline: calc(-1 * var(--spacing-10));
-  padding: var(--spacing-5) var(--spacing-10);
+  margin-inline: calc(-1 * var(--spacing-15));
+  padding: var(--spacing-5) var(--spacing-15);
   color: var(--blue);
   text-decoration: none;
 }
@@ -201,63 +429,24 @@ html {
   font-weight: 700;
 }
 
-/* TocSection: the contents beside the text from 1280px, as a sticky bar below that.
-   (The design system switches at 720px; next to the sidebar the text needs the room.) */
-.playbook-article__aside {
-  display: none;
+/* ---- Contents (TocSection) ---- */
+.toc-section__title {
+  margin: 0;
 }
 
-@media (min-width: 720px) and (max-width: 1279px) {
-  .playbook-page__toc-bar.toc-section__bar {
-    display: block;
-  }
+.toc-section .toc-section__list,
+.toc-section__panel .toc-section__list {
+  gap: 0;
 }
 
-@media (min-width: 1280px) {
-  .playbook-page__toc-bar.toc-section__bar {
-    display: none;
-  }
+/* Room around the text, so the highlight of the current section reads as a block. */
+.toc-section__link {
+  margin-inline: calc(-1 * var(--spacing-15));
+  padding: var(--spacing-10) var(--spacing-15);
+  text-underline-offset: 4px;
 }
 
-.playbook-article {
-  padding: var(--spacing-40) var(--grid-margin) var(--block-spacing);
-}
-
-@media (min-width: 720px) {
-  .playbook-article {
-    padding-inline: calc(2 * var(--grid-margin));
-  }
-}
-
-@media (min-width: 800px) {
-  .playbook-article {
-    padding-left: var(--spacing-40);
-  }
-}
-
-@media (min-width: 1100px) {
-  .playbook-article {
-    padding: var(--spacing-60) calc(3 * var(--grid-margin)) var(--block-spacing) var(--spacing-60);
-  }
-}
-
-@media (min-width: 1280px) {
-  .playbook-article {
-    display: grid;
-    grid-template-columns: minmax(0, 46rem) 220px;
-    gap: var(--spacing-60);
-  }
-
-  .playbook-article__aside {
-    display: block;
-  }
-}
-
-.playbook-article__body:focus {
-  outline: none;
-}
-
-/* ---- Page metadata ---- */
+/* ---- Page metadata: one quiet line above the text ---- */
 .page-metadata {
   display: flex;
   flex-direction: column;
@@ -265,12 +454,25 @@ html {
   margin-bottom: var(--spacing-40);
 }
 
-.page-metadata__row {
+.page-metadata__line {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: var(--spacing-10) var(--spacing-30);
+  align-items: center;
+  gap: var(--spacing-5) var(--spacing-20);
+  margin: 0;
+}
+
+.page-metadata__edit {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-5);
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.page-metadata__edit:hover {
+  text-decoration-thickness: 2px;
 }
 
 /* ---- The Drive content as RichTextBlock ---- */
@@ -397,14 +599,26 @@ html {
   margin-top: var(--spacing-60);
 }
 
-/* ---- Home page ---- */
-.playbook-home .card-grid {
+/* ---- Home page: the topics ---- */
+.playbook-topics {
   padding-block: var(--block-spacing);
+}
+
+.playbook-topics__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-20) var(--spacing-40);
+  margin-bottom: var(--spacing-40);
 }
 
 /* ---- Not found ---- */
 .playbook-not-found__body {
-  row-gap: var(--spacing-30);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-30);
   padding-block: var(--block-spacing);
 }
 
@@ -412,6 +626,13 @@ html {
 .app-mobile-menu__content {
   overflow-y: auto;
   padding-bottom: calc(var(--mobile-icon-height) + 2 * var(--mobile-icon-bottom));
+}
+
+.playbook-mobile-menu__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-30);
+  font-size: 1.125rem;
 }
 
 .playbook-mobile-menu__home {
@@ -426,67 +647,41 @@ html {
   margin: 0;
 }
 
-.playbook-mobile-menu__search .search-box__panel {
-  left: 0;
-  width: auto;
-}
-
-.playbook-mobile-menu__nav {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-30);
-  font-size: 1.125rem;
-}
-
 .playbook-mobile-menu__nav .sidebar-tree__link--current {
   background-color: var(--yellow-light);
 }
 
 /* ---- Footer on the AppFooter ground ---- */
 .playbook-footer {
-  padding-block: var(--spacing-60);
   background-color: var(--yellow);
 }
 
-.playbook-footer__layout {
+.playbook-footer__content {
   display: flex;
-  flex-direction: column;
-  gap: var(--spacing-30);
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-20) var(--spacing-40);
+  padding-block: var(--spacing-40);
 }
 
 .playbook-footer__home img {
   display: block;
   width: auto;
-  height: 2.125rem;
+  height: 1.875rem;
 }
 
-.playbook-footer__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-10) var(--spacing-30);
+.playbook-footer__legal {
+  margin: 0;
 }
 
-/* Underlined, so the links don't rely on colour alone. */
-.playbook-footer__links a,
+/* Underlined, so the link doesn't rely on colour alone. */
 .playbook-footer__legal a {
   color: var(--blue);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
-.playbook-footer__links a:hover,
 .playbook-footer__legal a:hover {
   text-decoration-thickness: 2px;
-}
-
-@media (min-width: 1100px) {
-  .playbook-footer__layout {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: var(--spacing-30) var(--spacing-80);
-  }
-
-  .playbook-footer__legal {
-    grid-column: 1 / -1;
-  }
 }
