@@ -41,14 +41,9 @@ env NODE_ENV=production pnpm run build
 ## Design
 The theme lives in [`docs/.vitepress/theme`](docs/.vitepress/theme) and is built from the De Voorhoede design system:
 
-- `design-system/` holds the system's tokens (`tokens.json`, and `tokens.css` generated from it) and its stylesheet (`bundle.css`). Don't edit these files by hand.
+- `design-system/` holds the system's tokens (`tokens.css`) and its stylesheet (`bundle.css`). Don't edit these files by hand; to update them, copy in the new versions.
 - `components/` rebuilds the system's components in Vue (AppHeader, HeroHeader, HomeHero, CardGrid, ContentCard, TocSection, BreadcrumbsBlock, Callout, AppButton, AppMobileMenu), using the system's markup and class names. The system's own components are React, so they can't be used directly.
 - `styles/playbook.css` lays out the docs pages and maps the Drive content onto the system's type and blocks, using tokens only.
-
-To update the design system, download its `project/tokens.json` and `project/components/bundle.css` (keeping that folder structure) and run:
-```sh
-node scripts/design-system/sync.mjs path/to/project
-```
 
 The playbook serves the full Apercu font files from `docs/public/fonts`. The design system's fonts are Basic Latin subsets, which miss the Dutch diacritics.
 

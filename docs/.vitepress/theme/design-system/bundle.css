@@ -1,6 +1,6 @@
 /* De Voorhoede — components stylesheet. Base styles from src/components/app-core, then each component's styles from its .vue file. Token values come from tokens.css. */
 :root {
-  /* Grid lines and areas (the grid lengths live in tokens.json) */
+  /* Grid lines and areas (the grid lengths live in tokens.css) */
   --grid-page-start: 1;
   --grid-content-start: 2;
   --grid-content-narrow-start: 6;
